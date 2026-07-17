@@ -1,0 +1,6542 @@
+[
+  {
+    "code": "53432",
+    "name": "ACCOUNTANCY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000292",
+    "name": "ADMINISTRATION APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000337",
+    "name": "ADMINISTRATION EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000295",
+    "name": "ADMINISTRATION SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000260",
+    "name": "ADMINISTRATION TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5000411",
+    "name": "ADVANCED COURSE IN 3D ANIMATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000412",
+    "name": "ADVANCED COURSE IN 3D ANIMATION SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000401",
+    "name": "ADVANCED COURSE IN AGRICULTURAL CROPS PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000402",
+    "name": "ADVANCED COURSE IN ANIMAL PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000403",
+    "name": "ADVANCED COURSE IN ANIMAL PRODUCTION SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000404",
+    "name": "ADVANCED COURSE IN AQUACULTURE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000405",
+    "name": "ADVANCED COURSE IN AQUACULTURE PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000406",
+    "name": "ADVANCED COURSE IN ARTIFICIAL INSEMINATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000348",
+    "name": "ADVANCED COURSE IN AUTOMOTIVE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000349",
+    "name": "ADVANCED COURSE IN AUTOMOTIVE SERVICING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000350",
+    "name": "ADVANCED COURSE IN BAKING AND PASTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000351",
+    "name": "ADVANCED COURSE IN BAKING AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000352",
+    "name": "ADVANCED COURSE IN BARISTA",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000353",
+    "name": "ADVANCED COURSE IN BARISTA SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000354",
+    "name": "ADVANCED COURSE IN BARTENDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000355",
+    "name": "ADVANCED COURSE IN BEAUTY CARE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000356",
+    "name": "ADVANCED COURSE IN BEAUTY CARE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000357",
+    "name": "ADVANCED COURSE IN BOOKKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000358",
+    "name": "ADVANCED COURSE IN BOOKKEEPING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000359",
+    "name": "ADVANCED COURSE IN BREAD AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000360",
+    "name": "ADVANCED COURSE IN BREAD AND PASTRY PRODUCTION MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000361",
+    "name": "ADVANCED COURSE IN CAREGIVING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000362",
+    "name": "ADVANCED COURSE IN CARPENTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000363",
+    "name": "ADVANCED COURSE IN CARPENTRY TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000364",
+    "name": "ADVANCED COURSE IN COMMERCIAL COOKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000365",
+    "name": "ADVANCED COURSE IN COMMERCIAL COOKING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000366",
+    "name": "ADVANCED COURSE IN COMPUTER SYSTEMS SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000367",
+    "name": "ADVANCED COURSE IN COMPUTER SYSTEMS SERVICING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000368",
+    "name": "ADVANCED COURSE IN CONTACT CENTER SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000369",
+    "name": "ADVANCED COURSE IN COOKERY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000370",
+    "name": "ADVANCED COURSE IN COOKERY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000416",
+    "name": "ADVANCED COURSE IN DATA ENCODING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000371",
+    "name": "ADVANCED COURSE IN DRESSMAKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000372",
+    "name": "ADVANCED COURSE IN DRESSMAKING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000373",
+    "name": "ADVANCED COURSE IN ELECTRICAL INSTALLATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000374",
+    "name": "ADVANCED COURSE IN ELECTRONIC PRODUCTS ASSEMBLY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000375",
+    "name": "ADVANCED COURSE IN EVENT MANAGEMENT SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000376",
+    "name": "ADVANCED COURSE IN FOOD AND BEVERAGE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000377",
+    "name": "ADVANCED COURSE IN FRONT OFFICE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000378",
+    "name": "ADVANCED COURSE IN FRONT OFFICE SERVICES SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000379",
+    "name": "ADVANCED COURSE IN HAIRDRESSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000380",
+    "name": "ADVANCED COURSE IN HEALTH CARE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000381",
+    "name": "ADVANCED COURSE IN HEALTH CARE SERVICES PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000382",
+    "name": "ADVANCED COURSE IN HEAVY EQUIPMENT OPERATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000383",
+    "name": "ADVANCED COURSE IN HEAVY EQUIPMENT OPERATION SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000384",
+    "name": "ADVANCED COURSE IN HOUSEKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000385",
+    "name": "ADVANCED COURSE IN HOUSEKEEPING SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000386",
+    "name": "ADVANCED COURSE IN MACHINING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000387",
+    "name": "ADVANCED COURSE IN MACHINING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000388",
+    "name": "ADVANCED COURSE IN MASONRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000389",
+    "name": "ADVANCED COURSE IN MASSAGE THERAPY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000407",
+    "name": "ADVANCED COURSE IN MECHATRONICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000408",
+    "name": "ADVANCED COURSE IN MECHATRONICS MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000417",
+    "name": "ADVANCED COURSE IN MEDICAL TRANSCRIPTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000418",
+    "name": "ADVANCED COURSE IN MEDICAL TRANSCRIPTION MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000390",
+    "name": "ADVANCED COURSE IN MOTORCYCLE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000391",
+    "name": "ADVANCED COURSE IN MOTORCYCLE SERVICING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000392",
+    "name": "ADVANCED COURSE IN PHARMACY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000393",
+    "name": "ADVANCED COURSE IN PHARMACY SERVICES PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000394",
+    "name": "ADVANCED COURSE IN PLUMBING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000395",
+    "name": "ADVANCED COURSE IN PRACTICAL NURSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000409",
+    "name": "ADVANCED COURSE IN ROBOTICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000410",
+    "name": "ADVANCED COURSE IN ROBOTICS TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000396",
+    "name": "ADVANCED COURSE IN SHIELDED METAL ARC WELDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000415",
+    "name": "ADVANCED COURSE IN SOFTWARE ENGINEERING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000397",
+    "name": "ADVANCED COURSE IN TAILORING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000398",
+    "name": "ADVANCED COURSE IN TOUR GUIDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000399",
+    "name": "ADVANCED COURSE IN VISUAL GRAPHICS DESIGN",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000400",
+    "name": "ADVANCED COURSE IN VISUAL GRAPHICS DESIGN SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000413",
+    "name": "ADVANCED COURSE IN WEB DEVELOPMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000414",
+    "name": "ADVANCED COURSE IN WEB DEVELOPMENT OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "6000000",
+    "name": "ADVERTISING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000014",
+    "name": "ADVERTISING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000308",
+    "name": "ADVERTISING BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000285",
+    "name": "ADVERTISING DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000193",
+    "name": "ADVERTISING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000305",
+    "name": "ADVERTISING STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000083",
+    "name": "ADVERTISING TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "65404",
+    "name": "AERONAUTICAL ENGINEERING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000287",
+    "name": "AEROSPACE ENGINEERING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000179",
+    "name": "AEROSPACE ENGINEERING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000341",
+    "name": "AEROSPACE ENGINEERING BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000147",
+    "name": "AEROSPACE ENGINEERING DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000381",
+    "name": "AEROSPACE ENGINEERING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000223",
+    "name": "AEROSPACE ENGINEERING STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000105",
+    "name": "AEROSPACE ENGINEERING TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "65453",
+    "name": "AGRICULTURAL ENGINEERING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "75453",
+    "name": "AGRICULTURAL ENGINEERING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "562",
+    "name": "AGRICULTURAL, FORESTRY, AND FISHERIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "662",
+    "name": "AGRICULTURAL, FORESTRY, AND FISHERIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "762",
+    "name": "AGRICULTURAL, FORESTRY, AND FISHERIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "57002",
+    "name": "AIR CREW PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "2010008",
+    "name": "ALTERNATIVE LEARNING SYSTEM (ALS)",
+    "level": "High School"
+  },
+  {
+    "code": "63042",
+    "name": "ANTHROPOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "62261",
+    "name": "ARCHEOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000120",
+    "name": "ARCHITECTURE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000387",
+    "name": "ARCHITECTURE APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000075",
+    "name": "ARCHITECTURE BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000054",
+    "name": "ARCHITECTURE DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000296",
+    "name": "ARCHITECTURE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000369",
+    "name": "ARCHITECTURE SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000231",
+    "name": "ARCHITECTURE STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000064",
+    "name": "ARCHITECTURE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000207",
+    "name": "ARCHITECTURE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000257",
+    "name": "ARTIFICIAL INTELLIGENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000380",
+    "name": "ARTIFICIAL INTELLIGENCE APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000299",
+    "name": "ARTIFICIAL INTELLIGENCE BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000182",
+    "name": "ARTIFICIAL INTELLIGENCE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000259",
+    "name": "ARTIFICIAL INTELLIGENCE STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000177",
+    "name": "ARTIFICIAL INTELLIGENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000045",
+    "name": "ARTIFICIAL INTELLIGENCE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5000196",
+    "name": "ASSOCIATE IN 3D ANIMATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000197",
+    "name": "ASSOCIATE IN 3D ANIMATION OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000186",
+    "name": "ASSOCIATE IN AGRICULTURAL CROPS PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000187",
+    "name": "ASSOCIATE IN ANIMAL PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000188",
+    "name": "ASSOCIATE IN ANIMAL PRODUCTION SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000189",
+    "name": "ASSOCIATE IN AQUACULTURE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000190",
+    "name": "ASSOCIATE IN AQUACULTURE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000191",
+    "name": "ASSOCIATE IN ARTIFICIAL INSEMINATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000192",
+    "name": "ASSOCIATE IN ARTIFICIAL INSEMINATION SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000133",
+    "name": "ASSOCIATE IN AUTOMOTIVE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000134",
+    "name": "ASSOCIATE IN AUTOMOTIVE SERVICING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000135",
+    "name": "ASSOCIATE IN BAKING AND PASTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000136",
+    "name": "ASSOCIATE IN BAKING AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000137",
+    "name": "ASSOCIATE IN BARISTA",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000138",
+    "name": "ASSOCIATE IN BARISTA OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000139",
+    "name": "ASSOCIATE IN BARTENDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000140",
+    "name": "ASSOCIATE IN BARTENDING PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000141",
+    "name": "ASSOCIATE IN BEAUTY CARE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000142",
+    "name": "ASSOCIATE IN BEAUTY CARE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000143",
+    "name": "ASSOCIATE IN BOOKKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000144",
+    "name": "ASSOCIATE IN BOOKKEEPING PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000145",
+    "name": "ASSOCIATE IN BREAD AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000146",
+    "name": "ASSOCIATE IN CAREGIVING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000147",
+    "name": "ASSOCIATE IN CAREGIVING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000148",
+    "name": "ASSOCIATE IN CARPENTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000149",
+    "name": "ASSOCIATE IN CARPENTRY TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000150",
+    "name": "ASSOCIATE IN COMMERCIAL COOKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000151",
+    "name": "ASSOCIATE IN COMMERCIAL COOKING PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000152",
+    "name": "ASSOCIATE IN COMPUTER SYSTEMS SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000153",
+    "name": "ASSOCIATE IN CONTACT CENTER SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000154",
+    "name": "ASSOCIATE IN COOKERY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000155",
+    "name": "ASSOCIATE IN COOKERY OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000201",
+    "name": "ASSOCIATE IN DATA ENCODING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000202",
+    "name": "ASSOCIATE IN DATA ENCODING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000156",
+    "name": "ASSOCIATE IN DRESSMAKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000157",
+    "name": "ASSOCIATE IN ELECTRICAL INSTALLATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000158",
+    "name": "ASSOCIATE IN ELECTRONIC PRODUCTS ASSEMBLY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000159",
+    "name": "ASSOCIATE IN ELECTRONIC PRODUCTS ASSEMBLY MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000160",
+    "name": "ASSOCIATE IN EVENT MANAGEMENT SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000161",
+    "name": "ASSOCIATE IN EVENT MANAGEMENT SERVICES SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000162",
+    "name": "ASSOCIATE IN FOOD AND BEVERAGE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000163",
+    "name": "ASSOCIATE IN FRONT OFFICE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000164",
+    "name": "ASSOCIATE IN FRONT OFFICE SERVICES PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000165",
+    "name": "ASSOCIATE IN HAIRDRESSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000166",
+    "name": "ASSOCIATE IN HAIRDRESSING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000167",
+    "name": "ASSOCIATE IN HEALTH CARE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000168",
+    "name": "ASSOCIATE IN HEALTH CARE SERVICES SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000169",
+    "name": "ASSOCIATE IN HEAVY EQUIPMENT OPERATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000170",
+    "name": "ASSOCIATE IN HEAVY EQUIPMENT OPERATION PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000171",
+    "name": "ASSOCIATE IN HOUSEKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000172",
+    "name": "ASSOCIATE IN MACHINING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000173",
+    "name": "ASSOCIATE IN MASONRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000174",
+    "name": "ASSOCIATE IN MASONRY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000175",
+    "name": "ASSOCIATE IN MASSAGE THERAPY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000193",
+    "name": "ASSOCIATE IN MECHATRONICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000194",
+    "name": "ASSOCIATE IN MECHATRONICS OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000203",
+    "name": "ASSOCIATE IN MEDICAL TRANSCRIPTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000176",
+    "name": "ASSOCIATE IN MOTORCYCLE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000177",
+    "name": "ASSOCIATE IN MOTORCYCLE SERVICING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000178",
+    "name": "ASSOCIATE IN PHARMACY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000179",
+    "name": "ASSOCIATE IN PLUMBING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000180",
+    "name": "ASSOCIATE IN PRACTICAL NURSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000195",
+    "name": "ASSOCIATE IN ROBOTICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5420202",
+    "name": "ASSOCIATE IN SCIENCE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5340417",
+    "name": "ASSOCIATE IN SECRETARIAL ADMINISTRATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5340418",
+    "name": "ASSOCIATE IN SECRETARIAL EDUCATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000181",
+    "name": "ASSOCIATE IN SHIELDED METAL ARC WELDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000200",
+    "name": "ASSOCIATE IN SOFTWARE ENGINEERING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5896203",
+    "name": "ASSOCIATE IN SPORTS OFFICIATING/COACHING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000182",
+    "name": "ASSOCIATE IN TAILORING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000183",
+    "name": "ASSOCIATE IN TOUR GUIDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5787201",
+    "name": "ASSOCIATE IN TOURISM",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000184",
+    "name": "ASSOCIATE IN VISUAL GRAPHICS DESIGN",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000185",
+    "name": "ASSOCIATE IN VISUAL GRAPHICS DESIGN OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000198",
+    "name": "ASSOCIATE IN WEB DEVELOPMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000199",
+    "name": "ASSOCIATE IN WEB DEVELOPMENT MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5524212",
+    "name": "AUTO-DIESEL MECHANIC",
+    "level": "Vocational"
+  },
+  {
+    "code": "5524204",
+    "name": "AUTO-DIESEL TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5524205",
+    "name": "AVIONICS/AVIATION TECHNICIAN COURSE",
+    "level": "Vocational"
+  },
+  {
+    "code": "7000125",
+    "name": "BACHELOR OF ARTS IN ACCOUNTANCY",
+    "level": "College"
+  },
+  {
+    "code": "7000135",
+    "name": "BACHELOR OF ARTS IN ADVERTISING",
+    "level": "College"
+  },
+  {
+    "code": "7000023",
+    "name": "BACHELOR OF ARTS IN ADVERTISING (MAJOR IN FORENSIC SCIENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000149",
+    "name": "BACHELOR OF ARTS IN AEROSPACE ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000088",
+    "name": "BACHELOR OF ARTS IN AGRICULTURE",
+    "level": "College"
+  },
+  {
+    "code": "7000006",
+    "name": "BACHELOR OF ARTS IN AGRICULTURE (MAJOR IN LITERATURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000210",
+    "name": "BACHELOR OF ARTS IN ARCHITECTURE",
+    "level": "College"
+  },
+  {
+    "code": "7000151",
+    "name": "BACHELOR OF ARTS IN ARTIFICIAL INTELLIGENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000114",
+    "name": "BACHELOR OF ARTS IN ARTIFICIAL INTELLIGENCE (MAJOR IN COMMUNICATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000078",
+    "name": "BACHELOR OF ARTS IN BEHAVIORAL SCIENCES",
+    "level": "College"
+  },
+  {
+    "code": "7000083",
+    "name": "BACHELOR OF ARTS IN BIOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000145",
+    "name": "BACHELOR OF ARTS IN BIOLOGY (MAJOR IN ARTIFICIAL INTELLIGENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000091",
+    "name": "BACHELOR OF ARTS IN BIOLOGY (MAJOR IN INDUSTRIAL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000245",
+    "name": "BACHELOR OF ARTS IN BIOMEDICAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000161",
+    "name": "BACHELOR OF ARTS IN BIOMEDICAL ENGINEERING (MAJOR IN BEHAVIORAL SCIENCES)",
+    "level": "College"
+  },
+  {
+    "code": "7000087",
+    "name": "BACHELOR OF ARTS IN BROADCASTING",
+    "level": "College"
+  },
+  {
+    "code": "7000031",
+    "name": "BACHELOR OF ARTS IN BUSINESS ADMINISTRATION",
+    "level": "College"
+  },
+  {
+    "code": "7000084",
+    "name": "BACHELOR OF ARTS IN CHEMICAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000080",
+    "name": "BACHELOR OF ARTS IN CHEMISTRY",
+    "level": "College"
+  },
+  {
+    "code": "7000123",
+    "name": "BACHELOR OF ARTS IN CHEMISTRY (MAJOR IN PUBLIC HEALTH)",
+    "level": "College"
+  },
+  {
+    "code": "7000246",
+    "name": "BACHELOR OF ARTS IN CIVIL ENGINEERING (MAJOR IN FINANCIAL MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000015",
+    "name": "BACHELOR OF ARTS IN COMMUNICATION",
+    "level": "College"
+  },
+  {
+    "code": "7000260",
+    "name": "BACHELOR OF ARTS IN COMMUNICATION (MAJOR IN HOSPITALITY MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000254",
+    "name": "BACHELOR OF ARTS IN COMMUNICATION (MAJOR IN PUBLIC RELATIONS)",
+    "level": "College"
+  },
+  {
+    "code": "7000154",
+    "name": "BACHELOR OF ARTS IN CRIMINOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000068",
+    "name": "BACHELOR OF ARTS IN CRIMINOLOGY (MAJOR IN CHEMICAL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000163",
+    "name": "BACHELOR OF ARTS IN CRIMINOLOGY (MAJOR IN STATISTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000168",
+    "name": "BACHELOR OF ARTS IN CYBERSECURITY",
+    "level": "College"
+  },
+  {
+    "code": "7000242",
+    "name": "BACHELOR OF ARTS IN CYBERSECURITY (MAJOR IN CHEMICAL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000126",
+    "name": "BACHELOR OF ARTS IN DATA SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000108",
+    "name": "BACHELOR OF ARTS IN DENTISTRY",
+    "level": "College"
+  },
+  {
+    "code": "7000064",
+    "name": "BACHELOR OF ARTS IN DENTISTRY (MAJOR IN MARINE ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000035",
+    "name": "BACHELOR OF ARTS IN DENTISTRY (MAJOR IN PUBLIC RELATIONS)",
+    "level": "College"
+  },
+  {
+    "code": "7000067",
+    "name": "BACHELOR OF ARTS IN DIETETICS",
+    "level": "College"
+  },
+  {
+    "code": "7000103",
+    "name": "BACHELOR OF ARTS IN EARLY CHILDHOOD EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000253",
+    "name": "BACHELOR OF ARTS IN EARLY CHILDHOOD EDUCATION (MAJOR IN ARCHITECTURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000229",
+    "name": "BACHELOR OF ARTS IN ECONOMICS",
+    "level": "College"
+  },
+  {
+    "code": "7000052",
+    "name": "BACHELOR OF ARTS IN ELECTRICAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000159",
+    "name": "BACHELOR OF ARTS IN ELEMENTARY EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000262",
+    "name": "BACHELOR OF ARTS IN ELEMENTARY EDUCATION (MAJOR IN ROBOTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000201",
+    "name": "BACHELOR OF ARTS IN ENTREPRENEURSHIP",
+    "level": "College"
+  },
+  {
+    "code": "7000051",
+    "name": "BACHELOR OF ARTS IN ENTREPRENEURSHIP (MAJOR IN ARCHITECTURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000120",
+    "name": "BACHELOR OF ARTS IN ENTREPRENEURSHIP (MAJOR IN CUSTOMS ADMINISTRATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000082",
+    "name": "BACHELOR OF ARTS IN ENTREPRENEURSHIP (MAJOR IN MARINE TRANSPORTATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000011",
+    "name": "BACHELOR OF ARTS IN ENVIRONMENTAL SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000099",
+    "name": "BACHELOR OF ARTS IN ENVIRONMENTAL SCIENCE (MAJOR IN PHYSICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000070",
+    "name": "BACHELOR OF ARTS IN FINANCIAL MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000200",
+    "name": "BACHELOR OF ARTS IN FINANCIAL MANAGEMENT (MAJOR IN THEOLOGY)",
+    "level": "College"
+  },
+  {
+    "code": "7000129",
+    "name": "BACHELOR OF ARTS IN FINE ARTS",
+    "level": "College"
+  },
+  {
+    "code": "7000241",
+    "name": "BACHELOR OF ARTS IN FISHERIES",
+    "level": "College"
+  },
+  {
+    "code": "7000209",
+    "name": "BACHELOR OF ARTS IN FORENSIC SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000116",
+    "name": "BACHELOR OF ARTS IN GAME DEVELOPMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000029",
+    "name": "BACHELOR OF ARTS IN HISTORY",
+    "level": "College"
+  },
+  {
+    "code": "7000152",
+    "name": "BACHELOR OF ARTS IN HISTORY (MAJOR IN INDUSTRIAL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000086",
+    "name": "BACHELOR OF ARTS IN HOSPITALITY MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000036",
+    "name": "BACHELOR OF ARTS IN HOSPITALITY MANAGEMENT (MAJOR IN AEROSPACE ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000124",
+    "name": "BACHELOR OF ARTS IN HUMAN RESOURCE MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000004",
+    "name": "BACHELOR OF ARTS IN HUMAN RESOURCE MANAGEMENT (MAJOR IN NAVAL SCIENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000240",
+    "name": "BACHELOR OF ARTS IN INDUSTRIAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000243",
+    "name": "BACHELOR OF ARTS IN INDUSTRIAL ENGINEERING (MAJOR IN PSYCHOLOGY)",
+    "level": "College"
+  },
+  {
+    "code": "7000017",
+    "name": "BACHELOR OF ARTS IN INDUSTRIAL ENGINEERING (MAJOR IN SOFTWARE ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000109",
+    "name": "BACHELOR OF ARTS IN INFORMATION TECHNOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000212",
+    "name": "BACHELOR OF ARTS IN INFORMATION TECHNOLOGY (MAJOR IN POLITICAL SCIENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000101",
+    "name": "BACHELOR OF ARTS IN INTERIOR DESIGN",
+    "level": "College"
+  },
+  {
+    "code": "7000225",
+    "name": "BACHELOR OF ARTS IN INTERIOR DESIGN (MAJOR IN STATISTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000198",
+    "name": "BACHELOR OF ARTS IN JOURNALISM (MAJOR IN ELEMENTARY EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000156",
+    "name": "BACHELOR OF ARTS IN LAW",
+    "level": "College"
+  },
+  {
+    "code": "7000093",
+    "name": "BACHELOR OF ARTS IN LEGAL STUDIES",
+    "level": "College"
+  },
+  {
+    "code": "7000025",
+    "name": "BACHELOR OF ARTS IN LEGAL STUDIES (MAJOR IN MOBILE APP DEVELOPMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000220",
+    "name": "BACHELOR OF ARTS IN LEGAL STUDIES (MAJOR IN SECONDARY EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000226",
+    "name": "BACHELOR OF ARTS IN LINGUISTICS",
+    "level": "College"
+  },
+  {
+    "code": "7000261",
+    "name": "BACHELOR OF ARTS IN LINGUISTICS (MAJOR IN LINGUISTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000248",
+    "name": "BACHELOR OF ARTS IN LINGUISTICS (MAJOR IN SOFTWARE ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000144",
+    "name": "BACHELOR OF ARTS IN LITERATURE",
+    "level": "College"
+  },
+  {
+    "code": "7000047",
+    "name": "BACHELOR OF ARTS IN MACHINE LEARNING",
+    "level": "College"
+  },
+  {
+    "code": "7000170",
+    "name": "BACHELOR OF ARTS IN MACHINE LEARNING (MAJOR IN COMMUNICATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000005",
+    "name": "BACHELOR OF ARTS IN MARINE ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000224",
+    "name": "BACHELOR OF ARTS IN MARKETING MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000171",
+    "name": "BACHELOR OF ARTS IN MATERIALS SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000184",
+    "name": "BACHELOR OF ARTS IN MATERIALS SCIENCE (MAJOR IN AGRICULTURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000048",
+    "name": "BACHELOR OF ARTS IN MATERIALS SCIENCE (MAJOR IN BIOMEDICAL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000110",
+    "name": "BACHELOR OF ARTS IN MECHANICAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000164",
+    "name": "BACHELOR OF ARTS IN MECHANICAL ENGINEERING (MAJOR IN STATISTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000096",
+    "name": "BACHELOR OF ARTS IN MECHATRONICS",
+    "level": "College"
+  },
+  {
+    "code": "7000012",
+    "name": "BACHELOR OF ARTS IN MEDICINE",
+    "level": "College"
+  },
+  {
+    "code": "7000227",
+    "name": "BACHELOR OF ARTS IN MILITARY SCIENCE (MAJOR IN PHYSICAL EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000045",
+    "name": "BACHELOR OF ARTS IN NAVAL SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000206",
+    "name": "BACHELOR OF ARTS IN NAVAL SCIENCE (MAJOR IN PUBLIC HEALTH)",
+    "level": "College"
+  },
+  {
+    "code": "7000040",
+    "name": "BACHELOR OF ARTS IN NETWORK ADMINISTRATION",
+    "level": "College"
+  },
+  {
+    "code": "7000203",
+    "name": "BACHELOR OF ARTS IN NETWORK ADMINISTRATION (MAJOR IN CRIMINOLOGY)",
+    "level": "College"
+  },
+  {
+    "code": "7000217",
+    "name": "BACHELOR OF ARTS IN NURSING",
+    "level": "College"
+  },
+  {
+    "code": "7000033",
+    "name": "BACHELOR OF ARTS IN NURSING (MAJOR IN ARCHITECTURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000000",
+    "name": "BACHELOR OF ARTS IN NUTRITION",
+    "level": "College"
+  },
+  {
+    "code": "7000113",
+    "name": "BACHELOR OF ARTS IN OCCUPATIONAL THERAPY",
+    "level": "College"
+  },
+  {
+    "code": "7000139",
+    "name": "BACHELOR OF ARTS IN OCCUPATIONAL THERAPY (MAJOR IN CUSTOMS ADMINISTRATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000121",
+    "name": "BACHELOR OF ARTS IN OCCUPATIONAL THERAPY (MAJOR IN FORENSIC SCIENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000150",
+    "name": "BACHELOR OF ARTS IN PHYSICAL EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000218",
+    "name": "BACHELOR OF ARTS IN PHYSICAL THERAPY",
+    "level": "College"
+  },
+  {
+    "code": "7000028",
+    "name": "BACHELOR OF ARTS IN PHYSICS",
+    "level": "College"
+  },
+  {
+    "code": "7000112",
+    "name": "BACHELOR OF ARTS IN PHYSICS (MAJOR IN MECHATRONICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000192",
+    "name": "BACHELOR OF ARTS IN POLICE SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000030",
+    "name": "BACHELOR OF ARTS IN POLITICAL SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000134",
+    "name": "BACHELOR OF ARTS IN POLITICAL SCIENCE (MAJOR IN ARCHITECTURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000065",
+    "name": "BACHELOR OF ARTS IN PSYCHOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000053",
+    "name": "BACHELOR OF ARTS IN PSYCHOLOGY (MAJOR IN ADVERTISING)",
+    "level": "College"
+  },
+  {
+    "code": "7000167",
+    "name": "BACHELOR OF ARTS IN PSYCHOLOGY (MAJOR IN BUSINESS ADMINISTRATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000130",
+    "name": "BACHELOR OF ARTS IN PUBLIC HEALTH",
+    "level": "College"
+  },
+  {
+    "code": "7000136",
+    "name": "BACHELOR OF ARTS IN PUBLIC HEALTH (MAJOR IN ELEMENTARY EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000232",
+    "name": "BACHELOR OF ARTS IN PUBLIC HEALTH (MAJOR IN LAW)",
+    "level": "College"
+  },
+  {
+    "code": "7000077",
+    "name": "BACHELOR OF ARTS IN PUBLIC RELATIONS (MAJOR IN ARCHITECTURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000085",
+    "name": "BACHELOR OF ARTS IN REAL ESTATE MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000079",
+    "name": "BACHELOR OF ARTS IN SECONDARY EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000147",
+    "name": "BACHELOR OF ARTS IN SOCIAL SCIENCES (MAJOR IN ENTREPRENEURSHIP)",
+    "level": "College"
+  },
+  {
+    "code": "7000018",
+    "name": "BACHELOR OF ARTS IN SOCIAL SCIENCES (MAJOR IN REAL ESTATE MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000259",
+    "name": "BACHELOR OF ARTS IN SOCIAL WORK",
+    "level": "College"
+  },
+  {
+    "code": "7000172",
+    "name": "BACHELOR OF ARTS IN SOCIOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000239",
+    "name": "BACHELOR OF ARTS IN SOCIOLOGY (MAJOR IN CRIMINOLOGY)",
+    "level": "College"
+  },
+  {
+    "code": "7000002",
+    "name": "BACHELOR OF ARTS IN SOCIOLOGY (MAJOR IN SYSTEMS ADMINISTRATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000069",
+    "name": "BACHELOR OF ARTS IN SPECIAL NEEDS EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000256",
+    "name": "BACHELOR OF ARTS IN SPECIAL NEEDS EDUCATION (MAJOR IN LINGUISTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000066",
+    "name": "BACHELOR OF ARTS IN SPEECH THERAPY",
+    "level": "College"
+  },
+  {
+    "code": "7000041",
+    "name": "BACHELOR OF ARTS IN SPEECH THERAPY (MAJOR IN ARCHITECTURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000138",
+    "name": "BACHELOR OF ARTS IN STATISTICS",
+    "level": "College"
+  },
+  {
+    "code": "7000196",
+    "name": "BACHELOR OF ARTS IN STATISTICS (MAJOR IN EARLY CHILDHOOD EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000003",
+    "name": "BACHELOR OF ARTS IN SYSTEMS ADMINISTRATION",
+    "level": "College"
+  },
+  {
+    "code": "7000038",
+    "name": "BACHELOR OF ARTS IN THEOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000247",
+    "name": "BACHELOR OF ARTS IN THEOLOGY (MAJOR IN CUSTOMS ADMINISTRATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000222",
+    "name": "BACHELOR OF ARTS IN THEOLOGY (MAJOR IN FINANCIAL MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000024",
+    "name": "BACHELOR OF ARTS IN THEOLOGY (MAJOR IN SPEECH THERAPY)",
+    "level": "College"
+  },
+  {
+    "code": "7000107",
+    "name": "BACHELOR OF ARTS IN TOURISM MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000137",
+    "name": "BACHELOR OF ARTS IN URBAN PLANNING",
+    "level": "College"
+  },
+  {
+    "code": "7000157",
+    "name": "BACHELOR OF ARTS IN VETERINARY MEDICINE (MAJOR IN LINGUISTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000252",
+    "name": "BACHELOR OF ARTS IN VETERINARY MEDICINE (MAJOR IN POLITICAL SCIENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000215",
+    "name": "BACHELOR OF ARTS IN WEB DEVELOPMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000214",
+    "name": "BACHELOR OF SCIENCE IN ACCOUNTANCY",
+    "level": "College"
+  },
+  {
+    "code": "7000148",
+    "name": "BACHELOR OF SCIENCE IN ACCOUNTANCY (MAJOR IN INDUSTRIAL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000122",
+    "name": "BACHELOR OF SCIENCE IN ACCOUNTANCY (MAJOR IN MECHATRONICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000141",
+    "name": "BACHELOR OF SCIENCE IN ADVERTISING",
+    "level": "College"
+  },
+  {
+    "code": "7000027",
+    "name": "BACHELOR OF SCIENCE IN ADVERTISING (MAJOR IN HUMANITIES)",
+    "level": "College"
+  },
+  {
+    "code": "7000183",
+    "name": "BACHELOR OF SCIENCE IN AEROSPACE ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000131",
+    "name": "BACHELOR OF SCIENCE IN AGRICULTURE",
+    "level": "College"
+  },
+  {
+    "code": "7000221",
+    "name": "BACHELOR OF SCIENCE IN ARCHITECTURE",
+    "level": "College"
+  },
+  {
+    "code": "7000090",
+    "name": "BACHELOR OF SCIENCE IN BEHAVIORAL SCIENCES",
+    "level": "College"
+  },
+  {
+    "code": "7000202",
+    "name": "BACHELOR OF SCIENCE IN BEHAVIORAL SCIENCES (MAJOR IN SOCIAL SCIENCES)",
+    "level": "College"
+  },
+  {
+    "code": "7000073",
+    "name": "BACHELOR OF SCIENCE IN BIOMEDICAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000119",
+    "name": "BACHELOR OF SCIENCE IN BROADCASTING",
+    "level": "College"
+  },
+  {
+    "code": "7000050",
+    "name": "BACHELOR OF SCIENCE IN BROADCASTING (MAJOR IN MECHATRONICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000008",
+    "name": "BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION",
+    "level": "College"
+  },
+  {
+    "code": "7000098",
+    "name": "BACHELOR OF SCIENCE IN CHEMICAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000032",
+    "name": "BACHELOR OF SCIENCE IN CHEMISTRY",
+    "level": "College"
+  },
+  {
+    "code": "7000039",
+    "name": "BACHELOR OF SCIENCE IN CIVIL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000234",
+    "name": "BACHELOR OF SCIENCE IN COMMUNICATION (MAJOR IN MATERIALS SCIENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000111",
+    "name": "BACHELOR OF SCIENCE IN COMMUNICATION (MAJOR IN SPECIAL NEEDS EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000178",
+    "name": "BACHELOR OF SCIENCE IN COMPUTER SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000062",
+    "name": "BACHELOR OF SCIENCE IN COMPUTER SCIENCE (MAJOR IN SECONDARY EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000044",
+    "name": "BACHELOR OF SCIENCE IN CRIMINOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000153",
+    "name": "BACHELOR OF SCIENCE IN CUSTOMS ADMINISTRATION",
+    "level": "College"
+  },
+  {
+    "code": "7000042",
+    "name": "BACHELOR OF SCIENCE IN CYBERSECURITY",
+    "level": "College"
+  },
+  {
+    "code": "7000046",
+    "name": "BACHELOR OF SCIENCE IN DATA SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000026",
+    "name": "BACHELOR OF SCIENCE IN DENTISTRY (MAJOR IN MEDICINE)",
+    "level": "College"
+  },
+  {
+    "code": "7000059",
+    "name": "BACHELOR OF SCIENCE IN DIETETICS",
+    "level": "College"
+  },
+  {
+    "code": "7000160",
+    "name": "BACHELOR OF SCIENCE IN DIETETICS (MAJOR IN ADVERTISING)",
+    "level": "College"
+  },
+  {
+    "code": "7000146",
+    "name": "BACHELOR OF SCIENCE IN DIETETICS (MAJOR IN PHARMACY)",
+    "level": "College"
+  },
+  {
+    "code": "7000020",
+    "name": "BACHELOR OF SCIENCE IN EARLY CHILDHOOD EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000074",
+    "name": "BACHELOR OF SCIENCE IN ELECTRICAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000177",
+    "name": "BACHELOR OF SCIENCE IN ELEMENTARY EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000231",
+    "name": "BACHELOR OF SCIENCE IN ELEMENTARY EDUCATION (MAJOR IN BEHAVIORAL SCIENCES)",
+    "level": "College"
+  },
+  {
+    "code": "7000230",
+    "name": "BACHELOR OF SCIENCE IN ELEMENTARY EDUCATION (MAJOR IN COMPUTER SCIENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000191",
+    "name": "BACHELOR OF SCIENCE IN ELEMENTARY EDUCATION (MAJOR IN LITERATURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000089",
+    "name": "BACHELOR OF SCIENCE IN ENTREPRENEURSHIP",
+    "level": "College"
+  },
+  {
+    "code": "7000187",
+    "name": "BACHELOR OF SCIENCE IN ENTREPRENEURSHIP (MAJOR IN SPECIAL NEEDS EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000014",
+    "name": "BACHELOR OF SCIENCE IN ENVIRONMENTAL SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000092",
+    "name": "BACHELOR OF SCIENCE IN FINANCIAL MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000250",
+    "name": "BACHELOR OF SCIENCE IN FINE ARTS (MAJOR IN SOFTWARE ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000264",
+    "name": "BACHELOR OF SCIENCE IN FISHERIES (MAJOR IN CYBERSECURITY)",
+    "level": "College"
+  },
+  {
+    "code": "7000158",
+    "name": "BACHELOR OF SCIENCE IN FISHERIES (MAJOR IN FORESTRY)",
+    "level": "College"
+  },
+  {
+    "code": "7000244",
+    "name": "BACHELOR OF SCIENCE IN FORENSIC SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000194",
+    "name": "BACHELOR OF SCIENCE IN FORENSIC SCIENCE (MAJOR IN JOURNALISM)",
+    "level": "College"
+  },
+  {
+    "code": "7000199",
+    "name": "BACHELOR OF SCIENCE IN FORENSIC SCIENCE (MAJOR IN PHYSICAL THERAPY)",
+    "level": "College"
+  },
+  {
+    "code": "7000180",
+    "name": "BACHELOR OF SCIENCE IN FORENSIC SCIENCE (MAJOR IN SPECIAL NEEDS EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000058",
+    "name": "BACHELOR OF SCIENCE IN FORESTRY",
+    "level": "College"
+  },
+  {
+    "code": "7000021",
+    "name": "BACHELOR OF SCIENCE IN GAME DEVELOPMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000216",
+    "name": "BACHELOR OF SCIENCE IN HISTORY",
+    "level": "College"
+  },
+  {
+    "code": "7000233",
+    "name": "BACHELOR OF SCIENCE IN HISTORY (MAJOR IN CHEMICAL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000197",
+    "name": "BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000173",
+    "name": "BACHELOR OF SCIENCE IN HUMAN RESOURCE MANAGEMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000037",
+    "name": "BACHELOR OF SCIENCE IN INDUSTRIAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000022",
+    "name": "BACHELOR OF SCIENCE IN INDUSTRIAL ENGINEERING (MAJOR IN NETWORK ADMINISTRATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000081",
+    "name": "BACHELOR OF SCIENCE IN INDUSTRIAL ENGINEERING (MAJOR IN ROBOTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000063",
+    "name": "BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000132",
+    "name": "BACHELOR OF SCIENCE IN INTERIOR DESIGN",
+    "level": "College"
+  },
+  {
+    "code": "7000102",
+    "name": "BACHELOR OF SCIENCE IN JOURNALISM",
+    "level": "College"
+  },
+  {
+    "code": "7000189",
+    "name": "BACHELOR OF SCIENCE IN JOURNALISM (MAJOR IN NETWORK ADMINISTRATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000115",
+    "name": "BACHELOR OF SCIENCE IN LEGAL STUDIES",
+    "level": "College"
+  },
+  {
+    "code": "7000094",
+    "name": "BACHELOR OF SCIENCE IN LINGUISTICS",
+    "level": "College"
+  },
+  {
+    "code": "7000019",
+    "name": "BACHELOR OF SCIENCE IN LITERATURE",
+    "level": "College"
+  },
+  {
+    "code": "7000071",
+    "name": "BACHELOR OF SCIENCE IN LITERATURE (MAJOR IN CIVIL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000182",
+    "name": "BACHELOR OF SCIENCE IN LITERATURE (MAJOR IN ELEMENTARY EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000258",
+    "name": "BACHELOR OF SCIENCE IN MARINE ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000104",
+    "name": "BACHELOR OF SCIENCE IN MARINE ENGINEERING (MAJOR IN BIOLOGY)",
+    "level": "College"
+  },
+  {
+    "code": "7000213",
+    "name": "BACHELOR OF SCIENCE IN MARINE TRANSPORTATION",
+    "level": "College"
+  },
+  {
+    "code": "7000223",
+    "name": "BACHELOR OF SCIENCE IN MARINE TRANSPORTATION (MAJOR IN FORENSIC SCIENCE)",
+    "level": "College"
+  },
+  {
+    "code": "7000057",
+    "name": "BACHELOR OF SCIENCE IN MARINE TRANSPORTATION (MAJOR IN NUTRITION)",
+    "level": "College"
+  },
+  {
+    "code": "7000185",
+    "name": "BACHELOR OF SCIENCE IN MARKETING MANAGEMENT (MAJOR IN ENTREPRENEURSHIP)",
+    "level": "College"
+  },
+  {
+    "code": "7000188",
+    "name": "BACHELOR OF SCIENCE IN MARKETING MANAGEMENT (MAJOR IN FORESTRY)",
+    "level": "College"
+  },
+  {
+    "code": "7000133",
+    "name": "BACHELOR OF SCIENCE IN MATERIALS SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000049",
+    "name": "BACHELOR OF SCIENCE IN MATHEMATICS",
+    "level": "College"
+  },
+  {
+    "code": "7000055",
+    "name": "BACHELOR OF SCIENCE IN MECHANICAL ENGINEERING",
+    "level": "College"
+  },
+  {
+    "code": "7000007",
+    "name": "BACHELOR OF SCIENCE IN MECHANICAL ENGINEERING (MAJOR IN PHYSICAL EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000238",
+    "name": "BACHELOR OF SCIENCE IN MILITARY SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000176",
+    "name": "BACHELOR OF SCIENCE IN MILITARY SCIENCE (MAJOR IN REAL ESTATE MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000251",
+    "name": "BACHELOR OF SCIENCE IN MOBILE APP DEVELOPMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000056",
+    "name": "BACHELOR OF SCIENCE IN NAVAL SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000235",
+    "name": "BACHELOR OF SCIENCE IN NAVAL SCIENCE (MAJOR IN FINANCIAL MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000205",
+    "name": "BACHELOR OF SCIENCE IN NAVAL SCIENCE (MAJOR IN JOURNALISM)",
+    "level": "College"
+  },
+  {
+    "code": "7000263",
+    "name": "BACHELOR OF SCIENCE IN NETWORK ADMINISTRATION",
+    "level": "College"
+  },
+  {
+    "code": "7000001",
+    "name": "BACHELOR OF SCIENCE IN NETWORK ADMINISTRATION (MAJOR IN BEHAVIORAL SCIENCES)",
+    "level": "College"
+  },
+  {
+    "code": "7000105",
+    "name": "BACHELOR OF SCIENCE IN NETWORK ADMINISTRATION (MAJOR IN BIOLOGY)",
+    "level": "College"
+  },
+  {
+    "code": "7000013",
+    "name": "BACHELOR OF SCIENCE IN NURSING",
+    "level": "College"
+  },
+  {
+    "code": "7000072",
+    "name": "BACHELOR OF SCIENCE IN OCCUPATIONAL THERAPY",
+    "level": "College"
+  },
+  {
+    "code": "7000100",
+    "name": "BACHELOR OF SCIENCE IN PHARMACY (MAJOR IN MARINE ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000016",
+    "name": "BACHELOR OF SCIENCE IN PHARMACY (MAJOR IN MATHEMATICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000127",
+    "name": "BACHELOR OF SCIENCE IN PHYSICAL EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000010",
+    "name": "BACHELOR OF SCIENCE IN PHYSICAL THERAPY",
+    "level": "College"
+  },
+  {
+    "code": "7000043",
+    "name": "BACHELOR OF SCIENCE IN PHYSICAL THERAPY (MAJOR IN CYBERSECURITY)",
+    "level": "College"
+  },
+  {
+    "code": "7000143",
+    "name": "BACHELOR OF SCIENCE IN PHYSICS",
+    "level": "College"
+  },
+  {
+    "code": "7000181",
+    "name": "BACHELOR OF SCIENCE IN PHYSICS (MAJOR IN STATISTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000175",
+    "name": "BACHELOR OF SCIENCE IN POLICE SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000106",
+    "name": "BACHELOR OF SCIENCE IN POLICE SCIENCE (MAJOR IN AGRICULTURE)",
+    "level": "College"
+  },
+  {
+    "code": "7000128",
+    "name": "BACHELOR OF SCIENCE IN POLITICAL SCIENCE",
+    "level": "College"
+  },
+  {
+    "code": "7000165",
+    "name": "BACHELOR OF SCIENCE IN PSYCHOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000228",
+    "name": "BACHELOR OF SCIENCE IN PUBLIC RELATIONS (MAJOR IN COMMUNICATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000208",
+    "name": "BACHELOR OF SCIENCE IN PUBLIC RELATIONS (MAJOR IN HOSPITALITY MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000204",
+    "name": "BACHELOR OF SCIENCE IN REAL ESTATE MANAGEMENT (MAJOR IN HUMAN RESOURCE MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000095",
+    "name": "BACHELOR OF SCIENCE IN ROBOTICS",
+    "level": "College"
+  },
+  {
+    "code": "7000117",
+    "name": "BACHELOR OF SCIENCE IN ROBOTICS (MAJOR IN COMMUNICATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000155",
+    "name": "BACHELOR OF SCIENCE IN SECONDARY EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000061",
+    "name": "BACHELOR OF SCIENCE IN SOCIAL SCIENCES",
+    "level": "College"
+  },
+  {
+    "code": "7000190",
+    "name": "BACHELOR OF SCIENCE IN SOCIAL WORK",
+    "level": "College"
+  },
+  {
+    "code": "7000076",
+    "name": "BACHELOR OF SCIENCE IN SOCIOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000237",
+    "name": "BACHELOR OF SCIENCE IN SOFTWARE ENGINEERING (MAJOR IN CIVIL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000169",
+    "name": "BACHELOR OF SCIENCE IN SOFTWARE ENGINEERING (MAJOR IN FORESTRY)",
+    "level": "College"
+  },
+  {
+    "code": "7000236",
+    "name": "BACHELOR OF SCIENCE IN SOFTWARE ENGINEERING (MAJOR IN HUMAN RESOURCE MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000060",
+    "name": "BACHELOR OF SCIENCE IN SOFTWARE ENGINEERING (MAJOR IN INDUSTRIAL ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "7000142",
+    "name": "BACHELOR OF SCIENCE IN SOFTWARE ENGINEERING (MAJOR IN NURSING)",
+    "level": "College"
+  },
+  {
+    "code": "7000034",
+    "name": "BACHELOR OF SCIENCE IN SPECIAL NEEDS EDUCATION",
+    "level": "College"
+  },
+  {
+    "code": "7000257",
+    "name": "BACHELOR OF SCIENCE IN SPEECH THERAPY (MAJOR IN FINE ARTS)",
+    "level": "College"
+  },
+  {
+    "code": "7000140",
+    "name": "BACHELOR OF SCIENCE IN SPEECH THERAPY (MAJOR IN FISHERIES)",
+    "level": "College"
+  },
+  {
+    "code": "7000255",
+    "name": "BACHELOR OF SCIENCE IN STATISTICS",
+    "level": "College"
+  },
+  {
+    "code": "7000193",
+    "name": "BACHELOR OF SCIENCE IN STATISTICS (MAJOR IN NETWORK ADMINISTRATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000097",
+    "name": "BACHELOR OF SCIENCE IN STATISTICS (MAJOR IN STATISTICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000179",
+    "name": "BACHELOR OF SCIENCE IN STATISTICS (MAJOR IN WEB DEVELOPMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000009",
+    "name": "BACHELOR OF SCIENCE IN SYSTEMS ADMINISTRATION",
+    "level": "College"
+  },
+  {
+    "code": "7000118",
+    "name": "BACHELOR OF SCIENCE IN SYSTEMS ADMINISTRATION (MAJOR IN HOSPITALITY MANAGEMENT)",
+    "level": "College"
+  },
+  {
+    "code": "7000207",
+    "name": "BACHELOR OF SCIENCE IN THEOLOGY",
+    "level": "College"
+  },
+  {
+    "code": "7000166",
+    "name": "BACHELOR OF SCIENCE IN THEOLOGY (MAJOR IN DIETETICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000211",
+    "name": "BACHELOR OF SCIENCE IN THEOLOGY (MAJOR IN NURSING)",
+    "level": "College"
+  },
+  {
+    "code": "7000075",
+    "name": "BACHELOR OF SCIENCE IN TOURISM MANAGEMENT (MAJOR IN BEHAVIORAL SCIENCES)",
+    "level": "College"
+  },
+  {
+    "code": "7000054",
+    "name": "BACHELOR OF SCIENCE IN TOURISM MANAGEMENT (MAJOR IN EARLY CHILDHOOD EDUCATION)",
+    "level": "College"
+  },
+  {
+    "code": "7000195",
+    "name": "BACHELOR OF SCIENCE IN URBAN PLANNING",
+    "level": "College"
+  },
+  {
+    "code": "7000162",
+    "name": "BACHELOR OF SCIENCE IN URBAN PLANNING (MAJOR IN MATHEMATICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000249",
+    "name": "BACHELOR OF SCIENCE IN VETERINARY MEDICINE (MAJOR IN NUTRITION)",
+    "level": "College"
+  },
+  {
+    "code": "7000174",
+    "name": "BACHELOR OF SCIENCE IN WEB DEVELOPMENT",
+    "level": "College"
+  },
+  {
+    "code": "7000219",
+    "name": "BACHELOR OF SCIENCE IN WEB DEVELOPMENT (MAJOR IN ECONOMICS)",
+    "level": "College"
+  },
+  {
+    "code": "7000186",
+    "name": "BACHELOR OF SCIENCE IN WEB DEVELOPMENT (MAJOR IN SOFTWARE ENGINEERING)",
+    "level": "College"
+  },
+  {
+    "code": "5526602",
+    "name": "BACK HOES EXCAVATOR OPERATOR COURSE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5343408",
+    "name": "BASIC MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "6000303",
+    "name": "BEHAVIORAL SCIENCES ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000212",
+    "name": "BEHAVIORAL SCIENCES DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000309",
+    "name": "BEHAVIORAL SCIENCES EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000266",
+    "name": "BEHAVIORAL SCIENCES SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000099",
+    "name": "BEHAVIORAL SCIENCES TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000205",
+    "name": "BEHAVIORAL SCIENCES TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000068",
+    "name": "BIOLOGY ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000140",
+    "name": "BIOLOGY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000362",
+    "name": "BIOLOGY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000378",
+    "name": "BIOLOGY EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000203",
+    "name": "BIOMEDICAL ENGINEERING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000167",
+    "name": "BIOMEDICAL ENGINEERING BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000157",
+    "name": "BIOMEDICAL ENGINEERING DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000239",
+    "name": "BIOMEDICAL ENGINEERING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000304",
+    "name": "BIOMEDICAL ENGINEERING STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000209",
+    "name": "BIOMEDICAL ENGINEERING TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000162",
+    "name": "BROADCASTING EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000353",
+    "name": "BROADCASTING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000389",
+    "name": "BROADCASTING TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000242",
+    "name": "BROADCASTING TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000009",
+    "name": "BUSINESS ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000082",
+    "name": "BUSINESS APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000057",
+    "name": "BUSINESS DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000297",
+    "name": "BUSINESS PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000229",
+    "name": "BUSINESS SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000035",
+    "name": "BUSINESS TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5000056",
+    "name": "CERTIFICATE IN 3D ANIMATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000057",
+    "name": "CERTIFICATE IN 3D ANIMATION TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000047",
+    "name": "CERTIFICATE IN AGRICULTURAL CROPS PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000048",
+    "name": "CERTIFICATE IN ANIMAL PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000049",
+    "name": "CERTIFICATE IN AQUACULTURE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000050",
+    "name": "CERTIFICATE IN AQUACULTURE OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000051",
+    "name": "CERTIFICATE IN ARTIFICIAL INSEMINATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000052",
+    "name": "CERTIFICATE IN ARTIFICIAL INSEMINATION SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000000",
+    "name": "CERTIFICATE IN AUTOMOTIVE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000001",
+    "name": "CERTIFICATE IN BAKING AND PASTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000002",
+    "name": "CERTIFICATE IN BAKING AND PASTRY OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000003",
+    "name": "CERTIFICATE IN BARISTA",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000004",
+    "name": "CERTIFICATE IN BARISTA SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000005",
+    "name": "CERTIFICATE IN BARTENDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000006",
+    "name": "CERTIFICATE IN BARTENDING SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000007",
+    "name": "CERTIFICATE IN BEAUTY CARE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000008",
+    "name": "CERTIFICATE IN BEAUTY CARE MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000009",
+    "name": "CERTIFICATE IN BOOKKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000010",
+    "name": "CERTIFICATE IN BOOKKEEPING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000011",
+    "name": "CERTIFICATE IN BREAD AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000012",
+    "name": "CERTIFICATE IN CAREGIVING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000013",
+    "name": "CERTIFICATE IN CAREGIVING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000014",
+    "name": "CERTIFICATE IN CARPENTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000015",
+    "name": "CERTIFICATE IN COMMERCIAL COOKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000016",
+    "name": "CERTIFICATE IN COMPUTER SYSTEMS SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000017",
+    "name": "CERTIFICATE IN CONTACT CENTER SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000018",
+    "name": "CERTIFICATE IN CONTACT CENTER SERVICES SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000019",
+    "name": "CERTIFICATE IN COOKERY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000062",
+    "name": "CERTIFICATE IN DATA ENCODING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000020",
+    "name": "CERTIFICATE IN DRESSMAKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000021",
+    "name": "CERTIFICATE IN DRESSMAKING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000022",
+    "name": "CERTIFICATE IN ELECTRICAL INSTALLATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000023",
+    "name": "CERTIFICATE IN ELECTRONIC PRODUCTS ASSEMBLY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000024",
+    "name": "CERTIFICATE IN EVENT MANAGEMENT SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000025",
+    "name": "CERTIFICATE IN FOOD AND BEVERAGE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000026",
+    "name": "CERTIFICATE IN FRONT OFFICE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000027",
+    "name": "CERTIFICATE IN HAIRDRESSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000028",
+    "name": "CERTIFICATE IN HAIRDRESSING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000029",
+    "name": "CERTIFICATE IN HEALTH CARE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000030",
+    "name": "CERTIFICATE IN HEAVY EQUIPMENT OPERATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000031",
+    "name": "CERTIFICATE IN HEAVY EQUIPMENT OPERATION TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000032",
+    "name": "CERTIFICATE IN HOUSEKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000033",
+    "name": "CERTIFICATE IN HOUSEKEEPING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000034",
+    "name": "CERTIFICATE IN MACHINING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000035",
+    "name": "CERTIFICATE IN MASONRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000036",
+    "name": "CERTIFICATE IN MASONRY SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000037",
+    "name": "CERTIFICATE IN MASSAGE THERAPY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000053",
+    "name": "CERTIFICATE IN MECHATRONICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000063",
+    "name": "CERTIFICATE IN MEDICAL TRANSCRIPTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000064",
+    "name": "CERTIFICATE IN MEDICAL TRANSCRIPTION SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000038",
+    "name": "CERTIFICATE IN MOTORCYCLE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000039",
+    "name": "CERTIFICATE IN PHARMACY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000040",
+    "name": "CERTIFICATE IN PHARMACY SERVICES SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000041",
+    "name": "CERTIFICATE IN PLUMBING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000042",
+    "name": "CERTIFICATE IN PRACTICAL NURSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000054",
+    "name": "CERTIFICATE IN ROBOTICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000055",
+    "name": "CERTIFICATE IN ROBOTICS MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000043",
+    "name": "CERTIFICATE IN SHIELDED METAL ARC WELDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000060",
+    "name": "CERTIFICATE IN SOFTWARE ENGINEERING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000061",
+    "name": "CERTIFICATE IN SOFTWARE ENGINEERING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000044",
+    "name": "CERTIFICATE IN TAILORING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000045",
+    "name": "CERTIFICATE IN TOUR GUIDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000046",
+    "name": "CERTIFICATE IN VISUAL GRAPHICS DESIGN",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000058",
+    "name": "CERTIFICATE IN WEB DEVELOPMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000059",
+    "name": "CERTIFICATE IN WEB DEVELOPMENT SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "6000044",
+    "name": "CHEMICAL ENGINEERING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000111",
+    "name": "CHEMICAL ENGINEERING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000361",
+    "name": "CHEMICAL ENGINEERING BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000317",
+    "name": "CHEMICAL ENGINEERING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000060",
+    "name": "CHEMICAL ENGINEERING STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000087",
+    "name": "CHEMICAL ENGINEERING TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000366",
+    "name": "CHEMISTRY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000106",
+    "name": "CHEMISTRY BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000301",
+    "name": "CHEMISTRY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000066",
+    "name": "CHEMISTRY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000311",
+    "name": "CHEMISTRY TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000178",
+    "name": "CIVIL ENGINEERING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000270",
+    "name": "CIVIL ENGINEERING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000015",
+    "name": "CIVIL ENGINEERING BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000096",
+    "name": "CIVIL ENGINEERING DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000233",
+    "name": "CIVIL ENGINEERING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000102",
+    "name": "CIVIL ENGINEERING TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000350",
+    "name": "CIVIL ENGINEERING TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000148",
+    "name": "COMMUNICATION BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000159",
+    "name": "COMMUNICATION SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000274",
+    "name": "COMPUTER SCIENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000160",
+    "name": "COMPUTER SCIENCE DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000094",
+    "name": "COMPUTER SCIENCE EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000219",
+    "name": "COMPUTER SCIENCE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000071",
+    "name": "COMPUTER SCIENCE SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000022",
+    "name": "COMPUTER SCIENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000195",
+    "name": "COMPUTER SCIENCE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000170",
+    "name": "CRIMINOLOGY ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000122",
+    "name": "CRIMINOLOGY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000279",
+    "name": "CRIMINOLOGY BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000254",
+    "name": "CRIMINOLOGY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000050",
+    "name": "CRIMINOLOGY TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000125",
+    "name": "CYBERSECURITY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000153",
+    "name": "CYBERSECURITY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000199",
+    "name": "CYBERSECURITY SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000121",
+    "name": "CYBERSECURITY TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000226",
+    "name": "DATA SCIENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000224",
+    "name": "DATA SCIENCE APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000342",
+    "name": "DATA SCIENCE EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000222",
+    "name": "DATA SCIENCE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000073",
+    "name": "DATA SCIENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000263",
+    "name": "DATA SCIENCE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000214",
+    "name": "DENTISTRY ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000181",
+    "name": "DENTISTRY BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000112",
+    "name": "DENTISTRY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000133",
+    "name": "DENTISTRY TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000244",
+    "name": "DESIGN APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000043",
+    "name": "DESIGN BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000173",
+    "name": "DESIGN PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000113",
+    "name": "DESIGN SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000228",
+    "name": "DESIGN TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000359",
+    "name": "DIETETICS BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000158",
+    "name": "DIETETICS EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000318",
+    "name": "DIETETICS STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000086",
+    "name": "DIETETICS TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5000125",
+    "name": "DIPLOMA IN 3D ANIMATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000126",
+    "name": "DIPLOMA IN 3D ANIMATION OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000119",
+    "name": "DIPLOMA IN AGRICULTURAL CROPS PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000120",
+    "name": "DIPLOMA IN ANIMAL PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000121",
+    "name": "DIPLOMA IN AQUACULTURE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000122",
+    "name": "DIPLOMA IN ARTIFICIAL INSEMINATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000065",
+    "name": "DIPLOMA IN AUTOMOTIVE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000066",
+    "name": "DIPLOMA IN AUTOMOTIVE SERVICING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000067",
+    "name": "DIPLOMA IN BAKING AND PASTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000068",
+    "name": "DIPLOMA IN BAKING AND PASTRY SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000069",
+    "name": "DIPLOMA IN BARISTA",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000070",
+    "name": "DIPLOMA IN BARTENDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000071",
+    "name": "DIPLOMA IN BARTENDING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000072",
+    "name": "DIPLOMA IN BEAUTY CARE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000073",
+    "name": "DIPLOMA IN BEAUTY CARE SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000074",
+    "name": "DIPLOMA IN BOOKKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000075",
+    "name": "DIPLOMA IN BOOKKEEPING SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000076",
+    "name": "DIPLOMA IN BREAD AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000077",
+    "name": "DIPLOMA IN BREAD AND PASTRY PRODUCTION OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000078",
+    "name": "DIPLOMA IN CAREGIVING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000079",
+    "name": "DIPLOMA IN CAREGIVING SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000080",
+    "name": "DIPLOMA IN CARPENTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000081",
+    "name": "DIPLOMA IN COMMERCIAL COOKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000082",
+    "name": "DIPLOMA IN COMMERCIAL COOKING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000083",
+    "name": "DIPLOMA IN COMPUTER SYSTEMS SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000084",
+    "name": "DIPLOMA IN COMPUTER SYSTEMS SERVICING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000085",
+    "name": "DIPLOMA IN CONTACT CENTER SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000086",
+    "name": "DIPLOMA IN CONTACT CENTER SERVICES MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000087",
+    "name": "DIPLOMA IN COOKERY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000088",
+    "name": "DIPLOMA IN COOKERY SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000130",
+    "name": "DIPLOMA IN DATA ENCODING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000131",
+    "name": "DIPLOMA IN DATA ENCODING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000089",
+    "name": "DIPLOMA IN DRESSMAKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000090",
+    "name": "DIPLOMA IN ELECTRICAL INSTALLATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000091",
+    "name": "DIPLOMA IN ELECTRONIC PRODUCTS ASSEMBLY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000092",
+    "name": "DIPLOMA IN ELECTRONIC PRODUCTS ASSEMBLY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000093",
+    "name": "DIPLOMA IN EVENT MANAGEMENT SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000094",
+    "name": "DIPLOMA IN EVENT MANAGEMENT SERVICES OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000095",
+    "name": "DIPLOMA IN FOOD AND BEVERAGE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000096",
+    "name": "DIPLOMA IN FRONT OFFICE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000097",
+    "name": "DIPLOMA IN HAIRDRESSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000098",
+    "name": "DIPLOMA IN HAIRDRESSING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000099",
+    "name": "DIPLOMA IN HEALTH CARE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000100",
+    "name": "DIPLOMA IN HEAVY EQUIPMENT OPERATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000101",
+    "name": "DIPLOMA IN HOUSEKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000102",
+    "name": "DIPLOMA IN HOUSEKEEPING SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000103",
+    "name": "DIPLOMA IN MACHINING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000104",
+    "name": "DIPLOMA IN MACHINING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000105",
+    "name": "DIPLOMA IN MASONRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000106",
+    "name": "DIPLOMA IN MASSAGE THERAPY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000123",
+    "name": "DIPLOMA IN MECHATRONICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000132",
+    "name": "DIPLOMA IN MEDICAL TRANSCRIPTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000107",
+    "name": "DIPLOMA IN MOTORCYCLE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000108",
+    "name": "DIPLOMA IN PHARMACY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000109",
+    "name": "DIPLOMA IN PHARMACY SERVICES SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000110",
+    "name": "DIPLOMA IN PLUMBING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000111",
+    "name": "DIPLOMA IN PRACTICAL NURSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000112",
+    "name": "DIPLOMA IN PRACTICAL NURSING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000124",
+    "name": "DIPLOMA IN ROBOTICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000113",
+    "name": "DIPLOMA IN SHIELDED METAL ARC WELDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000129",
+    "name": "DIPLOMA IN SOFTWARE ENGINEERING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000114",
+    "name": "DIPLOMA IN TAILORING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000115",
+    "name": "DIPLOMA IN TAILORING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000116",
+    "name": "DIPLOMA IN TOUR GUIDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000117",
+    "name": "DIPLOMA IN TOUR GUIDING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000118",
+    "name": "DIPLOMA IN VISUAL GRAPHICS DESIGN",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000127",
+    "name": "DIPLOMA IN WEB DEVELOPMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000128",
+    "name": "DIPLOMA IN WEB DEVELOPMENT SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "8000082",
+    "name": "DOCTOR OF ACCOUNTANCY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000043",
+    "name": "DOCTOR OF ARTIFICIAL INTELLIGENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000090",
+    "name": "DOCTOR OF CIVIL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000114",
+    "name": "DOCTOR OF DENTISTRY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000133",
+    "name": "DOCTOR OF DIETETICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000025",
+    "name": "DOCTOR OF ECONOMICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000094",
+    "name": "DOCTOR OF ELECTRICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000117",
+    "name": "DOCTOR OF ENVIRONMENTAL SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000101",
+    "name": "DOCTOR OF FINE ARTS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000081",
+    "name": "DOCTOR OF FORESTRY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000137",
+    "name": "DOCTOR OF HISTORY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000146",
+    "name": "DOCTOR OF HUMANITIES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000042",
+    "name": "DOCTOR OF JOURNALISM",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000103",
+    "name": "DOCTOR OF LAW",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000041",
+    "name": "DOCTOR OF LEGAL STUDIES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000124",
+    "name": "DOCTOR OF MARKETING MANAGEMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000058",
+    "name": "DOCTOR OF MATERIALS SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000099",
+    "name": "DOCTOR OF MATHEMATICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000105",
+    "name": "DOCTOR OF MECHANICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000126",
+    "name": "DOCTOR OF MOBILE APP DEVELOPMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000010",
+    "name": "DOCTOR OF OCCUPATIONAL THERAPY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000056",
+    "name": "DOCTOR OF PHARMACY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000064",
+    "name": "DOCTOR OF PHILOSOPHY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000106",
+    "name": "DOCTOR OF PHILOSOPHY IN ACCOUNTANCY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000128",
+    "name": "DOCTOR OF PHILOSOPHY IN AEROSPACE ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000031",
+    "name": "DOCTOR OF PHILOSOPHY IN BEHAVIORAL SCIENCES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000017",
+    "name": "DOCTOR OF PHILOSOPHY IN CHEMICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000038",
+    "name": "DOCTOR OF PHILOSOPHY IN CHEMISTRY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000149",
+    "name": "DOCTOR OF PHILOSOPHY IN COMMUNICATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000087",
+    "name": "DOCTOR OF PHILOSOPHY IN COMPUTER SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000020",
+    "name": "DOCTOR OF PHILOSOPHY IN CYBERSECURITY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000079",
+    "name": "DOCTOR OF PHILOSOPHY IN DIETETICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000061",
+    "name": "DOCTOR OF PHILOSOPHY IN ELECTRICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000091",
+    "name": "DOCTOR OF PHILOSOPHY IN ENVIRONMENTAL SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000060",
+    "name": "DOCTOR OF PHILOSOPHY IN FINANCIAL MANAGEMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000134",
+    "name": "DOCTOR OF PHILOSOPHY IN FISHERIES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000005",
+    "name": "DOCTOR OF PHILOSOPHY IN FORENSIC SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000112",
+    "name": "DOCTOR OF PHILOSOPHY IN HUMANITIES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000143",
+    "name": "DOCTOR OF PHILOSOPHY IN INDUSTRIAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000148",
+    "name": "DOCTOR OF PHILOSOPHY IN LAW",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000069",
+    "name": "DOCTOR OF PHILOSOPHY IN LEGAL STUDIES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000008",
+    "name": "DOCTOR OF PHILOSOPHY IN LITERATURE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000127",
+    "name": "DOCTOR OF PHILOSOPHY IN MACHINE LEARNING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000111",
+    "name": "DOCTOR OF PHILOSOPHY IN MARINE TRANSPORTATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000135",
+    "name": "DOCTOR OF PHILOSOPHY IN MATERIALS SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000145",
+    "name": "DOCTOR OF PHILOSOPHY IN MATHEMATICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000006",
+    "name": "DOCTOR OF PHILOSOPHY IN NETWORK ADMINISTRATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000129",
+    "name": "DOCTOR OF PHILOSOPHY IN PHYSICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000021",
+    "name": "DOCTOR OF PHILOSOPHY IN POLICE SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000119",
+    "name": "DOCTOR OF PHILOSOPHY IN PSYCHOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000044",
+    "name": "DOCTOR OF PHILOSOPHY IN ROBOTICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000108",
+    "name": "DOCTOR OF PHILOSOPHY IN SECONDARY EDUCATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000048",
+    "name": "DOCTOR OF PHILOSOPHY IN SOCIAL SCIENCES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000062",
+    "name": "DOCTOR OF PHILOSOPHY IN SOCIOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000132",
+    "name": "DOCTOR OF PHILOSOPHY IN SYSTEMS ADMINISTRATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000071",
+    "name": "DOCTOR OF PHILOSOPHY IN URBAN PLANNING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000110",
+    "name": "DOCTOR OF PHILOSOPHY IN VETERINARY MEDICINE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000047",
+    "name": "DOCTOR OF PHYSICAL THERAPY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000054",
+    "name": "DOCTOR OF POLICE SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000077",
+    "name": "DOCTOR OF SOCIAL SCIENCES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000080",
+    "name": "DOCTOR OF SOCIAL WORK",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000046",
+    "name": "DOCTOR OF SOCIOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000147",
+    "name": "DOCTOR OF SPECIAL NEEDS EDUCATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000034",
+    "name": "DOCTOR OF STATISTICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000067",
+    "name": "DOCTOR OF THEOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "6000029",
+    "name": "ECONOMICS APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000327",
+    "name": "ECONOMICS DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000027",
+    "name": "ECONOMICS SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000377",
+    "name": "ECONOMICS STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000325",
+    "name": "ECONOMICS TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000282",
+    "name": "ELECTRICAL ENGINEERING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000376",
+    "name": "ELECTRICAL ENGINEERING BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000049",
+    "name": "ELECTRICAL ENGINEERING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000198",
+    "name": "ELECTRICAL ENGINEERING STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000097",
+    "name": "ELECTRICAL ENGINEERING TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "1010008",
+    "name": "ELEMENTARY GRADUATE",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010020",
+    "name": "ELEMENTARY UNDERGRADUATE",
+    "level": "Elementary"
+  },
+  {
+    "code": "6000334",
+    "name": "ENTREPRENEURSHIP APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000307",
+    "name": "ENTREPRENEURSHIP BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000221",
+    "name": "ENTREPRENEURSHIP DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000077",
+    "name": "ENTREPRENEURSHIP EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000291",
+    "name": "ENTREPRENEURSHIP SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000127",
+    "name": "ENTREPRENEURSHIP STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000294",
+    "name": "ENTREPRENEURSHIP TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000352",
+    "name": "ENVIRONMENTAL SCIENCE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000005",
+    "name": "ENVIRONMENTAL SCIENCE SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000234",
+    "name": "ENVIRONMENTAL SCIENCE STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000074",
+    "name": "ENVIRONMENTAL SCIENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000088",
+    "name": "ENVIRONMENTAL SCIENCE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000002",
+    "name": "FINANCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000067",
+    "name": "FINANCE APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000033",
+    "name": "FINANCE DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000320",
+    "name": "FINANCE EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000144",
+    "name": "FINANCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000174",
+    "name": "FINANCE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000063",
+    "name": "FINE ARTS ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000117",
+    "name": "FINE ARTS DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000080",
+    "name": "FINE ARTS SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000367",
+    "name": "FINE ARTS TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "2010001",
+    "name": "FIRST YEAR HIGH SCHOOL / GRADE VII (FOR K TO 12)",
+    "level": "High School"
+  },
+  {
+    "code": "6000218",
+    "name": "FORENSIC SCIENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000172",
+    "name": "FORENSIC SCIENCE APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000202",
+    "name": "FORENSIC SCIENCE EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000114",
+    "name": "FORENSIC SCIENCE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000346",
+    "name": "FORENSIC SCIENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "2010004",
+    "name": "FOURTH YEAR HIGH SCHOOL / GRADE X (FOR K TO 12)",
+    "level": "High School"
+  },
+  {
+    "code": "6000306",
+    "name": "GAME DEVELOPMENT BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000037",
+    "name": "GAME DEVELOPMENT DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000196",
+    "name": "GAME DEVELOPMENT STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000142",
+    "name": "GAME DEVELOPMENT TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000012",
+    "name": "GAME DEVELOPMENT TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5522208",
+    "name": "GENERAL ELECTRICAL FOREMAN",
+    "level": "Vocational"
+  },
+  {
+    "code": "5523203",
+    "name": "GENERAL METAL TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5840403",
+    "name": "GENERAL RADIO AND COMMUNICATIONS OPERATOR",
+    "level": "Vocational"
+  },
+  {
+    "code": "1010001",
+    "name": "GRADE I",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010002",
+    "name": "GRADE II",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010003",
+    "name": "GRADE III",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010004",
+    "name": "GRADE IV",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010005",
+    "name": "GRADE V",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010006",
+    "name": "GRADE VI",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010007",
+    "name": "GRADE VII",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010050",
+    "name": "GRADE VIII",
+    "level": "Elementary"
+  },
+  {
+    "code": "2010006",
+    "name": "GRADE XI (FOR K TO 12)",
+    "level": "High School"
+  },
+  {
+    "code": "2010007",
+    "name": "GRADE XII (FOR K TO 12)",
+    "level": "High School"
+  },
+  {
+    "code": "5501501",
+    "name": "GRADUATE IN MIDWIFERY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5527802",
+    "name": "GRAPHIC ARTS",
+    "level": "Vocational"
+  },
+  {
+    "code": "2010005",
+    "name": "HIGH SCHOOL GRADUATE",
+    "level": "High School"
+  },
+  {
+    "code": "2010011",
+    "name": "HIGH SCHOOL UNDERGRADUATE",
+    "level": "High School"
+  },
+  {
+    "code": "6000338",
+    "name": "HISTORY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000331",
+    "name": "HISTORY EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000314",
+    "name": "HISTORY SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000343",
+    "name": "HISTORY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000146",
+    "name": "HUMANITIES APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000007",
+    "name": "HUMANITIES EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000240",
+    "name": "HUMANITIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000145",
+    "name": "HUMANITIES SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000265",
+    "name": "HUMANITIES TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000324",
+    "name": "HUMANITIES TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5522212",
+    "name": "INDUSTRIAL ELECTRONIC TECHNICIAN COURSE",
+    "level": "Vocational"
+  },
+  {
+    "code": "6000385",
+    "name": "INDUSTRIAL ENGINEERING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000048",
+    "name": "INDUSTRIAL ENGINEERING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000143",
+    "name": "INDUSTRIAL ENGINEERING EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000332",
+    "name": "INDUSTRIAL ENGINEERING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000249",
+    "name": "INDUSTRIAL ENGINEERING STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000255",
+    "name": "INDUSTRIAL ENGINEERING TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5529901",
+    "name": "INDUSTRIAL TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5624901",
+    "name": "INDUSTRIAL TREE PLANTATION TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "6000076",
+    "name": "INFORMATION TECHNOLOGY ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000164",
+    "name": "INFORMATION TECHNOLOGY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000232",
+    "name": "INFORMATION TECHNOLOGY BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000103",
+    "name": "INFORMATION TECHNOLOGY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5464136",
+    "name": "INFORMATION TECHNOLOGY MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "6000211",
+    "name": "INFORMATION TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5542603",
+    "name": "INSTRUMENTATION AND CONTROL ENGINEERING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "1010062",
+    "name": "INTERMEDIATE LEVEL",
+    "level": "Elementary"
+  },
+  {
+    "code": "6000056",
+    "name": "JOURNALISM APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000227",
+    "name": "JOURNALISM BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000319",
+    "name": "JOURNALISM DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000011",
+    "name": "JOURNALISM EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000355",
+    "name": "JOURNALISM STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000136",
+    "name": "JOURNALISM TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000345",
+    "name": "LAW APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000258",
+    "name": "LAW EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000124",
+    "name": "LAW SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000281",
+    "name": "LAW STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000042",
+    "name": "LAW TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000079",
+    "name": "LEGAL STUDIES ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000208",
+    "name": "LEGAL STUDIES DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000354",
+    "name": "LEGAL STUDIES EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000271",
+    "name": "LEGAL STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000166",
+    "name": "LEGAL STUDIES TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000051",
+    "name": "LINGUISTICS ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000186",
+    "name": "LINGUISTICS BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000084",
+    "name": "LINGUISTICS PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000264",
+    "name": "LINGUISTICS STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000364",
+    "name": "LITERATURE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000151",
+    "name": "LITERATURE BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000358",
+    "name": "LITERATURE DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000267",
+    "name": "LITERATURE EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000065",
+    "name": "LITERATURE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000041",
+    "name": "LITERATURE STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000284",
+    "name": "MACHINE LEARNING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000137",
+    "name": "MACHINE LEARNING EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000210",
+    "name": "MACHINE LEARNING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000059",
+    "name": "MACHINE LEARNING STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000161",
+    "name": "MACHINE LEARNING TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000340",
+    "name": "MACHINE LEARNING TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000374",
+    "name": "MANAGEMENT ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000248",
+    "name": "MANAGEMENT APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000289",
+    "name": "MANAGEMENT DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000116",
+    "name": "MARKETING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000368",
+    "name": "MARKETING EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000078",
+    "name": "MARKETING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "8000084",
+    "name": "MASTER OF ARTS IN ADVERTISING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000036",
+    "name": "MASTER OF ARTS IN ARCHITECTURE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000092",
+    "name": "MASTER OF ARTS IN BIOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000089",
+    "name": "MASTER OF ARTS IN CHEMICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000104",
+    "name": "MASTER OF ARTS IN CHEMISTRY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000074",
+    "name": "MASTER OF ARTS IN CIVIL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000076",
+    "name": "MASTER OF ARTS IN COMPUTER SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000049",
+    "name": "MASTER OF ARTS IN CUSTOMS ADMINISTRATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000100",
+    "name": "MASTER OF ARTS IN CYBERSECURITY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000072",
+    "name": "MASTER OF ARTS IN DENTISTRY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000059",
+    "name": "MASTER OF ARTS IN DIETETICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000131",
+    "name": "MASTER OF ARTS IN ELECTRICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000085",
+    "name": "MASTER OF ARTS IN FINE ARTS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000050",
+    "name": "MASTER OF ARTS IN FORESTRY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000096",
+    "name": "MASTER OF ARTS IN INDUSTRIAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000055",
+    "name": "MASTER OF ARTS IN INFORMATION TECHNOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000075",
+    "name": "MASTER OF ARTS IN JOURNALISM",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000121",
+    "name": "MASTER OF ARTS IN LAW",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000016",
+    "name": "MASTER OF ARTS IN LITERATURE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000109",
+    "name": "MASTER OF ARTS IN MARINE ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000113",
+    "name": "MASTER OF ARTS IN MARINE TRANSPORTATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000097",
+    "name": "MASTER OF ARTS IN MARKETING MANAGEMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000033",
+    "name": "MASTER OF ARTS IN MATERIALS SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000095",
+    "name": "MASTER OF ARTS IN MATHEMATICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000019",
+    "name": "MASTER OF ARTS IN MECHANICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000004",
+    "name": "MASTER OF ARTS IN MECHATRONICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000086",
+    "name": "MASTER OF ARTS IN MOBILE APP DEVELOPMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000078",
+    "name": "MASTER OF ARTS IN NUTRITION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000073",
+    "name": "MASTER OF ARTS IN OCCUPATIONAL THERAPY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000030",
+    "name": "MASTER OF ARTS IN PHARMACY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000151",
+    "name": "MASTER OF ARTS IN PHYSICAL EDUCATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000138",
+    "name": "MASTER OF ARTS IN PHYSICAL THERAPY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000088",
+    "name": "MASTER OF ARTS IN POLITICAL SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000102",
+    "name": "MASTER OF ARTS IN PSYCHOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000116",
+    "name": "MASTER OF ARTS IN PUBLIC HEALTH",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000029",
+    "name": "MASTER OF ARTS IN SECONDARY EDUCATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000065",
+    "name": "MASTER OF ARTS IN SOCIAL SCIENCES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000083",
+    "name": "MASTER OF ARTS IN SPEECH THERAPY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000130",
+    "name": "MASTER OF ARTS IN STATISTICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000007",
+    "name": "MASTER OF ARTS IN TOURISM MANAGEMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000037",
+    "name": "MASTER OF ARTS IN URBAN PLANNING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000000",
+    "name": "MASTER OF ARTS IN VETERINARY MEDICINE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000051",
+    "name": "MASTER OF ARTS IN WEB DEVELOPMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000001",
+    "name": "MASTER OF SCIENCE IN ADVERTISING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000018",
+    "name": "MASTER OF SCIENCE IN AGRICULTURE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000040",
+    "name": "MASTER OF SCIENCE IN ARTIFICIAL INTELLIGENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000013",
+    "name": "MASTER OF SCIENCE IN BIOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000014",
+    "name": "MASTER OF SCIENCE IN BIOMEDICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000068",
+    "name": "MASTER OF SCIENCE IN CHEMISTRY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000120",
+    "name": "MASTER OF SCIENCE IN COMMUNICATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000107",
+    "name": "MASTER OF SCIENCE IN CRIMINOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000009",
+    "name": "MASTER OF SCIENCE IN CUSTOMS ADMINISTRATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000003",
+    "name": "MASTER OF SCIENCE IN DATA SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000066",
+    "name": "MASTER OF SCIENCE IN DENTISTRY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000035",
+    "name": "MASTER OF SCIENCE IN DIETETICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000053",
+    "name": "MASTER OF SCIENCE IN ECONOMICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000093",
+    "name": "MASTER OF SCIENCE IN ELEMENTARY EDUCATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000027",
+    "name": "MASTER OF SCIENCE IN FINE ARTS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000063",
+    "name": "MASTER OF SCIENCE IN HISTORY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000011",
+    "name": "MASTER OF SCIENCE IN HUMANITIES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000032",
+    "name": "MASTER OF SCIENCE IN LITERATURE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000028",
+    "name": "MASTER OF SCIENCE IN MACHINE LEARNING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000022",
+    "name": "MASTER OF SCIENCE IN MARINE ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000136",
+    "name": "MASTER OF SCIENCE IN MARKETING MANAGEMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000150",
+    "name": "MASTER OF SCIENCE IN MATERIALS SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000052",
+    "name": "MASTER OF SCIENCE IN MECHANICAL ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000057",
+    "name": "MASTER OF SCIENCE IN MEDICINE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000139",
+    "name": "MASTER OF SCIENCE IN MILITARY SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000039",
+    "name": "MASTER OF SCIENCE IN MOBILE APP DEVELOPMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000144",
+    "name": "MASTER OF SCIENCE IN NUTRITION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000045",
+    "name": "MASTER OF SCIENCE IN OCCUPATIONAL THERAPY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000140",
+    "name": "MASTER OF SCIENCE IN PHARMACY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000015",
+    "name": "MASTER OF SCIENCE IN PHILOSOPHY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000141",
+    "name": "MASTER OF SCIENCE IN PHYSICAL EDUCATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000023",
+    "name": "MASTER OF SCIENCE IN PHYSICAL THERAPY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000098",
+    "name": "MASTER OF SCIENCE IN PHYSICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000026",
+    "name": "MASTER OF SCIENCE IN POLICE SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000012",
+    "name": "MASTER OF SCIENCE IN POLITICAL SCIENCE",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000142",
+    "name": "MASTER OF SCIENCE IN REAL ESTATE MANAGEMENT",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000125",
+    "name": "MASTER OF SCIENCE IN ROBOTICS",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000123",
+    "name": "MASTER OF SCIENCE IN SECONDARY EDUCATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000070",
+    "name": "MASTER OF SCIENCE IN SOCIAL SCIENCES",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000115",
+    "name": "MASTER OF SCIENCE IN SOCIAL WORK",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000122",
+    "name": "MASTER OF SCIENCE IN SOFTWARE ENGINEERING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000024",
+    "name": "MASTER OF SCIENCE IN SPECIAL NEEDS EDUCATION",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000118",
+    "name": "MASTER OF SCIENCE IN THEOLOGY",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "8000002",
+    "name": "MASTER OF SCIENCE IN URBAN PLANNING",
+    "level": "Post-Graduate"
+  },
+  {
+    "code": "6000326",
+    "name": "MATERIALS SCIENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000217",
+    "name": "MATERIALS SCIENCE BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000156",
+    "name": "MATERIALS SCIENCE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000008",
+    "name": "MATERIALS SCIENCE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000243",
+    "name": "MATHEMATICS ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000034",
+    "name": "MATHEMATICS APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000312",
+    "name": "MATHEMATICS BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000313",
+    "name": "MATHEMATICS EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000268",
+    "name": "MATHEMATICS PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000141",
+    "name": "MATHEMATICS SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000286",
+    "name": "MATHEMATICS TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000092",
+    "name": "MECHANICAL ENGINEERING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000351",
+    "name": "MECHANICAL ENGINEERING EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000383",
+    "name": "MECHANICAL ENGINEERING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000091",
+    "name": "MECHANICAL ENGINEERING TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000013",
+    "name": "MECHATRONICS ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000349",
+    "name": "MECHATRONICS DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000328",
+    "name": "MECHATRONICS PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000382",
+    "name": "MECHATRONICS SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000375",
+    "name": "MECHATRONICS TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000175",
+    "name": "MEDICINE APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000253",
+    "name": "MEDICINE EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000130",
+    "name": "MEDICINE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000135",
+    "name": "MEDICINE SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000028",
+    "name": "MEDICINE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000245",
+    "name": "MEDICINE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000131",
+    "name": "MILITARY SCIENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000370",
+    "name": "MILITARY SCIENCE BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000036",
+    "name": "MILITARY SCIENCE DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000176",
+    "name": "MILITARY SCIENCE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000283",
+    "name": "MILITARY SCIENCE SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000322",
+    "name": "MILITARY SCIENCE STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000017",
+    "name": "MILITARY SCIENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000152",
+    "name": "MOBILE APP DEVELOPMENT ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000038",
+    "name": "MOBILE APP DEVELOPMENT DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000134",
+    "name": "MOBILE APP DEVELOPMENT EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000030",
+    "name": "MOBILE APP DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000204",
+    "name": "MOBILE APP DEVELOPMENT SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000046",
+    "name": "MOBILE APP DEVELOPMENT TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000047",
+    "name": "NAVAL SCIENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000107",
+    "name": "NAVAL SCIENCE BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000149",
+    "name": "NAVAL SCIENCE DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000010",
+    "name": "NAVAL SCIENCE STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000040",
+    "name": "NAVAL SCIENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000388",
+    "name": "NETWORK ADMINISTRATION ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000236",
+    "name": "NETWORK ADMINISTRATION BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000333",
+    "name": "NETWORK ADMINISTRATION STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000095",
+    "name": "NETWORK ADMINISTRATION TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000261",
+    "name": "NURSING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000061",
+    "name": "NURSING BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000269",
+    "name": "NURSING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000220",
+    "name": "NUTRITION DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000108",
+    "name": "NUTRITION EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000298",
+    "name": "NUTRITION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000310",
+    "name": "NUTRITION SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000216",
+    "name": "NUTRITION TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000139",
+    "name": "OCCUPATIONAL THERAPY EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000194",
+    "name": "OCCUPATIONAL THERAPY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000315",
+    "name": "OCCUPATIONAL THERAPY SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000251",
+    "name": "OCCUPATIONAL THERAPY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000169",
+    "name": "OCCUPATIONAL THERAPY TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000321",
+    "name": "OCCUPATIONAL THERAPY TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000323",
+    "name": "PHARMACY ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000288",
+    "name": "PHARMACY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000273",
+    "name": "PHARMACY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000225",
+    "name": "PHARMACY EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000023",
+    "name": "PHARMACY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000247",
+    "name": "PHARMACY SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000123",
+    "name": "PHARMACY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000356",
+    "name": "PHARMACY TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000101",
+    "name": "PHILOSOPHY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000275",
+    "name": "PHILOSOPHY EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000200",
+    "name": "PHILOSOPHY SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000188",
+    "name": "PHILOSOPHY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000280",
+    "name": "PHYSICAL THERAPY ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000053",
+    "name": "PHYSICAL THERAPY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000215",
+    "name": "PHYSICAL THERAPY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000379",
+    "name": "PHYSICAL THERAPY EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000110",
+    "name": "PHYSICAL THERAPY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000003",
+    "name": "PHYSICAL THERAPY TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000348",
+    "name": "PHYSICS DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000384",
+    "name": "PHYSICS TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000118",
+    "name": "POLICE SCIENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000256",
+    "name": "POLICE SCIENCE BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000119",
+    "name": "POLICE SCIENCE PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000081",
+    "name": "POLICE SCIENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000180",
+    "name": "POLICE SCIENCE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000347",
+    "name": "POLITICAL SCIENCE ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000344",
+    "name": "POLITICAL SCIENCE BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000016",
+    "name": "POLITICAL SCIENCE DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000126",
+    "name": "POLITICAL SCIENCE SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000252",
+    "name": "POLITICAL SCIENCE TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000246",
+    "name": "POLITICAL SCIENCE TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "1010061",
+    "name": "PRIMARY GRADUATE",
+    "level": "Elementary"
+  },
+  {
+    "code": "1010060",
+    "name": "PRIMARY LEVEL",
+    "level": "Elementary"
+  },
+  {
+    "code": "6000150",
+    "name": "PSYCHOLOGY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000072",
+    "name": "PSYCHOLOGY EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000250",
+    "name": "PSYCHOLOGY SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000052",
+    "name": "PSYCHOLOGY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000020",
+    "name": "PSYCHOLOGY TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000093",
+    "name": "PSYCHOLOGY TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000293",
+    "name": "PUBLIC HEALTH ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000089",
+    "name": "PUBLIC HEALTH APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000021",
+    "name": "PUBLIC HEALTH BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000278",
+    "name": "PUBLIC HEALTH DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000290",
+    "name": "PUBLIC HEALTH STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000115",
+    "name": "PUBLIC HEALTH TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000197",
+    "name": "PUBLIC RELATIONS ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000138",
+    "name": "PUBLIC RELATIONS APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000165",
+    "name": "PUBLIC RELATIONS BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000363",
+    "name": "PUBLIC RELATIONS DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000098",
+    "name": "PUBLIC RELATIONS SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000241",
+    "name": "PUBLIC RELATIONS STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000371",
+    "name": "ROBOTICS APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000302",
+    "name": "ROBOTICS DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000335",
+    "name": "ROBOTICS SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000129",
+    "name": "ROBOTICS TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000032",
+    "name": "ROBOTICS TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "2010002",
+    "name": "SECOND YEAR HIGH SCHOOL / GRADE VIII (FOR K TO 12)",
+    "level": "High School"
+  },
+  {
+    "code": "5000419",
+    "name": "SHORT COURSE IN AUTOMOTIVE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000420",
+    "name": "SHORT COURSE IN BAKING AND PASTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000421",
+    "name": "SHORT COURSE IN BAKING AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000422",
+    "name": "SHORT COURSE IN BARISTA",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000423",
+    "name": "SHORT COURSE IN BARTENDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000424",
+    "name": "SHORT COURSE IN BARTENDING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000425",
+    "name": "SHORT COURSE IN BEAUTY CARE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000426",
+    "name": "SHORT COURSE IN BOOKKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000427",
+    "name": "SHORT COURSE IN BOOKKEEPING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000428",
+    "name": "SHORT COURSE IN BREAD AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000429",
+    "name": "SHORT COURSE IN BREAD AND PASTRY PRODUCTION TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000430",
+    "name": "SHORT COURSE IN CAREGIVING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000431",
+    "name": "SHORT COURSE IN CAREGIVING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000432",
+    "name": "SHORT COURSE IN CARPENTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000433",
+    "name": "SHORT COURSE IN COMMERCIAL COOKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000434",
+    "name": "SHORT COURSE IN COMPUTER SYSTEMS SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000435",
+    "name": "SHORT COURSE IN CONTACT CENTER SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000436",
+    "name": "SHORT COURSE IN COOKERY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000437",
+    "name": "SHORT COURSE IN COOKERY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000438",
+    "name": "SHORT COURSE IN DRESSMAKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000439",
+    "name": "SHORT COURSE IN DRESSMAKING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "6000155",
+    "name": "SOCIAL SCIENCES BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000024",
+    "name": "SOCIAL SCIENCES DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000100",
+    "name": "SOCIAL SCIENCES EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000183",
+    "name": "SOCIAL SCIENCES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000025",
+    "name": "SOCIAL SCIENCES SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000262",
+    "name": "SOCIAL SCIENCES TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000191",
+    "name": "SOCIAL SCIENCES TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000168",
+    "name": "SOCIAL WORK ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000238",
+    "name": "SOCIAL WORK BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000185",
+    "name": "SOCIAL WORK DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000276",
+    "name": "SOCIAL WORK PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000128",
+    "name": "SOCIAL WORK TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000373",
+    "name": "SOCIAL WORK TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000019",
+    "name": "SOCIOLOGY ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000272",
+    "name": "SOCIOLOGY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000006",
+    "name": "SOCIOLOGY BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000386",
+    "name": "SOCIOLOGY STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000300",
+    "name": "SOCIOLOGY TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000058",
+    "name": "SOFTWARE ENGINEERING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000154",
+    "name": "SOFTWARE ENGINEERING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000184",
+    "name": "SOFTWARE ENGINEERING DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000213",
+    "name": "SOFTWARE ENGINEERING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000085",
+    "name": "SOFTWARE ENGINEERING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000329",
+    "name": "SOFTWARE ENGINEERING STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000187",
+    "name": "SPEECH THERAPY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000104",
+    "name": "SPEECH THERAPY BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000189",
+    "name": "SPEECH THERAPY DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000026",
+    "name": "SPEECH THERAPY SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000031",
+    "name": "STATISTICS ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000069",
+    "name": "STATISTICS EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000109",
+    "name": "STATISTICS SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000339",
+    "name": "STATISTICS STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000357",
+    "name": "STATISTICS TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000316",
+    "name": "SYSTEMS ADMINISTRATION APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000192",
+    "name": "SYSTEMS ADMINISTRATION BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000163",
+    "name": "SYSTEMS ADMINISTRATION DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000206",
+    "name": "SYSTEMS ADMINISTRATION EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000235",
+    "name": "SYSTEMS ADMINISTRATION SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000330",
+    "name": "SYSTEMS ADMINISTRATION STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "61404",
+    "name": "TEACHER TRAINING PROGRAMS WITH SPECIALIZATION IN A NON-VOCATIONAL",
+    "level": "Programs"
+  },
+  {
+    "code": "5000266",
+    "name": "TECHNICIAN COURSE IN 3D ANIMATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000258",
+    "name": "TECHNICIAN COURSE IN AGRICULTURAL CROPS PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000259",
+    "name": "TECHNICIAN COURSE IN AGRICULTURAL CROPS PRODUCTION SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000260",
+    "name": "TECHNICIAN COURSE IN ANIMAL PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000261",
+    "name": "TECHNICIAN COURSE IN AQUACULTURE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000262",
+    "name": "TECHNICIAN COURSE IN ARTIFICIAL INSEMINATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000263",
+    "name": "TECHNICIAN COURSE IN ARTIFICIAL INSEMINATION OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000204",
+    "name": "TECHNICIAN COURSE IN AUTOMOTIVE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000205",
+    "name": "TECHNICIAN COURSE IN BAKING AND PASTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000206",
+    "name": "TECHNICIAN COURSE IN BARISTA",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000207",
+    "name": "TECHNICIAN COURSE IN BARTENDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000208",
+    "name": "TECHNICIAN COURSE IN BEAUTY CARE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000209",
+    "name": "TECHNICIAN COURSE IN BEAUTY CARE TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000210",
+    "name": "TECHNICIAN COURSE IN BOOKKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000211",
+    "name": "TECHNICIAN COURSE IN BOOKKEEPING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000212",
+    "name": "TECHNICIAN COURSE IN BREAD AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000213",
+    "name": "TECHNICIAN COURSE IN CAREGIVING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000214",
+    "name": "TECHNICIAN COURSE IN CARPENTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000215",
+    "name": "TECHNICIAN COURSE IN CARPENTRY TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000216",
+    "name": "TECHNICIAN COURSE IN COMMERCIAL COOKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000217",
+    "name": "TECHNICIAN COURSE IN COMPUTER SYSTEMS SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000218",
+    "name": "TECHNICIAN COURSE IN COMPUTER SYSTEMS SERVICING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000219",
+    "name": "TECHNICIAN COURSE IN CONTACT CENTER SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000220",
+    "name": "TECHNICIAN COURSE IN COOKERY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000221",
+    "name": "TECHNICIAN COURSE IN COOKERY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000269",
+    "name": "TECHNICIAN COURSE IN DATA ENCODING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000222",
+    "name": "TECHNICIAN COURSE IN DRESSMAKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000223",
+    "name": "TECHNICIAN COURSE IN ELECTRICAL INSTALLATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000224",
+    "name": "TECHNICIAN COURSE IN ELECTRONIC PRODUCTS ASSEMBLY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000225",
+    "name": "TECHNICIAN COURSE IN ELECTRONIC PRODUCTS ASSEMBLY OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000226",
+    "name": "TECHNICIAN COURSE IN EVENT MANAGEMENT SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000227",
+    "name": "TECHNICIAN COURSE IN EVENT MANAGEMENT SERVICES SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000228",
+    "name": "TECHNICIAN COURSE IN FOOD AND BEVERAGE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000229",
+    "name": "TECHNICIAN COURSE IN FOOD AND BEVERAGE SERVICES PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000230",
+    "name": "TECHNICIAN COURSE IN FRONT OFFICE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000231",
+    "name": "TECHNICIAN COURSE IN HAIRDRESSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000232",
+    "name": "TECHNICIAN COURSE IN HEALTH CARE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000233",
+    "name": "TECHNICIAN COURSE IN HEALTH CARE SERVICES SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000234",
+    "name": "TECHNICIAN COURSE IN HEAVY EQUIPMENT OPERATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000235",
+    "name": "TECHNICIAN COURSE IN HOUSEKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000236",
+    "name": "TECHNICIAN COURSE IN HOUSEKEEPING PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000237",
+    "name": "TECHNICIAN COURSE IN MACHINING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000238",
+    "name": "TECHNICIAN COURSE IN MACHINING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000239",
+    "name": "TECHNICIAN COURSE IN MASONRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000240",
+    "name": "TECHNICIAN COURSE IN MASONRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000241",
+    "name": "TECHNICIAN COURSE IN MASSAGE THERAPY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000264",
+    "name": "TECHNICIAN COURSE IN MECHATRONICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000270",
+    "name": "TECHNICIAN COURSE IN MEDICAL TRANSCRIPTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000271",
+    "name": "TECHNICIAN COURSE IN MEDICAL TRANSCRIPTION PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000242",
+    "name": "TECHNICIAN COURSE IN MOTORCYCLE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000243",
+    "name": "TECHNICIAN COURSE IN MOTORCYCLE SERVICING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000244",
+    "name": "TECHNICIAN COURSE IN PHARMACY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000245",
+    "name": "TECHNICIAN COURSE IN PHARMACY SERVICES SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000246",
+    "name": "TECHNICIAN COURSE IN PLUMBING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000247",
+    "name": "TECHNICIAN COURSE IN PLUMBING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000248",
+    "name": "TECHNICIAN COURSE IN PRACTICAL NURSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000249",
+    "name": "TECHNICIAN COURSE IN PRACTICAL NURSING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000265",
+    "name": "TECHNICIAN COURSE IN ROBOTICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000250",
+    "name": "TECHNICIAN COURSE IN SHIELDED METAL ARC WELDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000251",
+    "name": "TECHNICIAN COURSE IN SHIELDED METAL ARC WELDING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000268",
+    "name": "TECHNICIAN COURSE IN SOFTWARE ENGINEERING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000252",
+    "name": "TECHNICIAN COURSE IN TAILORING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000253",
+    "name": "TECHNICIAN COURSE IN TAILORING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000254",
+    "name": "TECHNICIAN COURSE IN TOUR GUIDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000255",
+    "name": "TECHNICIAN COURSE IN TOUR GUIDING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000256",
+    "name": "TECHNICIAN COURSE IN VISUAL GRAPHICS DESIGN",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000257",
+    "name": "TECHNICIAN COURSE IN VISUAL GRAPHICS DESIGN TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000267",
+    "name": "TECHNICIAN COURSE IN WEB DEVELOPMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "55274",
+    "name": "TEXTILE TRADES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000062",
+    "name": "THEOLOGY ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000201",
+    "name": "THEOLOGY APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000004",
+    "name": "THEOLOGY BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000039",
+    "name": "THEOLOGY EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000001",
+    "name": "THEOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000090",
+    "name": "THEOLOGY SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000372",
+    "name": "THEOLOGY TECHNOLOGY PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000360",
+    "name": "THEOLOGY TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "2010003",
+    "name": "THIRD YEAR HIGH SCHOOL / GRADE IX (FOR K TO 12)",
+    "level": "High School"
+  },
+  {
+    "code": "57872",
+    "name": "TOURIST TRADES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "652",
+    "name": "TRADE, CRAFT AND INDUSTRIAL PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "552",
+    "name": "TRADE, CRAFT AND INDUSTRIAL PROGRAMS, N.E.C.",
+    "level": "Programs"
+  },
+  {
+    "code": "570",
+    "name": "TRANSPORT AND COMMUNICATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000070",
+    "name": "URBAN PLANNING ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000336",
+    "name": "URBAN PLANNING APPLIED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000018",
+    "name": "URBAN PLANNING BASIC PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000237",
+    "name": "URBAN PLANNING DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000230",
+    "name": "URBAN PLANNING EDUCATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000055",
+    "name": "URBAN PLANNING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000277",
+    "name": "URBAN PLANNING SPECIALIZATION PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000171",
+    "name": "URBAN PLANNING TRAINING PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "56232",
+    "name": "VETERINARIAN TECHNICIAN PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "5000339",
+    "name": "VOCATIONAL PROGRAM FOR 3D ANIMATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000328",
+    "name": "VOCATIONAL PROGRAM FOR AGRICULTURAL CROPS PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000329",
+    "name": "VOCATIONAL PROGRAM FOR ANIMAL PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000330",
+    "name": "VOCATIONAL PROGRAM FOR ANIMAL PRODUCTION TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000331",
+    "name": "VOCATIONAL PROGRAM FOR AQUACULTURE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000332",
+    "name": "VOCATIONAL PROGRAM FOR AQUACULTURE OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000333",
+    "name": "VOCATIONAL PROGRAM FOR ARTIFICIAL INSEMINATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000334",
+    "name": "VOCATIONAL PROGRAM FOR ARTIFICIAL INSEMINATION PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000272",
+    "name": "VOCATIONAL PROGRAM FOR AUTOMOTIVE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000273",
+    "name": "VOCATIONAL PROGRAM FOR AUTOMOTIVE SERVICING PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000274",
+    "name": "VOCATIONAL PROGRAM FOR BAKING AND PASTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000275",
+    "name": "VOCATIONAL PROGRAM FOR BAKING AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000276",
+    "name": "VOCATIONAL PROGRAM FOR BARISTA",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000277",
+    "name": "VOCATIONAL PROGRAM FOR BARTENDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000278",
+    "name": "VOCATIONAL PROGRAM FOR BEAUTY CARE",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000279",
+    "name": "VOCATIONAL PROGRAM FOR BOOKKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000280",
+    "name": "VOCATIONAL PROGRAM FOR BREAD AND PASTRY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000281",
+    "name": "VOCATIONAL PROGRAM FOR BREAD AND PASTRY PRODUCTION SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000282",
+    "name": "VOCATIONAL PROGRAM FOR CAREGIVING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000283",
+    "name": "VOCATIONAL PROGRAM FOR CAREGIVING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000284",
+    "name": "VOCATIONAL PROGRAM FOR CARPENTRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000285",
+    "name": "VOCATIONAL PROGRAM FOR CARPENTRY MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000286",
+    "name": "VOCATIONAL PROGRAM FOR COMMERCIAL COOKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000287",
+    "name": "VOCATIONAL PROGRAM FOR COMMERCIAL COOKING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000288",
+    "name": "VOCATIONAL PROGRAM FOR COMPUTER SYSTEMS SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000289",
+    "name": "VOCATIONAL PROGRAM FOR COMPUTER SYSTEMS SERVICING TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000290",
+    "name": "VOCATIONAL PROGRAM FOR CONTACT CENTER SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000291",
+    "name": "VOCATIONAL PROGRAM FOR CONTACT CENTER SERVICES TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000292",
+    "name": "VOCATIONAL PROGRAM FOR COOKERY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000293",
+    "name": "VOCATIONAL PROGRAM FOR COOKERY TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000344",
+    "name": "VOCATIONAL PROGRAM FOR DATA ENCODING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000345",
+    "name": "VOCATIONAL PROGRAM FOR DATA ENCODING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000294",
+    "name": "VOCATIONAL PROGRAM FOR DRESSMAKING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000295",
+    "name": "VOCATIONAL PROGRAM FOR DRESSMAKING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000296",
+    "name": "VOCATIONAL PROGRAM FOR ELECTRICAL INSTALLATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000297",
+    "name": "VOCATIONAL PROGRAM FOR ELECTRICAL INSTALLATION MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000298",
+    "name": "VOCATIONAL PROGRAM FOR ELECTRONIC PRODUCTS ASSEMBLY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000299",
+    "name": "VOCATIONAL PROGRAM FOR ELECTRONIC PRODUCTS ASSEMBLY PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000300",
+    "name": "VOCATIONAL PROGRAM FOR EVENT MANAGEMENT SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000301",
+    "name": "VOCATIONAL PROGRAM FOR EVENT MANAGEMENT SERVICES PRODUCTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000302",
+    "name": "VOCATIONAL PROGRAM FOR FOOD AND BEVERAGE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000303",
+    "name": "VOCATIONAL PROGRAM FOR FRONT OFFICE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000304",
+    "name": "VOCATIONAL PROGRAM FOR FRONT OFFICE SERVICES SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000305",
+    "name": "VOCATIONAL PROGRAM FOR HAIRDRESSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000306",
+    "name": "VOCATIONAL PROGRAM FOR HAIRDRESSING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000307",
+    "name": "VOCATIONAL PROGRAM FOR HEALTH CARE SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000308",
+    "name": "VOCATIONAL PROGRAM FOR HEAVY EQUIPMENT OPERATION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000309",
+    "name": "VOCATIONAL PROGRAM FOR HOUSEKEEPING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000310",
+    "name": "VOCATIONAL PROGRAM FOR MACHINING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000311",
+    "name": "VOCATIONAL PROGRAM FOR MASONRY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000312",
+    "name": "VOCATIONAL PROGRAM FOR MASSAGE THERAPY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000313",
+    "name": "VOCATIONAL PROGRAM FOR MASSAGE THERAPY SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000335",
+    "name": "VOCATIONAL PROGRAM FOR MECHATRONICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000336",
+    "name": "VOCATIONAL PROGRAM FOR MECHATRONICS TECHNOLOGY",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000346",
+    "name": "VOCATIONAL PROGRAM FOR MEDICAL TRANSCRIPTION",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000347",
+    "name": "VOCATIONAL PROGRAM FOR MEDICAL TRANSCRIPTION SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000314",
+    "name": "VOCATIONAL PROGRAM FOR MOTORCYCLE SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000315",
+    "name": "VOCATIONAL PROGRAM FOR MOTORCYCLE SERVICING SYSTEMS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000316",
+    "name": "VOCATIONAL PROGRAM FOR PHARMACY SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000317",
+    "name": "VOCATIONAL PROGRAM FOR PLUMBING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000318",
+    "name": "VOCATIONAL PROGRAM FOR PLUMBING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000319",
+    "name": "VOCATIONAL PROGRAM FOR PRACTICAL NURSING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000320",
+    "name": "VOCATIONAL PROGRAM FOR PRACTICAL NURSING MANAGEMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000337",
+    "name": "VOCATIONAL PROGRAM FOR ROBOTICS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000338",
+    "name": "VOCATIONAL PROGRAM FOR ROBOTICS OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000321",
+    "name": "VOCATIONAL PROGRAM FOR SHIELDED METAL ARC WELDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000322",
+    "name": "VOCATIONAL PROGRAM FOR SHIELDED METAL ARC WELDING SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000342",
+    "name": "VOCATIONAL PROGRAM FOR SOFTWARE ENGINEERING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000343",
+    "name": "VOCATIONAL PROGRAM FOR SOFTWARE ENGINEERING SERVICING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000323",
+    "name": "VOCATIONAL PROGRAM FOR TAILORING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000324",
+    "name": "VOCATIONAL PROGRAM FOR TOUR GUIDING",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000325",
+    "name": "VOCATIONAL PROGRAM FOR TOUR GUIDING OPERATIONS",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000326",
+    "name": "VOCATIONAL PROGRAM FOR VISUAL GRAPHICS DESIGN",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000327",
+    "name": "VOCATIONAL PROGRAM FOR VISUAL GRAPHICS DESIGN SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000340",
+    "name": "VOCATIONAL PROGRAM FOR WEB DEVELOPMENT",
+    "level": "Vocational"
+  },
+  {
+    "code": "5000341",
+    "name": "VOCATIONAL PROGRAM FOR WEB DEVELOPMENT SERVICES",
+    "level": "Vocational"
+  },
+  {
+    "code": "71408",
+    "name": "VOCATIONAL SUBJECTS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000132",
+    "name": "WEB DEVELOPMENT ADVANCED PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000365",
+    "name": "WEB DEVELOPMENT DEVELOPMENT PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "6000190",
+    "name": "WEB DEVELOPMENT STUDIES PROGRAMS",
+    "level": "Programs"
+  },
+  {
+    "code": "55262",
+    "name": "WOODWORKING TRADES PROGRAMS",
+    "level": "Programs"
+  }
+]
