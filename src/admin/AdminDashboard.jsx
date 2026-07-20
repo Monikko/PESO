@@ -21,7 +21,8 @@ const AdminDashboard = ({ user, onLogout }) => {
     searchName: '',
     barangay: 'all',
     gender: 'all',
-    ageRange: 'all'
+    ageRange: 'all',
+    status: 'all'
   });
   
   // Filters for Other Places tab
@@ -30,7 +31,8 @@ const AdminDashboard = ({ user, onLogout }) => {
     searchName: '',
     municipality: 'all',
     gender: 'all',
-    ageRange: 'all'
+    ageRange: 'all',
+    status: 'all'
   });
   
   // New: Employment and Gender Statistics
@@ -69,23 +71,30 @@ const AdminDashboard = ({ user, onLogout }) => {
     }
 
     try {
-      const { error } = await supabase
+      console.log('Approving applicant:', applicantId);
+      
+      const { data, error } = await supabase
         .from('applicants')
         .update({ 
           approved_by_admin: true,
           approval_date: new Date().toISOString()
         })
-        .eq('id', applicantId);
+        .eq('id', applicantId)
+        .select();
 
       if (error) {
+        console.error('Approval error:', error);
         alert(`Error approving applicant: ${error.message}`);
         return;
       }
 
+      console.log('Approval successful:', data);
       alert(`${applicantName} has been approved and marked as HIRED!`);
+      
       // Refresh data
-      fetchData();
+      await fetchData();
     } catch (error) {
+      console.error('Unexpected error:', error);
       alert(`Error: ${error.message}`);
     }
   };
@@ -97,22 +106,30 @@ const AdminDashboard = ({ user, onLogout }) => {
     }
 
     try {
-      const { error } = await supabase
+      console.log('Unapproving applicant:', applicantId);
+      
+      const { data, error } = await supabase
         .from('applicants')
         .update({ 
           approved_by_admin: false,
           approval_date: null
         })
-        .eq('id', applicantId);
+        .eq('id', applicantId)
+        .select();
 
       if (error) {
+        console.error('Unapproval error:', error);
         alert(`Error removing approval: ${error.message}`);
         return;
       }
 
+      console.log('Unapproval successful:', data);
       alert(`Approval removed for ${applicantName}`);
-      fetchData();
+      
+      // Refresh data
+      await fetchData();
     } catch (error) {
+      console.error('Unexpected error:', error);
       alert(`Error: ${error.message}`);
     }
   };
@@ -316,6 +333,7 @@ const AdminDashboard = ({ user, onLogout }) => {
       console.log('Other applicants list:', otherApplicantsList);
       console.log('Palayan applicants count:', palayanApplicantsList.length);
       console.log('Other applicants count:', otherApplicantsList.length);
+      console.log('Sample applicant approved status:', palayanApplicantsList[0]?.approved_by_admin);
 
       // Group Palayan by barangay
       const palayanGrouped = palayanApplicantsList.reduce((acc, app) => {
@@ -409,6 +427,15 @@ const AdminDashboard = ({ user, onLogout }) => {
     // Filter by gender
     if (filters.gender && filters.gender !== 'all') {
       filtered = filtered.filter(app => app.sex?.toUpperCase() === filters.gender.toUpperCase());
+    }
+
+    // Filter by status
+    if (filters.status && filters.status !== 'all') {
+      if (filters.status === 'approved') {
+        filtered = filtered.filter(app => app.approved_by_admin === true);
+      } else if (filters.status === 'pending') {
+        filtered = filtered.filter(app => app.approved_by_admin !== true);
+      }
     }
 
     // Filter by age range
@@ -655,6 +682,19 @@ const AdminDashboard = ({ user, onLogout }) => {
                           <option value="51-above">51+</option>
                         </select>
                       </div>
+
+                      <div className="filter-group">
+                        <label>Status:</label>
+                        <select 
+                          value={palayanFilters.status}
+                          onChange={(e) => setPalayanFilters({...palayanFilters, status: e.target.value})}
+                          className="filter-select"
+                        >
+                          <option value="all">All Status</option>
+                          <option value="approved">Approved</option>
+                          <option value="pending">Pending</option>
+                        </select>
+                      </div>
                     </div>
 
                     {/* Applicants Table */}
@@ -898,6 +938,19 @@ const AdminDashboard = ({ user, onLogout }) => {
                           <option value="26-35">26-35</option>
                           <option value="36-50">36-50</option>
                           <option value="51-above">51+</option>
+                        </select>
+                      </div>
+
+                      <div className="filter-group">
+                        <label>Status:</label>
+                        <select 
+                          value={otherFilters.status}
+                          onChange={(e) => setOtherFilters({...otherFilters, status: e.target.value})}
+                          className="filter-select"
+                        >
+                          <option value="all">All Status</option>
+                          <option value="approved">Approved</option>
+                          <option value="pending">Pending</option>
                         </select>
                       </div>
                     </div>
