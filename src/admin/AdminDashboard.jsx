@@ -62,6 +62,61 @@ const AdminDashboard = ({ user, onLogout }) => {
     fetchData();
   }, []);
 
+  // Function to approve an applicant (mark as hired)
+  const handleApprove = async (applicantId, applicantName) => {
+    if (!confirm(`Approve and mark ${applicantName} as HIRED?`)) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('applicants')
+        .update({ 
+          approved_by_admin: true,
+          approval_date: new Date().toISOString()
+        })
+        .eq('id', applicantId);
+
+      if (error) {
+        alert(`Error approving applicant: ${error.message}`);
+        return;
+      }
+
+      alert(`${applicantName} has been approved and marked as HIRED!`);
+      // Refresh data
+      fetchData();
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+  };
+
+  // Function to unapprove an applicant
+  const handleUnapprove = async (applicantId, applicantName) => {
+    if (!confirm(`Remove approval for ${applicantName}?`)) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('applicants')
+        .update({ 
+          approved_by_admin: false,
+          approval_date: null
+        })
+        .eq('id', applicantId);
+
+      if (error) {
+        alert(`Error removing approval: ${error.message}`);
+        return;
+      }
+
+      alert(`Approval removed for ${applicantName}`);
+      fetchData();
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+  };
+
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -69,7 +124,7 @@ const AdminDashboard = ({ user, onLogout }) => {
       // Note: date_of_birth column might not exist yet if no one has registered with date of birth
       const { data, error } = await supabase
         .from('applicants')
-        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, created_at, resume_url');
+        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, created_at, resume_url, approved_by_admin');
 
       if (error) {
         console.error('Supabase error:', error);
@@ -80,7 +135,7 @@ const AdminDashboard = ({ user, onLogout }) => {
           
           const { data: dataWithoutDob, error: error2 } = await supabase
             .from('applicants')
-            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, created_at, resume_url');
+            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, created_at, resume_url, approved_by_admin');
           
           if (error2) {
             console.error('Second fetch error:', error2);
@@ -189,18 +244,13 @@ const AdminDashboard = ({ user, onLogout }) => {
       };
 
       data.forEach(app => {
-        // Employment status detection - Step11 saves:
-        // employment_status = "employed" or "unemployed"
-        // employment_type = the specific reason (wage, self, new_entrant, etc.)
-        const status = app.employment_status?.toLowerCase() || '';
+        // New logic: Everyone is "seeking employment" unless approved by admin
+        // "employed" status from Step3 doesn't mean they're hired - just their current status
         
-        if (status === 'employed') {
-          employedCount++;
-        } else if (status === 'unemployed') {
-          unemployedCount++;
+        if (app.approved_by_admin === true) {
+          employedCount++;  // Only count as employed if admin approved (hired)
         } else {
-          // If status is unclear, count as unemployed (seeking employment)
-          unemployedCount++;
+          unemployedCount++;  // Everyone else is seeking employment
         }
 
         // Gender
@@ -617,8 +667,10 @@ const AdminDashboard = ({ user, onLogout }) => {
                             <th>Barangay</th>
                             <th>Gender</th>
                             <th>Age</th>
+                            <th>Status</th>
                             <th>Registration Date</th>
                             <th>Resume</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -632,12 +684,13 @@ const AdminDashboard = ({ user, onLogout }) => {
                                 })
                               : 'N/A';
                             
+                            const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''}`.trim();
+                            const isApproved = applicant.approved_by_admin === true;
+                            
                             return (
                               <tr key={applicant.id}>
                                 <td>{index + 1}</td>
-                                <td className="name-cell">
-                                  {`${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''}`.trim()}
-                                </td>
+                                <td className="name-cell">{fullName}</td>
                                 <td>{applicant.barangay || 'N/A'}</td>
                                 <td>
                                   <span className={`gender-badge ${applicant.sex?.toLowerCase()}`}>
@@ -645,6 +698,13 @@ const AdminDashboard = ({ user, onLogout }) => {
                                   </span>
                                 </td>
                                 <td>{age !== null ? age : 'N/A'}</td>
+                                <td>
+                                  {isApproved ? (
+                                    <span className="status-badge approved">✓ Approved</span>
+                                  ) : (
+                                    <span className="status-badge pending">Pending</span>
+                                  )}
+                                </td>
                                 <td>{registrationDate}</td>
                                 <td>
                                   {applicant.resume_url ? (
@@ -664,6 +724,25 @@ const AdminDashboard = ({ user, onLogout }) => {
                                     </a>
                                   ) : (
                                     <span className="no-resume">No Resume</span>
+                                  )}
+                                </td>
+                                <td>
+                                  {isApproved ? (
+                                    <button 
+                                      className="action-btn unapprove-btn"
+                                      onClick={() => handleUnapprove(applicant.id, fullName)}
+                                      title="Remove approval"
+                                    >
+                                      Unapprove
+                                    </button>
+                                  ) : (
+                                    <button 
+                                      className="action-btn approve-btn"
+                                      onClick={() => handleApprove(applicant.id, fullName)}
+                                      title="Approve and mark as hired"
+                                    >
+                                      Approve
+                                    </button>
                                   )}
                                 </td>
                               </tr>
@@ -833,8 +912,10 @@ const AdminDashboard = ({ user, onLogout }) => {
                             <th>Municipality</th>
                             <th>Gender</th>
                             <th>Age</th>
+                            <th>Status</th>
                             <th>Registration Date</th>
                             <th>Resume</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -848,12 +929,13 @@ const AdminDashboard = ({ user, onLogout }) => {
                                 })
                               : 'N/A';
                             
+                            const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''}`.trim();
+                            const isApproved = applicant.approved_by_admin === true;
+                            
                             return (
                               <tr key={applicant.id}>
                                 <td>{index + 1}</td>
-                                <td className="name-cell">
-                                  {`${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''}`.trim()}
-                                </td>
+                                <td className="name-cell">{fullName}</td>
                                 <td>{applicant.city_municipality || 'N/A'}</td>
                                 <td>
                                   <span className={`gender-badge ${applicant.sex?.toLowerCase()}`}>
@@ -861,6 +943,13 @@ const AdminDashboard = ({ user, onLogout }) => {
                                   </span>
                                 </td>
                                 <td>{age !== null ? age : 'N/A'}</td>
+                                <td>
+                                  {isApproved ? (
+                                    <span className="status-badge approved">✓ Approved</span>
+                                  ) : (
+                                    <span className="status-badge pending">Pending</span>
+                                  )}
+                                </td>
                                 <td>{registrationDate}</td>
                                 <td>
                                   {applicant.resume_url ? (
@@ -880,6 +969,25 @@ const AdminDashboard = ({ user, onLogout }) => {
                                     </a>
                                   ) : (
                                     <span className="no-resume">No Resume</span>
+                                  )}
+                                </td>
+                                <td>
+                                  {isApproved ? (
+                                    <button 
+                                      className="action-btn unapprove-btn"
+                                      onClick={() => handleUnapprove(applicant.id, fullName)}
+                                      title="Remove approval"
+                                    >
+                                      Unapprove
+                                    </button>
+                                  ) : (
+                                    <button 
+                                      className="action-btn approve-btn"
+                                      onClick={() => handleApprove(applicant.id, fullName)}
+                                      title="Approve and mark as hired"
+                                    >
+                                      Approve
+                                    </button>
                                   )}
                                 </td>
                               </tr>
@@ -949,29 +1057,29 @@ const AdminDashboard = ({ user, onLogout }) => {
                     <h3>📈 Key Performance Indicators</h3>
                     <div className="stats-cards">
                       <div className="stat-card employed">
-                        <div className="stat-icon">💼</div>
+                        <div className="stat-icon">✅</div>
                         <div className="stat-content">
-                          <div className="stat-label">Currently Employed</div>
+                          <div className="stat-label">Approved (Hired)</div>
                           <div className="stat-value">{employmentStats.employed.toLocaleString()}</div>
                           <div className="stat-percentage">
                             {((employmentStats.employed / (employmentStats.employed + employmentStats.unemployed) || 0) * 100).toFixed(1)}% of total registrants
                           </div>
                           <div className="stat-description">
-                            Job seekers who successfully found employment
+                            Applicants approved and hired by admin
                           </div>
                         </div>
                       </div>
 
                       <div className="stat-card unemployed">
-                        <div className="stat-icon">🔍</div>
+                        <div className="stat-icon">⏳</div>
                         <div className="stat-content">
-                          <div className="stat-label">Actively Seeking Employment</div>
+                          <div className="stat-label">Seeking Employment</div>
                           <div className="stat-value">{employmentStats.unemployed.toLocaleString()}</div>
                           <div className="stat-percentage">
-                            {((employmentStats.unemployed / (employmentStats.employed + employmentStats.unemployed) || 0) * 100).toFixed(1)}% awaiting job placement
+                            {((employmentStats.unemployed / (employmentStats.employed + employmentStats.unemployed) || 0) * 100).toFixed(1)}% awaiting approval
                           </div>
                           <div className="stat-description">
-                            Requires immediate employment assistance
+                            Pending review and approval by admin
                           </div>
                         </div>
                       </div>
@@ -1027,11 +1135,11 @@ const AdminDashboard = ({ user, onLogout }) => {
                       <div className="insight-card">
                         <div className="insight-icon">📊</div>
                         <div className="insight-content">
-                          <h4>Employment Status</h4>
+                          <h4>Approval Status</h4>
                           <p>
                             {employmentStats.unemployed > employmentStats.employed 
-                              ? `${((employmentStats.unemployed / (employmentStats.employed + employmentStats.unemployed)) * 100).toFixed(0)}% of registrants are actively seeking employment. Priority should be given to job matching and skills training programs.`
-                              : `Employment rate is at ${((employmentStats.employed / (employmentStats.employed + employmentStats.unemployed)) * 100).toFixed(0)}%, indicating successful job placement efforts.`
+                              ? `${((employmentStats.unemployed / (employmentStats.employed + employmentStats.unemployed)) * 100).toFixed(0)}% of applicants are pending approval. Review applications and approve qualified candidates for employment.`
+                              : `Approval rate is at ${((employmentStats.employed / (employmentStats.employed + employmentStats.unemployed)) * 100).toFixed(0)}%, indicating successful hiring and placement.`
                             }
                           </p>
                         </div>
@@ -1096,7 +1204,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                           <PieChart>
                             <Pie
                               data={[
-                                { name: 'Currently Employed', value: employmentStats.employed },
+                                { name: 'Approved (Hired)', value: employmentStats.employed },
                                 { name: 'Seeking Employment', value: employmentStats.unemployed }
                               ]}
                               cx="50%"
