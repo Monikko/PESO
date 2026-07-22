@@ -1513,7 +1513,6 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
         isAdmin={user?.role === 'admin'}
       />
     )}
-    </div>
   );
 };
 
