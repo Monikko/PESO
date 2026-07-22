@@ -98,14 +98,23 @@ const AdminDashboard = ({ user, onLogout }) => {
         return;
       }
 
-      console.log('✅ Approval successful:', data);
-      console.log('Updated record:', data);
-      alert(`${applicantName} has been approved and marked as HIRED!`);
+      console.log('✅ Approval successful!');
+      console.log('📋 Updated record:', data);
+      console.log('🔍 Checking approved_by_admin value:', data[0]?.approved_by_admin);
+      console.log('📅 Approval date:', data[0]?.approval_date);
+      
+      // Verify the update was successful
+      if (data && data.length > 0 && data[0].approved_by_admin === true) {
+        alert(`✅ ${applicantName} has been approved and marked as HIRED!\n\nStatus: APPROVED\nDate: ${new Date().toLocaleString()}`);
+      } else {
+        alert(`⚠️ Warning: Approval command sent but status verification failed.\n\nPlease refresh the page and check Supabase directly.`);
+        console.error('⚠️ WARNING: Update returned but approved_by_admin is not true:', data);
+      }
       
       // Refresh data
-      console.log('Refreshing data...');
+      console.log('🔄 Refreshing data from database...');
       await fetchData();
-      console.log('Data refresh complete');
+      console.log('✅ Data refresh complete');
     } catch (error) {
       console.error('❌ Unexpected error:', error);
       alert(`Error: ${error.message}`);
@@ -152,9 +161,10 @@ const AdminDashboard = ({ user, onLogout }) => {
     try {
       // Fetch all applicants (use correct column names from Step11.jsx)
       // Note: date_of_birth column might not exist yet if no one has registered with date of birth
+      console.log('🔍 Fetching applicants from database...');
       const { data, error } = await supabase
         .from('applicants')
-        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, created_at, resume_url, approved_by_admin');
+        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, created_at, resume_url, approved_by_admin, approval_date');
 
       if (error) {
         console.error('Supabase error:', error);
@@ -165,7 +175,7 @@ const AdminDashboard = ({ user, onLogout }) => {
           
           const { data: dataWithoutDob, error: error2 } = await supabase
             .from('applicants')
-            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, created_at, resume_url, approved_by_admin');
+            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, created_at, resume_url, approved_by_admin, approval_date');
           
           if (error2) {
             console.error('Second fetch error:', error2);
@@ -173,6 +183,9 @@ const AdminDashboard = ({ user, onLogout }) => {
             setLoading(false);
             return;
           }
+          
+          console.log('✅ Fetched applicants (without DOB):', dataWithoutDob?.length);
+          console.log('📊 Sample applicant approval status:', dataWithoutDob[0]?.approved_by_admin);
           
           // Process data without age statistics
           processApplicantData(dataWithoutDob, false);
@@ -184,6 +197,14 @@ const AdminDashboard = ({ user, onLogout }) => {
         setLoading(false);
         return;
       }
+
+      console.log('✅ Fetched applicants:', data?.length);
+      console.log('📊 Sample applicant data:', {
+        id: data[0]?.id,
+        name: `${data[0]?.first_name} ${data[0]?.surname}`,
+        approved: data[0]?.approved_by_admin,
+        approval_date: data[0]?.approval_date
+      });
 
       // Process data with age statistics
       processApplicantData(data, true);
