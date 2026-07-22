@@ -169,7 +169,7 @@ const sortedResidences = [...cityMunData].sort((a, b) =>
   (a?.name || '').localeCompare(b?.name || '')
 );
 
-const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout }) => {
+const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess }) => {
   const [searchFilters, setSearchFilters] = useState({
     showRecordsOf: 'PESO',
     peso: 'PALAYAN CITY (NUEVA ECIJA)',
@@ -458,29 +458,53 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout }) => {
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: '0.85rem', color: '#666' }}>Logged in as</div>
-            <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#333' }}>{user?.email}</div>
-          </div>
-          <button
-            onClick={onLogout}
-            style={{
-              padding: '8px 20px',
-              background: '#d9534f',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '4px',
-              fontSize: '0.9rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-              transition: 'background 0.2s'
-            }}
-            onMouseEnter={(e) => e.target.style.background = '#c9302c'}
-            onMouseLeave={(e) => e.target.style.background = '#d9534f'}
-          >
-            Logout
-          </button>
+          {user?.email ? (
+            <>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '0.85rem', color: '#666' }}>Logged in as</div>
+                <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#333' }}>{user.email}</div>
+              </div>
+              <button
+                onClick={onLogout}
+                style={{
+                  padding: '8px 20px',
+                  background: '#d9534f',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                  transition: 'background 0.2s'
+                }}
+                onMouseEnter={(e) => e.target.style.background = '#c9302c'}
+                onMouseLeave={(e) => e.target.style.background = '#d9534f'}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={onAdminAccess}
+              style={{
+                padding: '8px 20px',
+                background: '#337ab7',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.target.style.background = '#286090'}
+              onMouseLeave={(e) => e.target.style.background = '#337ab7'}
+            >
+              🔐 Admin Login
+            </button>
+          )}
         </div>
       </div>
 

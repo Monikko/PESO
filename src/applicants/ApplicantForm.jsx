@@ -31,7 +31,7 @@ const STEPS = [
   { num: 11, label: 'Registration\nDetails' },
 ];
 
-const ApplicantForm = ({ user, onLogout }) => {
+const ApplicantForm = ({ user, onLogout, onAdminAccess }) => {
   const [step, setStep] = useState(-1); // Start at -1 for dashboard
   const [flippingStep, setFlippingStep] = useState(null);
   const [isOverviewOpen, setIsOverviewOpen] = useState(false);
@@ -91,7 +91,7 @@ const ApplicantForm = ({ user, onLogout }) => {
     <FormProvider key={formKey}>
       <div>
       {/* Show Dashboard first */}
-      {step === -1 && <ApplicantsDashboard onAddNewApplicant={handleAddNewApplicant} user={user} onLogout={onLogout} />}
+      {step === -1 && <ApplicantsDashboard onAddNewApplicant={handleAddNewApplicant} user={user} onLogout={onLogout} onAdminAccess={onAdminAccess} />}
 
       {/* Show progress stepper and steps (no PESO selection needed) */}
       {step > 0 && (

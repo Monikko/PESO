@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 import './LoginPage.css';
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({ onLogin, onBack }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -96,8 +96,14 @@ const LoginPage = ({ onLogin }) => {
       <div className="login-card">
         <div className="login-header">
           <h1>PESO Palayan City</h1>
-          <p>Applicant Registration System</p>
+          <p>Admin Dashboard Login</p>
         </div>
+
+        {onBack && (
+          <button type="button" onClick={onBack} className="back-btn">
+            ← Back to Applicant Form
+          </button>
+        )}
 
         <form className="login-form" onSubmit={handleSubmit}>
           <h2>{isSignUp ? 'Sign Up' : 'Sign In'}</h2>

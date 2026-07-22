@@ -9,6 +9,7 @@ function App() {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
 
   // Check for existing Supabase session on mount
   useEffect(() => {
@@ -59,6 +60,15 @@ function App() {
     await supabase.auth.signOut();
     setSession(null);
     setUser(null);
+    setShowAdminLogin(false);
+  };
+
+  const handleAdminAccess = () => {
+    setShowAdminLogin(true);
+  };
+
+  const handleBackToHome = () => {
+    setShowAdminLogin(false);
   };
 
   // Show loading screen during initialization
@@ -66,19 +76,20 @@ function App() {
     return <LoadingScreen />;
   }
 
-  if (!session) {
-    return <LoginPage onLogin={handleLogin} />;
-  }
-
-  // Route based on user role
-  if (user?.role === 'admin') {
+  // If admin is logged in, show admin dashboard
+  if (session && user?.role === 'admin') {
     return <AdminDashboard user={user} onLogout={handleLogout} />;
   }
 
-  // Default: regular user
+  // If showing admin login page
+  if (showAdminLogin && !session) {
+    return <LoginPage onLogin={handleLogin} onBack={handleBackToHome} />;
+  }
+
+  // Default: Show applicant registration form (public access)
   return (
     <div>
-      <ApplicantForm user={user} onLogout={handleLogout} />
+      <ApplicantForm user={user} onLogout={handleLogout} onAdminAccess={handleAdminAccess} />
     </div>
   );
 }
