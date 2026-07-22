@@ -13,8 +13,8 @@ Your app now uses **real Supabase authentication** for better security. Follow t
 3. **Navigate to:** Authentication → Users
 4. **Click:** "Add User" (or "Invite user")
 5. **Fill in:**
-   - Email: `admin01@gmail.com`
-   - Password: `admin` (or choose a stronger password)
+   - Email: `pesopalayancity002@gmail.com`
+   - Password: `pesopalayan002`
    - Check "Auto Confirm User" ✅ (important!)
 6. **Click:** "Create User" or "Send Invitation"
 
@@ -74,8 +74,8 @@ USING (true);
 
 1. **Refresh your app:** http://localhost:5173
 2. **Login with admin credentials:**
-   - Email: `admin01@gmail.com`
-   - Password: `admin`
+   - Email: `pesopalayancity002@gmail.com`
+   - Password: `pesopalayan002`
 3. **Try approving an applicant**
 4. **Check console logs** - you should see success messages
 
@@ -121,8 +121,8 @@ After approving someone:
 
 ### "Invalid login credentials"
 - Make sure you created the admin user in Supabase
-- Check that email is exactly `admin01@gmail.com`
-- Make sure password matches what you set
+- Check that email is exactly `pesopalayancity002@gmail.com`
+- Check that password is exactly `pesopalayan002`
 
 ### "RLS error" when approving
 - Make sure you created the authenticated UPDATE policy

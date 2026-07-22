@@ -80,7 +80,7 @@ const LoginPage = ({ onLogin }) => {
         }
 
         // Success - user is now logged in
-        const role = email === 'admin01@gmail.com' ? 'admin' : 'user';
+        const role = email === 'pesopalayancity002@gmail.com' ? 'admin' : 'user';
         onLogin({ email, role });
       }
     } catch (err) {

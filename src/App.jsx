@@ -20,7 +20,7 @@ function App() {
         setSession(existingSession);
         setUser({
           email: existingSession.user.email,
-          role: existingSession.user.email === 'admin01@gmail.com' ? 'admin' : 'user',
+          role: existingSession.user.email === 'pesopalayancity002@gmail.com' ? 'admin' : 'user',
           supabaseUser: existingSession.user
         });
       }
@@ -38,7 +38,7 @@ function App() {
       if (session) {
         setUser({
           email: session.user.email,
-          role: session.user.email === 'admin01@gmail.com' ? 'admin' : 'user',
+          role: session.user.email === 'pesopalayancity002@gmail.com' ? 'admin' : 'user',
           supabaseUser: session.user
         });
       } else {
