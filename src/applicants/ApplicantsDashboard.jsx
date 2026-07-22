@@ -7,6 +7,7 @@ import licensesData from '../data/licenses.json';
 import certificatesData from '../data/certificates.json';
 import languagesData from '../data/languages.json';
 import cityMunData from '../data/cityMunicipality.json';
+import ApplicantDetailModal from './ApplicantDetailModal';
 
 const ITEMS_PER_PAGE = 10;
 const WINDOW_SIZE = 10;
@@ -275,6 +276,10 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  
+  // Detail modal state
+  const [selectedApplicant, setSelectedApplicant] = useState(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   // Modal states
   const [showOccupationMajorModal, setShowOccupationMajorModal] = useState(false);
@@ -443,6 +448,27 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
 
   const handleAddNewTransaction = () => {
     alert('Add new transaction functionality will be implemented here');
+  };
+
+  const handleViewApplicant = (applicant) => {
+    setSelectedApplicant(applicant);
+    setShowDetailModal(true);
+  };
+
+  const handleEditApplicant = (applicant) => {
+    // Check if user is admin
+    if (!user || user.role !== 'admin') {
+      // Prompt for admin login
+      if (confirm('You need to login as admin to edit applicant details. Login now?')) {
+        onAdminAccess();
+      }
+      return;
+    }
+    
+    // Close modal and open edit mode
+    setShowDetailModal(false);
+    alert('Edit functionality will be implemented next. Applicant ID: ' + applicant.id);
+    // TODO: Open edit form with applicant data
   };
 
   return (
@@ -1273,7 +1299,18 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
                 </thead>
                 <tbody>
                   {searchResults.map((applicant, idx) => (
-                    <tr key={applicant.id} style={{ borderBottom: '1px solid #e9ecef', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = '#f8f9fa'} onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <tr 
+                      key={applicant.id} 
+                      style={{ 
+                        borderBottom: '1px solid #e9ecef', 
+                        cursor: 'pointer', 
+                        transition: 'background 0.2s' 
+                      }} 
+                      onClick={() => handleViewApplicant(applicant)}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#f8f9fa'} 
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                      title="Click to view details"
+                    >
                       <td style={{ padding: '12px', color: '#333' }}>
                         <div style={{ fontWeight: 600 }}>{applicant.first_name} {applicant.middle_name} {applicant.surname}</div>
                         {applicant.email && <div style={{ fontSize: '0.85rem', color: '#666' }}>{applicant.email}</div>}
@@ -1462,6 +1499,20 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
           </div>
         </div>
       )}
+    </div>
+
+    {/* Applicant Detail Modal */}
+    {showDetailModal && (
+      <ApplicantDetailModal
+        applicant={selectedApplicant}
+        onClose={() => {
+          setShowDetailModal(false);
+          setSelectedApplicant(null);
+        }}
+        onEdit={handleEditApplicant}
+        isAdmin={user?.role === 'admin'}
+      />
+    )}
     </div>
   );
 };
