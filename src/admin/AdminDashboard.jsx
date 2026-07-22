@@ -72,6 +72,7 @@ const AdminDashboard = ({ user, onLogout }) => {
 
     try {
       console.log('Approving applicant:', applicantId);
+      console.log('Attempting to update approved_by_admin to TRUE');
       
       const { data, error } = await supabase
         .from('applicants')
@@ -83,18 +84,30 @@ const AdminDashboard = ({ user, onLogout }) => {
         .select();
 
       if (error) {
-        console.error('Approval error:', error);
-        alert(`Error approving applicant: ${error.message}`);
+        console.error('❌ Approval error:', error);
+        console.error('Error code:', error.code);
+        console.error('Error hint:', error.hint);
+        console.error('Error details:', error.details);
+        
+        // Check if it's an RLS error
+        if (error.message?.includes('RLS') || error.message?.includes('policy') || error.code === '42501') {
+          alert(`⚠️ Database Permission Error!\n\nRow Level Security (RLS) is blocking the update.\n\nFix:\n1. Go to Supabase Dashboard\n2. Table Editor → applicants table\n3. Click "RLS" button at top\n4. Either disable RLS OR add a policy for UPDATE\n\nError: ${error.message}`);
+        } else {
+          alert(`Error approving applicant: ${error.message}`);
+        }
         return;
       }
 
-      console.log('Approval successful:', data);
+      console.log('✅ Approval successful:', data);
+      console.log('Updated record:', data);
       alert(`${applicantName} has been approved and marked as HIRED!`);
       
       // Refresh data
+      console.log('Refreshing data...');
       await fetchData();
+      console.log('Data refresh complete');
     } catch (error) {
-      console.error('Unexpected error:', error);
+      console.error('❌ Unexpected error:', error);
       alert(`Error: ${error.message}`);
     }
   };
