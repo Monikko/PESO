@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../supabaseClient';
 import './LoginPage.css';
 
 const LoginPage = ({ onLogin }) => {
@@ -7,41 +8,87 @@ const LoginPage = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
-    // Check for admin credentials
-    const isAdmin = email === 'admin01@gmail.com' && password === 'admin';
+    try {
+      if (isSignUp) {
+        // Sign Up with Supabase
+        
+        // Validate email contains @gmail.com
+        if (!email.includes('@gmail.com')) {
+          setError('Email must be a Gmail address (@gmail.com)');
+          setLoading(false);
+          return;
+        }
 
-    // For admin, skip other validations
-    if (isAdmin) {
-      onLogin({ email, password, role: 'admin' });
-      return;
+        // Check passwords match
+        if (password !== confirmPassword) {
+          setError('Passwords do not match');
+          setLoading(false);
+          return;
+        }
+
+        // Password strength validation
+        if (password.length < 6) {
+          setError('Password must be at least 6 characters');
+          setLoading(false);
+          return;
+        }
+
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: window.location.origin,
+          }
+        });
+
+        if (signUpError) {
+          setError(signUpError.message);
+          setLoading(false);
+          return;
+        }
+
+        // Check if email confirmation is required
+        if (data?.user && !data.session) {
+          setError('Please check your email to confirm your account before signing in.');
+          setLoading(false);
+          return;
+        }
+
+        // Success - user is now logged in
+        onLogin({ email, role: 'user' });
+        
+      } else {
+        // Sign In with Supabase
+        
+        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (signInError) {
+          setError(signInError.message);
+          setLoading(false);
+          return;
+        }
+
+        // Success - user is now logged in
+        const role = email === 'admin01@gmail.com' ? 'admin' : 'user';
+        onLogin({ email, role });
+      }
+    } catch (err) {
+      console.error('Authentication error:', err);
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
-
-    // Validate email contains @gmail.com (for regular users)
-    if (!email.includes('@gmail.com')) {
-      setError('Email must be a Gmail address (@gmail.com)');
-      return;
-    }
-
-    // Validate password is not empty
-    if (!password.trim()) {
-      setError('Password is required');
-      return;
-    }
-
-    // If sign up, check passwords match
-    if (isSignUp && password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
-    // Simple validation passed - proceed to login as regular user
-    onLogin({ email, password, role: 'user' });
   };
 
   return (
@@ -108,8 +155,8 @@ const LoginPage = ({ onLogin }) => {
             </label>
           </div>
 
-          <button type="submit" className="login-btn">
-            {isSignUp ? 'Sign Up' : 'Sign In'}
+          <button type="submit" className="login-btn" disabled={loading}>
+            {loading ? 'Please wait...' : (isSignUp ? 'Sign Up' : 'Sign In')}
           </button>
 
           <div className="toggle-mode">

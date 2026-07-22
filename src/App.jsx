@@ -1,50 +1,64 @@
 import React, { useState, useEffect } from 'react';
+import { supabase } from './supabaseClient';
 import ApplicantForm from './applicants/ApplicantForm';
 import LoginPage from './auth/LoginPage';
 import AdminDashboard from './admin/AdminDashboard';
 import LoadingScreen from './components/LoadingScreen';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check if user is already logged in (from localStorage)
+  // Check for existing Supabase session on mount
   useEffect(() => {
-    // Simulate initial app loading
     const initializeApp = async () => {
-      // Check stored user
-      const storedUser = localStorage.getItem('pesoUser');
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-        setIsLoggedIn(true);
+      // Check for existing session
+      const { data: { session: existingSession } } = await supabase.auth.getSession();
+      
+      if (existingSession) {
+        setSession(existingSession);
+        setUser({
+          email: existingSession.user.email,
+          role: existingSession.user.email === 'admin01@gmail.com' ? 'admin' : 'user',
+          supabaseUser: existingSession.user
+        });
       }
       
-      // Show loading screen for 3 seconds (adjust as needed)
-      // To see loading screen again: Press Ctrl+Shift+R or clear browser cache
+      // Show loading screen for 3 seconds
       await new Promise(resolve => setTimeout(resolve, 3000));
       setIsLoading(false);
     };
 
     initializeApp();
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      if (session) {
+        setUser({
+          email: session.user.email,
+          role: session.user.email === 'admin01@gmail.com' ? 'admin' : 'user',
+          supabaseUser: session.user
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const handleLogin = (credentials) => {
-    // Store user info in localStorage
-    const userData = {
-      email: credentials.email,
-      role: credentials.role || 'user',
-      loginTime: new Date().toISOString()
-    };
-    localStorage.setItem('pesoUser', JSON.stringify(userData));
-    setUser(userData);
-    setIsLoggedIn(true);
+  const handleLogin = async (credentials) => {
+    // This function is no longer needed - LoginPage handles auth directly
+    // Keeping for compatibility
+    return true;
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('pesoUser');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
     setUser(null);
-    setIsLoggedIn(false);
   };
 
   // Show loading screen during initialization
@@ -52,7 +66,7 @@ function App() {
     return <LoadingScreen />;
   }
 
-  if (!isLoggedIn) {
+  if (!session) {
     return <LoginPage onLogin={handleLogin} />;
   }
 
