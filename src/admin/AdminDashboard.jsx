@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../supabaseClient';
 import './AdminDashboard.css';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 
-const AdminDashboard = ({ user, onLogout }) => {
+const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
   const [activeTab, setActiveTab] = useState('palayan');
   const [palayanData, setPalayanData] = useState([]);
   const [otherPlacesData, setOtherPlacesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalPalayan, setTotalPalayan] = useState(0);
   const [totalOther, setTotalOther] = useState(0);
-  
+
   // Full applicant data for tables
   const [palayanApplicants, setPalayanApplicants] = useState([]);
   const [otherApplicants, setOtherApplicants] = useState([]);
-  
+
   // Filters for Palayan tab
   const [palayanFilters, setPalayanFilters] = useState({
     sortBy: 'latest',
@@ -24,7 +24,7 @@ const AdminDashboard = ({ user, onLogout }) => {
     ageRange: 'all',
     status: 'all'
   });
-  
+
   // Filters for Other Places tab
   const [otherFilters, setOtherFilters] = useState({
     sortBy: 'latest',
@@ -34,7 +34,7 @@ const AdminDashboard = ({ user, onLogout }) => {
     ageRange: 'all',
     status: 'all'
   });
-  
+
   // New: Employment and Gender Statistics
   const [employmentStats, setEmploymentStats] = useState({
     employed: 0,
@@ -52,6 +52,9 @@ const AdminDashboard = ({ user, onLogout }) => {
     age51AndAbove: 0
   });
 
+  // Trend summary view mode (monthly or annual)
+  const [trendSummaryMode, setTrendSummaryMode] = useState('monthly');
+
   // Colors for pie chart slices
   const COLORS = [
     '#5470C6', '#91CC75', '#FAC858', '#EE6666', '#73C0DE',
@@ -60,9 +63,96 @@ const AdminDashboard = ({ user, onLogout }) => {
     '#96CEB4', '#FFEAA7', '#DFE6E9', '#74B9FF', '#A29BFE'
   ];
 
+  // Process data for the Palayan line graph
+  const palayanTrendData = useMemo(() => {
+    if (!palayanApplicants.length) return [];
+
+    // Map data by Month-Year string (e.g. "2024-01")
+    const grouped = {};
+
+    palayanApplicants.forEach(app => {
+      if (!app.created_at) return;
+
+      const date = new Date(app.created_at);
+      if (isNaN(date.getTime())) return;
+
+      // Get YYYY-MM
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const monthKey = `${year}-${month}`;
+
+      if (!grouped[monthKey]) {
+        // Create month label (e.g. "Jan 2024")
+        const monthName = date.toLocaleString('default', { month: 'short' });
+        grouped[monthKey] = {
+          name: `${monthName} ${year}`,
+          monthKey,
+          Hired: 0,
+          'Seeking Employment': 0
+        };
+      }
+
+      if (app.approved_by_admin === true) {
+        grouped[monthKey].Hired += 1;
+      } else {
+        grouped[monthKey]['Seeking Employment'] += 1;
+      }
+    });
+
+    // Convert to array and sort chronologically
+    return Object.values(grouped).sort((a, b) => a.monthKey.localeCompare(b.monthKey));
+  }, [palayanApplicants]);
+
+  // Process data for the Palayan summary table
+  const palayanSummaryData = useMemo(() => {
+    if (!palayanApplicants.length) return [];
+
+    const grouped = {};
+
+    palayanApplicants.forEach(app => {
+      if (!app.created_at) return;
+
+      const date = new Date(app.created_at);
+      if (isNaN(date.getTime())) return;
+
+      let key;
+      let displayLabel;
+
+      if (trendSummaryMode === 'monthly') {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        key = `${year}-${month}`;
+        displayLabel = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
+      } else {
+        key = `${date.getFullYear()}`;
+        displayLabel = key;
+      }
+
+      if (!grouped[key]) {
+        grouped[key] = {
+          sortKey: key,
+          period: displayLabel,
+          hired: 0,
+          seeking: 0,
+          total: 0
+        };
+      }
+
+      grouped[key].total += 1;
+      if (app.approved_by_admin === true) {
+        grouped[key].hired += 1;
+      } else {
+        grouped[key].seeking += 1;
+      }
+    });
+
+    // Convert to array and sort reverse chronologically (newest first)
+    return Object.values(grouped).sort((a, b) => b.sortKey.localeCompare(a.sortKey));
+  }, [palayanApplicants, trendSummaryMode]);
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [refreshKey]);
 
   // Function to approve an applicant (mark as hired)
   const handleApprove = async (applicantId, applicantName) => {
@@ -73,10 +163,10 @@ const AdminDashboard = ({ user, onLogout }) => {
     try {
       console.log('Approving applicant:', applicantId);
       console.log('Attempting to update approved_by_admin to TRUE');
-      
+
       const { data, error } = await supabase
         .from('applicants')
-        .update({ 
+        .update({
           approved_by_admin: true,
           approval_date: new Date().toISOString()
         })
@@ -88,7 +178,7 @@ const AdminDashboard = ({ user, onLogout }) => {
         console.error('Error code:', error.code);
         console.error('Error hint:', error.hint);
         console.error('Error details:', error.details);
-        
+
         // Check if it's an RLS error
         if (error.message?.includes('RLS') || error.message?.includes('policy') || error.code === '42501') {
           alert(`⚠️ Database Permission Error!\n\nRow Level Security (RLS) is blocking the update.\n\nFix:\n1. Go to Supabase Dashboard\n2. Table Editor → applicants table\n3. Click "RLS" button at top\n4. Either disable RLS OR add a policy for UPDATE\n\nError: ${error.message}`);
@@ -102,7 +192,7 @@ const AdminDashboard = ({ user, onLogout }) => {
       console.log('📋 Updated record:', data);
       console.log('🔍 Checking approved_by_admin value:', data[0]?.approved_by_admin);
       console.log('📅 Approval date:', data[0]?.approval_date);
-      
+
       // Verify the update was successful
       if (data && data.length > 0 && data[0].approved_by_admin === true) {
         alert(`✅ ${applicantName} has been approved and marked as HIRED!\n\nStatus: APPROVED\nDate: ${new Date().toLocaleString()}`);
@@ -110,7 +200,7 @@ const AdminDashboard = ({ user, onLogout }) => {
         alert(`⚠️ Warning: Approval command sent but status verification failed.\n\nPlease refresh the page and check Supabase directly.`);
         console.error('⚠️ WARNING: Update returned but approved_by_admin is not true:', data);
       }
-      
+
       // Refresh data
       console.log('🔄 Refreshing data from database...');
       await fetchData();
@@ -129,10 +219,10 @@ const AdminDashboard = ({ user, onLogout }) => {
 
     try {
       console.log('Unapproving applicant:', applicantId);
-      
+
       const { data, error } = await supabase
         .from('applicants')
-        .update({ 
+        .update({
           approved_by_admin: false,
           approval_date: null
         })
@@ -147,7 +237,7 @@ const AdminDashboard = ({ user, onLogout }) => {
 
       console.log('Unapproval successful:', data);
       alert(`Approval removed for ${applicantName}`);
-      
+
       // Refresh data
       await fetchData();
     } catch (error) {
@@ -164,35 +254,35 @@ const AdminDashboard = ({ user, onLogout }) => {
       console.log('🔍 Fetching applicants from database...');
       const { data, error } = await supabase
         .from('applicants')
-        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, created_at, resume_url, approved_by_admin, approval_date');
+        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date');
 
       if (error) {
         console.error('Supabase error:', error);
-        
+
         // If dob column doesn't exist, try without it
         if (error.message?.includes('date_of_birth') && error.message?.includes('does not exist')) {
           console.warn('Column "date_of_birth" does not exist yet. Fetching without age data...');
-          
+
           const { data: dataWithoutDob, error: error2 } = await supabase
             .from('applicants')
-            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, created_at, resume_url, approved_by_admin, approval_date');
-          
+            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date');
+
           if (error2) {
             console.error('Second fetch error:', error2);
             handleDatabaseError(error2);
             setLoading(false);
             return;
           }
-          
+
           console.log('✅ Fetched applicants (without DOB):', dataWithoutDob?.length);
           console.log('📊 Sample applicant approval status:', dataWithoutDob[0]?.approved_by_admin);
-          
+
           // Process data without age statistics
           processApplicantData(dataWithoutDob, false);
           setLoading(false);
           return;
         }
-        
+
         handleDatabaseError(error);
         setLoading(false);
         return;
@@ -223,194 +313,194 @@ const AdminDashboard = ({ user, onLogout }) => {
   };
 
   const handleDatabaseError = (error) => {
-        
-        // Check if it's an RLS error
-        if (error.message?.includes('RLS') || error.message?.includes('policy')) {
-          alert(`Database Access Error:\n\nRow Level Security (RLS) is blocking access.\n\nPlease go to Supabase Dashboard:\n1. Go to Table Editor → applicants table\n2. Click "RLS" button\n3. Disable RLS or add a policy for SELECT\n\nError: ${error.message}`);
-        } else if (error.message?.includes('relation') || error.message?.includes('does not exist')) {
-          alert(`Database Error:\n\nThe "applicants" table doesn't exist yet.\n\nPlease:\n1. Register at least one applicant first\n2. Or create the table in Supabase\n\nError: ${error.message}`);
-        } else if (error.message?.includes('column') && error.message?.includes('does not exist')) {
-          alert(`Database Error:\n\nColumn mismatch detected.\n\nThe table structure might be outdated.\nTry registering a new applicant to update the table.\n\nError: ${error.message}`);
-        } else {
-          alert(`Error loading dashboard data:\n\n${error.message}\n\nCheck console for details.`);
-        }
-        
-        // Set empty data so dashboard still shows
-        setPalayanData([]);
-        setOtherPlacesData([]);
-        setTotalPalayan(0);
-        setTotalOther(0);
-        setEmploymentStats({ employed: 0, unemployed: 0, male: 0, female: 0 });
-        setAgeStats({ age18AndBelow: 0, age19to25: 0, age26to35: 0, age36to50: 0, age51AndAbove: 0 });
+
+    // Check if it's an RLS error
+    if (error.message?.includes('RLS') || error.message?.includes('policy')) {
+      alert(`Database Access Error:\n\nRow Level Security (RLS) is blocking access.\n\nPlease go to Supabase Dashboard:\n1. Go to Table Editor → applicants table\n2. Click "RLS" button\n3. Disable RLS or add a policy for SELECT\n\nError: ${error.message}`);
+    } else if (error.message?.includes('relation') || error.message?.includes('does not exist')) {
+      alert(`Database Error:\n\nThe "applicants" table doesn't exist yet.\n\nPlease:\n1. Register at least one applicant first\n2. Or create the table in Supabase\n\nError: ${error.message}`);
+    } else if (error.message?.includes('column') && error.message?.includes('does not exist')) {
+      alert(`Database Error:\n\nColumn mismatch detected.\n\nThe table structure might be outdated.\nTry registering a new applicant to update the table.\n\nError: ${error.message}`);
+    } else {
+      alert(`Error loading dashboard data:\n\n${error.message}\n\nCheck console for details.`);
+    }
+
+    // Set empty data so dashboard still shows
+    setPalayanData([]);
+    setOtherPlacesData([]);
+    setTotalPalayan(0);
+    setTotalOther(0);
+    setEmploymentStats({ employed: 0, unemployed: 0, male: 0, female: 0 });
+    setAgeStats({ age18AndBelow: 0, age19to25: 0, age26to35: 0, age36to50: 0, age51AndAbove: 0 });
   };
 
   const processApplicantData = (data, includeAge) => {
-      if (!data || data.length === 0) {
-        console.log('No applicants found in database');
-        setPalayanData([]);
-        setOtherPlacesData([]);
-        setTotalPalayan(0);
-        setTotalOther(0);
-        setEmploymentStats({ employed: 0, unemployed: 0, male: 0, female: 0 });
-        setAgeStats({ age18AndBelow: 0, age19to25: 0, age26to35: 0, age36to50: 0, age51AndAbove: 0 });
-        setLoading(false);
-        return;
+    if (!data || data.length === 0) {
+      console.log('No applicants found in database');
+      setPalayanData([]);
+      setOtherPlacesData([]);
+      setTotalPalayan(0);
+      setTotalOther(0);
+      setEmploymentStats({ employed: 0, unemployed: 0, male: 0, female: 0 });
+      setAgeStats({ age18AndBelow: 0, age19to25: 0, age26to35: 0, age36to50: 0, age51AndAbove: 0 });
+      setLoading(false);
+      return;
+    }
+
+    // Calculate employment and gender statistics
+    let employedCount = 0;
+    let unemployedCount = 0;
+    let maleCount = 0;
+    let femaleCount = 0;
+
+    // Age statistics
+    let age18AndBelowCount = 0;
+    let age19to25Count = 0;
+    let age26to35Count = 0;
+    let age36to50Count = 0;
+    let age51AndAboveCount = 0;
+
+    // Helper function to calculate age from date of birth
+    const calculateAge = (dob) => {
+      // Handle empty, null, or placeholder values
+      if (!dob || dob === '--' || dob === '' || dob.includes('--')) return null;
+
+      try {
+        const birthDate = new Date(dob);
+
+        // Check if date is valid
+        if (isNaN(birthDate.getTime())) return null;
+
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        return age;
+      } catch (error) {
+        console.error('Error calculating age from dob:', dob, error);
+        return null;
+      }
+    };
+
+    data.forEach(app => {
+      // New logic: Everyone is "seeking employment" unless approved by admin
+      // "employed" status from Step3 doesn't mean they're hired - just their current status
+
+      if (app.approved_by_admin === true) {
+        employedCount++;  // Only count as employed if admin approved (hired)
+      } else {
+        unemployedCount++;  // Everyone else is seeking employment
       }
 
-      // Calculate employment and gender statistics
-      let employedCount = 0;
-      let unemployedCount = 0;
-      let maleCount = 0;
-      let femaleCount = 0;
+      // Gender
+      if (app.sex?.toUpperCase() === 'MALE') {
+        maleCount++;
+      } else if (app.sex?.toUpperCase() === 'FEMALE') {
+        femaleCount++;
+      }
 
-      // Age statistics
-      let age18AndBelowCount = 0;
-      let age19to25Count = 0;
-      let age26to35Count = 0;
-      let age36to50Count = 0;
-      let age51AndAboveCount = 0;
+      // Age calculation - Debug logging
+      if (includeAge) {
+        console.log('date_of_birth value:', app.date_of_birth, 'Type:', typeof app.date_of_birth);
+      }
 
-      // Helper function to calculate age from date of birth
-      const calculateAge = (dob) => {
-        // Handle empty, null, or placeholder values
-        if (!dob || dob === '--' || dob === '' || dob.includes('--')) return null;
-        
-        try {
-          const birthDate = new Date(dob);
-          
-          // Check if date is valid
-          if (isNaN(birthDate.getTime())) return null;
-          
-          const today = new Date();
-          let age = today.getFullYear() - birthDate.getFullYear();
-          const monthDiff = today.getMonth() - birthDate.getMonth();
-          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-          }
-          return age;
-        } catch (error) {
-          console.error('Error calculating age from dob:', dob, error);
-          return null;
+      const age = calculateAge(app.date_of_birth);
+      if (includeAge && age !== null) {
+        console.log('Calculated age:', age);
+      }
+
+      if (age !== null) {
+        if (age <= 18) {
+          age18AndBelowCount++;
+        } else if (age >= 19 && age <= 25) {
+          age19to25Count++;
+        } else if (age >= 26 && age <= 35) {
+          age26to35Count++;
+        } else if (age >= 36 && age <= 50) {
+          age36to50Count++;
+        } else if (age >= 51) {
+          age51AndAboveCount++;
         }
-      };
+      }
+    });
 
-      data.forEach(app => {
-        // New logic: Everyone is "seeking employment" unless approved by admin
-        // "employed" status from Step3 doesn't mean they're hired - just their current status
-        
-        if (app.approved_by_admin === true) {
-          employedCount++;  // Only count as employed if admin approved (hired)
-        } else {
-          unemployedCount++;  // Everyone else is seeking employment
-        }
+    setEmploymentStats({
+      employed: employedCount,
+      unemployed: unemployedCount,
+      male: maleCount,
+      female: femaleCount
+    });
 
-        // Gender
-        if (app.sex?.toUpperCase() === 'MALE') {
-          maleCount++;
-        } else if (app.sex?.toUpperCase() === 'FEMALE') {
-          femaleCount++;
-        }
+    setAgeStats({
+      age18AndBelow: age18AndBelowCount,
+      age19to25: age19to25Count,
+      age26to35: age26to35Count,
+      age36to50: age36to50Count,
+      age51AndAbove: age51AndAboveCount
+    });
 
-        // Age calculation - Debug logging
-        if (includeAge) {
-          console.log('date_of_birth value:', app.date_of_birth, 'Type:', typeof app.date_of_birth);
-        }
-        
-        const age = calculateAge(app.date_of_birth);
-        if (includeAge && age !== null) {
-          console.log('Calculated age:', age);
-        }
-        
-        if (age !== null) {
-          if (age <= 18) {
-            age18AndBelowCount++;
-          } else if (age >= 19 && age <= 25) {
-            age19to25Count++;
-          } else if (age >= 26 && age <= 35) {
-            age26to35Count++;
-          } else if (age >= 36 && age <= 50) {
-            age36to50Count++;
-          } else if (age >= 51) {
-            age51AndAboveCount++;
-          }
-        }
-      });
+    // Separate Palayan City and Others
+    const palayanApplicantsList = data.filter(
+      app => app.city_municipality?.toUpperCase().includes('PALAYAN')
+    );
+    const otherApplicantsList = data.filter(
+      app => !app.city_municipality?.toUpperCase().includes('PALAYAN')
+    );
 
-      setEmploymentStats({
-        employed: employedCount,
-        unemployed: unemployedCount,
-        male: maleCount,
-        female: femaleCount
-      });
+    // Store full applicant lists
+    setPalayanApplicants(palayanApplicantsList);
+    setOtherApplicants(otherApplicantsList);
 
-      setAgeStats({
-        age18AndBelow: age18AndBelowCount,
-        age19to25: age19to25Count,
-        age26to35: age26to35Count,
-        age36to50: age36to50Count,
-        age51AndAbove: age51AndAboveCount
-      });
+    console.log('Palayan applicants list:', palayanApplicantsList);
+    console.log('Other applicants list:', otherApplicantsList);
+    console.log('Palayan applicants count:', palayanApplicantsList.length);
+    console.log('Other applicants count:', otherApplicantsList.length);
+    console.log('Sample applicant approved status:', palayanApplicantsList[0]?.approved_by_admin);
 
-      // Separate Palayan City and Others
-      const palayanApplicantsList = data.filter(
-        app => app.city_municipality?.toUpperCase().includes('PALAYAN')
-      );
-      const otherApplicantsList = data.filter(
-        app => !app.city_municipality?.toUpperCase().includes('PALAYAN')
-      );
+    // Group Palayan by barangay
+    const palayanGrouped = palayanApplicantsList.reduce((acc, app) => {
+      const barangay = app.barangay || 'Unknown';
+      acc[barangay] = (acc[barangay] || 0) + 1;
+      return acc;
+    }, {});
 
-      // Store full applicant lists
-      setPalayanApplicants(palayanApplicantsList);
-      setOtherApplicants(otherApplicantsList);
+    // Group Others by city/municipality
+    const otherGrouped = otherApplicantsList.reduce((acc, app) => {
+      const city = app.city_municipality || 'Unknown';
+      acc[city] = (acc[city] || 0) + 1;
+      return acc;
+    }, {});
 
-      console.log('Palayan applicants list:', palayanApplicantsList);
-      console.log('Other applicants list:', otherApplicantsList);
-      console.log('Palayan applicants count:', palayanApplicantsList.length);
-      console.log('Other applicants count:', otherApplicantsList.length);
-      console.log('Sample applicant approved status:', palayanApplicantsList[0]?.approved_by_admin);
+    // Convert to array format for charts
+    const palayanChartData = Object.entries(palayanGrouped)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
 
-      // Group Palayan by barangay
-      const palayanGrouped = palayanApplicantsList.reduce((acc, app) => {
-        const barangay = app.barangay || 'Unknown';
-        acc[barangay] = (acc[barangay] || 0) + 1;
-        return acc;
-      }, {});
+    const otherChartData = Object.entries(otherGrouped)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
 
-      // Group Others by city/municipality
-      const otherGrouped = otherApplicantsList.reduce((acc, app) => {
-        const city = app.city_municipality || 'Unknown';
-        acc[city] = (acc[city] || 0) + 1;
-        return acc;
-      }, {});
+    setPalayanData(palayanChartData);
+    setOtherPlacesData(otherChartData);
+    setTotalPalayan(palayanApplicantsList.length);
+    setTotalOther(otherApplicantsList.length);
 
-      // Convert to array format for charts
-      const palayanChartData = Object.entries(palayanGrouped)
-        .map(([name, value]) => ({ name, value }))
-        .sort((a, b) => b.value - a.value);
-
-      const otherChartData = Object.entries(otherGrouped)
-        .map(([name, value]) => ({ name, value }))
-        .sort((a, b) => b.value - a.value);
-
-      setPalayanData(palayanChartData);
-      setOtherPlacesData(otherChartData);
-      setTotalPalayan(palayanApplicantsList.length);
-      setTotalOther(otherApplicantsList.length);
-      
-      console.log(`Loaded: ${palayanApplicantsList.length} Palayan applicants, ${otherApplicantsList.length} other applicants`);
-      console.log(`Employment: ${employedCount} employed, ${unemployedCount} unemployed`);
-      console.log(`Gender: ${maleCount} male, ${femaleCount} female`);
-      console.log(`Age: ${age18AndBelowCount} (≤18), ${age19to25Count} (19-25), ${age26to35Count} (26-35), ${age36to50Count} (36-50), ${age51AndAboveCount} (51+)`);
+    console.log(`Loaded: ${palayanApplicantsList.length} Palayan applicants, ${otherApplicantsList.length} other applicants`);
+    console.log(`Employment: ${employedCount} employed, ${unemployedCount} unemployed`);
+    console.log(`Gender: ${maleCount} male, ${femaleCount} female`);
+    console.log(`Age: ${age18AndBelowCount} (≤18), ${age19to25Count} (19-25), ${age26to35Count} (26-35), ${age36to50Count} (36-50), ${age51AndAboveCount} (51+)`);
   };
 
   // Helper: Calculate age from date of birth
   const calculateAge = (dob) => {
     if (!dob || dob === '--' || dob === '' || dob.includes('--')) return null;
-    
+
     try {
       const birthDate = new Date(dob);
       if (isNaN(birthDate.getTime())) return null;
-      
+
       const today = new Date();
       let age = today.getFullYear() - birthDate.getFullYear();
       const monthDiff = today.getMonth() - birthDate.getMonth();
@@ -443,7 +533,7 @@ const AdminDashboard = ({ user, onLogout }) => {
     if (filters.searchName) {
       const searchLower = filters.searchName.toLowerCase();
       filtered = filtered.filter(app => {
-        const fullName = `${app.surname || ''} ${app.first_name || ''} ${app.middle_name || ''}`.toLowerCase();
+        const fullName = `${app.surname || ''} ${app.suffix ? app.suffix + ' ' : ''}${app.first_name || ''} ${app.middle_name || ''}`.toLowerCase();
         return fullName.includes(searchLower);
       });
     }
@@ -477,7 +567,7 @@ const AdminDashboard = ({ user, onLogout }) => {
       filtered = filtered.filter(app => {
         const age = calculateAge(app.date_of_birth);
         if (age === null) return false;
-        
+
         switch (filters.ageRange) {
           case '18-below': return age <= 18;
           case '19-25': return age >= 19 && age <= 25;
@@ -505,7 +595,7 @@ const AdminDashboard = ({ user, onLogout }) => {
 
   const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
     if (percent < 0.03) return null; // Don't show labels for very small slices
-    
+
     const RADIAN = Math.PI / 180;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -564,6 +654,13 @@ const AdminDashboard = ({ user, onLogout }) => {
         >
           Employment & Demographics
         </button>
+        <button
+          className={`admin-tab ${activeTab === 'palayan-trend' ? 'active' : ''}`}
+          onClick={() => setActiveTab('palayan-trend')}
+        >
+          Employment Status Over Time
+          <span style={{ marginLeft: '6px', fontSize: '10px', background: '#e8f4fd', color: '#1a73e8', padding: '1px 6px', borderRadius: '10px', fontWeight: '600', verticalAlign: 'middle' }}>Palayan City</span>
+        </button>
       </div>
 
       {/* Content */}
@@ -584,7 +681,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                     <span className="total-value">{totalPalayan}</span>
                   </div>
                 </div>
-                
+
                 <div className="chart-container">
                   {palayanData.length > 0 ? (
                     <>
@@ -606,9 +703,9 @@ const AdminDashboard = ({ user, onLogout }) => {
                               ))}
                             </Pie>
                             <Tooltip />
-                            <Legend 
-                              layout="vertical" 
-                              align="right" 
+                            <Legend
+                              layout="vertical"
+                              align="right"
                               verticalAlign="middle"
                               iconType="circle"
                             />
@@ -648,14 +745,14 @@ const AdminDashboard = ({ user, onLogout }) => {
                 {palayanData.length > 0 && (
                   <div className="applicants-list-section">
                     <h3>Registered Applicants - Palayan City</h3>
-                    
+
                     {/* Filters */}
                     <div className="filters-bar">
                       <div className="filter-group">
                         <label>Sort By:</label>
-                        <select 
+                        <select
                           value={palayanFilters.sortBy}
-                          onChange={(e) => setPalayanFilters({...palayanFilters, sortBy: e.target.value})}
+                          onChange={(e) => setPalayanFilters({ ...palayanFilters, sortBy: e.target.value })}
                           className="filter-select"
                         >
                           <option value="latest">Latest Registration</option>
@@ -665,20 +762,20 @@ const AdminDashboard = ({ user, onLogout }) => {
 
                       <div className="filter-group">
                         <label>Search Name:</label>
-                        <input 
+                        <input
                           type="text"
                           placeholder="Search by name..."
                           value={palayanFilters.searchName}
-                          onChange={(e) => setPalayanFilters({...palayanFilters, searchName: e.target.value})}
+                          onChange={(e) => setPalayanFilters({ ...palayanFilters, searchName: e.target.value })}
                           className="filter-input"
                         />
                       </div>
 
                       <div className="filter-group">
                         <label>Barangay:</label>
-                        <select 
+                        <select
                           value={palayanFilters.barangay}
-                          onChange={(e) => setPalayanFilters({...palayanFilters, barangay: e.target.value})}
+                          onChange={(e) => setPalayanFilters({ ...palayanFilters, barangay: e.target.value })}
                           className="filter-select"
                         >
                           <option value="all">All Barangays</option>
@@ -690,9 +787,9 @@ const AdminDashboard = ({ user, onLogout }) => {
 
                       <div className="filter-group">
                         <label>Gender:</label>
-                        <select 
+                        <select
                           value={palayanFilters.gender}
-                          onChange={(e) => setPalayanFilters({...palayanFilters, gender: e.target.value})}
+                          onChange={(e) => setPalayanFilters({ ...palayanFilters, gender: e.target.value })}
                           className="filter-select"
                         >
                           <option value="all">All</option>
@@ -703,9 +800,9 @@ const AdminDashboard = ({ user, onLogout }) => {
 
                       <div className="filter-group">
                         <label>Age Range:</label>
-                        <select 
+                        <select
                           value={palayanFilters.ageRange}
-                          onChange={(e) => setPalayanFilters({...palayanFilters, ageRange: e.target.value})}
+                          onChange={(e) => setPalayanFilters({ ...palayanFilters, ageRange: e.target.value })}
                           className="filter-select"
                         >
                           <option value="all">All Ages</option>
@@ -719,9 +816,9 @@ const AdminDashboard = ({ user, onLogout }) => {
 
                       <div className="filter-group">
                         <label>Status:</label>
-                        <select 
+                        <select
                           value={palayanFilters.status}
-                          onChange={(e) => setPalayanFilters({...palayanFilters, status: e.target.value})}
+                          onChange={(e) => setPalayanFilters({ ...palayanFilters, status: e.target.value })}
                           className="filter-select"
                         >
                           <option value="all">All Status</option>
@@ -750,17 +847,17 @@ const AdminDashboard = ({ user, onLogout }) => {
                         <tbody>
                           {filterAndSortApplicants(palayanApplicants, palayanFilters).map((applicant, index) => {
                             const age = calculateAge(applicant.date_of_birth);
-                            const registrationDate = applicant.created_at 
-                              ? new Date(applicant.created_at).toLocaleDateString('en-US', { 
-                                  year: 'numeric', 
-                                  month: 'short', 
-                                  day: 'numeric' 
-                                })
+                            const registrationDate = applicant.created_at
+                              ? new Date(applicant.created_at).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                              })
                               : 'N/A';
-                            
-                            const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''}`.trim();
+
+                            const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''} ${applicant.suffix || ''}`.trim();
                             const isApproved = applicant.approved_by_admin === true;
-                            
+
                             return (
                               <tr key={applicant.id}>
                                 <td>{index + 1}</td>
@@ -782,9 +879,9 @@ const AdminDashboard = ({ user, onLogout }) => {
                                 <td>{registrationDate}</td>
                                 <td>
                                   {applicant.resume_url ? (
-                                    <a 
-                                      href={applicant.resume_url} 
-                                      target="_blank" 
+                                    <a
+                                      href={applicant.resume_url}
+                                      target="_blank"
                                       rel="noopener noreferrer"
                                       className="resume-link"
                                       download
@@ -801,23 +898,33 @@ const AdminDashboard = ({ user, onLogout }) => {
                                   )}
                                 </td>
                                 <td>
-                                  {isApproved ? (
-                                    <button 
-                                      className="action-btn unapprove-btn"
-                                      onClick={() => handleUnapprove(applicant.id, fullName)}
-                                      title="Remove approval"
+                                  <div style={{ display: 'flex', gap: '8px' }}>
+                                    {isApproved ? (
+                                      <button
+                                        className="action-btn unapprove-btn"
+                                        onClick={() => handleUnapprove(applicant.id, fullName)}
+                                        title="Remove approval"
+                                      >
+                                        Unapprove
+                                      </button>
+                                    ) : (
+                                      <button
+                                        className="action-btn approve-btn"
+                                        onClick={() => handleApprove(applicant.id, fullName)}
+                                        title="Approve and mark as hired"
+                                      >
+                                        Approve
+                                      </button>
+                                    )}
+                                    <button
+                                      className="action-btn edit-btn"
+                                      onClick={() => onEditApplicant && onEditApplicant(applicant)}
+                                      title="Edit Applicant"
+                                      style={{ background: '#f0ad4e', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
                                     >
-                                      Unapprove
+                                      Edit
                                     </button>
-                                  ) : (
-                                    <button 
-                                      className="action-btn approve-btn"
-                                      onClick={() => handleApprove(applicant.id, fullName)}
-                                      title="Approve and mark as hired"
-                                    >
-                                      Approve
-                                    </button>
-                                  )}
+                                  </div>
                                 </td>
                               </tr>
                             );
@@ -842,7 +949,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                     <span className="total-value">{totalOther}</span>
                   </div>
                 </div>
-                
+
                 <div className="chart-container">
                   {otherPlacesData.length > 0 ? (
                     <>
@@ -864,9 +971,9 @@ const AdminDashboard = ({ user, onLogout }) => {
                               ))}
                             </Pie>
                             <Tooltip />
-                            <Legend 
-                              layout="vertical" 
-                              align="right" 
+                            <Legend
+                              layout="vertical"
+                              align="right"
                               verticalAlign="middle"
                               iconType="circle"
                             />
@@ -906,14 +1013,14 @@ const AdminDashboard = ({ user, onLogout }) => {
                 {otherPlacesData.length > 0 && (
                   <div className="applicants-list-section">
                     <h3>Registered Applicants - Other Municipalities</h3>
-                    
+
                     {/* Filters */}
                     <div className="filters-bar">
                       <div className="filter-group">
                         <label>Sort By:</label>
-                        <select 
+                        <select
                           value={otherFilters.sortBy}
-                          onChange={(e) => setOtherFilters({...otherFilters, sortBy: e.target.value})}
+                          onChange={(e) => setOtherFilters({ ...otherFilters, sortBy: e.target.value })}
                           className="filter-select"
                         >
                           <option value="latest">Latest Registration</option>
@@ -923,20 +1030,20 @@ const AdminDashboard = ({ user, onLogout }) => {
 
                       <div className="filter-group">
                         <label>Search Name:</label>
-                        <input 
+                        <input
                           type="text"
                           placeholder="Search by name..."
                           value={otherFilters.searchName}
-                          onChange={(e) => setOtherFilters({...otherFilters, searchName: e.target.value})}
+                          onChange={(e) => setOtherFilters({ ...otherFilters, searchName: e.target.value })}
                           className="filter-input"
                         />
                       </div>
 
                       <div className="filter-group">
                         <label>Municipality:</label>
-                        <select 
+                        <select
                           value={otherFilters.municipality}
-                          onChange={(e) => setOtherFilters({...otherFilters, municipality: e.target.value})}
+                          onChange={(e) => setOtherFilters({ ...otherFilters, municipality: e.target.value })}
                           className="filter-select"
                         >
                           <option value="all">All Municipalities</option>
@@ -948,9 +1055,9 @@ const AdminDashboard = ({ user, onLogout }) => {
 
                       <div className="filter-group">
                         <label>Gender:</label>
-                        <select 
+                        <select
                           value={otherFilters.gender}
-                          onChange={(e) => setOtherFilters({...otherFilters, gender: e.target.value})}
+                          onChange={(e) => setOtherFilters({ ...otherFilters, gender: e.target.value })}
                           className="filter-select"
                         >
                           <option value="all">All</option>
@@ -961,9 +1068,9 @@ const AdminDashboard = ({ user, onLogout }) => {
 
                       <div className="filter-group">
                         <label>Age Range:</label>
-                        <select 
+                        <select
                           value={otherFilters.ageRange}
-                          onChange={(e) => setOtherFilters({...otherFilters, ageRange: e.target.value})}
+                          onChange={(e) => setOtherFilters({ ...otherFilters, ageRange: e.target.value })}
                           className="filter-select"
                         >
                           <option value="all">All Ages</option>
@@ -977,9 +1084,9 @@ const AdminDashboard = ({ user, onLogout }) => {
 
                       <div className="filter-group">
                         <label>Status:</label>
-                        <select 
+                        <select
                           value={otherFilters.status}
-                          onChange={(e) => setOtherFilters({...otherFilters, status: e.target.value})}
+                          onChange={(e) => setOtherFilters({ ...otherFilters, status: e.target.value })}
                           className="filter-select"
                         >
                           <option value="all">All Status</option>
@@ -1008,17 +1115,17 @@ const AdminDashboard = ({ user, onLogout }) => {
                         <tbody>
                           {filterAndSortApplicants(otherApplicants, otherFilters).map((applicant, index) => {
                             const age = calculateAge(applicant.date_of_birth);
-                            const registrationDate = applicant.created_at 
-                              ? new Date(applicant.created_at).toLocaleDateString('en-US', { 
-                                  year: 'numeric', 
-                                  month: 'short', 
-                                  day: 'numeric' 
-                                })
+                            const registrationDate = applicant.created_at
+                              ? new Date(applicant.created_at).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                              })
                               : 'N/A';
-                            
-                            const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''}`.trim();
+
+                            const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''} ${applicant.suffix || ''}`.trim();
                             const isApproved = applicant.approved_by_admin === true;
-                            
+
                             return (
                               <tr key={applicant.id}>
                                 <td>{index + 1}</td>
@@ -1040,9 +1147,9 @@ const AdminDashboard = ({ user, onLogout }) => {
                                 <td>{registrationDate}</td>
                                 <td>
                                   {applicant.resume_url ? (
-                                    <a 
-                                      href={applicant.resume_url} 
-                                      target="_blank" 
+                                    <a
+                                      href={applicant.resume_url}
+                                      target="_blank"
                                       rel="noopener noreferrer"
                                       className="resume-link"
                                       download
@@ -1059,23 +1166,33 @@ const AdminDashboard = ({ user, onLogout }) => {
                                   )}
                                 </td>
                                 <td>
-                                  {isApproved ? (
-                                    <button 
-                                      className="action-btn unapprove-btn"
-                                      onClick={() => handleUnapprove(applicant.id, fullName)}
-                                      title="Remove approval"
+                                  <div style={{ display: 'flex', gap: '8px' }}>
+                                    {isApproved ? (
+                                      <button
+                                        className="action-btn unapprove-btn"
+                                        onClick={() => handleUnapprove(applicant.id, fullName)}
+                                        title="Remove approval"
+                                      >
+                                        Unapprove
+                                      </button>
+                                    ) : (
+                                      <button
+                                        className="action-btn approve-btn"
+                                        onClick={() => handleApprove(applicant.id, fullName)}
+                                        title="Approve and mark as hired"
+                                      >
+                                        Approve
+                                      </button>
+                                    )}
+                                    <button
+                                      className="action-btn edit-btn"
+                                      onClick={() => onEditApplicant && onEditApplicant(applicant)}
+                                      title="Edit Applicant"
+                                      style={{ background: '#f0ad4e', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
                                     >
-                                      Unapprove
+                                      Edit
                                     </button>
-                                  ) : (
-                                    <button 
-                                      className="action-btn approve-btn"
-                                      onClick={() => handleApprove(applicant.id, fullName)}
-                                      title="Approve and mark as hired"
-                                    >
-                                      Approve
-                                    </button>
-                                  )}
+                                  </div>
                                 </td>
                               </tr>
                             );
@@ -1100,7 +1217,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                     <span className="total-value">{totalPalayan + totalOther}</span>
                   </div>
                 </div>
-                
+
                 <div className="statistics-container">
                   {/* Executive Summary */}
                   <div className="executive-summary">
@@ -1224,7 +1341,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                         <div className="insight-content">
                           <h4>Approval Status</h4>
                           <p>
-                            {employmentStats.unemployed > employmentStats.employed 
+                            {employmentStats.unemployed > employmentStats.employed
                               ? `${((employmentStats.unemployed / (employmentStats.employed + employmentStats.unemployed)) * 100).toFixed(0)}% of applicants are pending approval. Review applications and approve qualified candidates for employment.`
                               : `Approval rate is at ${((employmentStats.employed / (employmentStats.employed + employmentStats.unemployed)) * 100).toFixed(0)}%, indicating successful hiring and placement.`
                             }
@@ -1270,7 +1387,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                         <div className="insight-content">
                           <h4>Youth Employment Focus</h4>
                           <p>
-                            {ageStats.age18AndBelow > 0 
+                            {ageStats.age18AndBelow > 0
                               ? `There are ${ageStats.age18AndBelow.toLocaleString()} registrants aged 18 and below (${((ageStats.age18AndBelow / (totalPalayan + totalOther)) * 100).toFixed(1)}% of total). Youth-focused programs and entry-level opportunities should be prioritized for this demographic.`
                               : 'No registrants aged 18 and below. Consider outreach programs to engage younger job seekers.'
                             }
@@ -1382,9 +1499,9 @@ const AdminDashboard = ({ user, onLogout }) => {
                   {/* Report Footer */}
                   <div className="report-footer">
                     <div className="footer-item">
-                      <strong>Report Generated:</strong> {new Date().toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
+                      <strong>Report Generated:</strong> {new Date().toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
                         day: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit'
@@ -1397,6 +1514,139 @@ const AdminDashboard = ({ user, onLogout }) => {
                       <strong>Coverage:</strong> All registered job seekers in the system
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+            {activeTab === 'palayan-trend' && (
+              <div className="chart-section">
+                <div className="chart-header">
+                  <h2>Hired vs. Job Seekers: Monthly Employment Overview</h2>
+                  <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#6b7280', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#1a73e8' }}></span>
+                    Showing data for <strong>Palayan City applicants</strong>
+                  </p>
+                </div>
+
+                <div className="chart-container" style={{ padding: '20px' }}>
+                  {palayanTrendData.length > 0 ? (
+                    <div className="chart-wrapper" style={{ marginTop: '20px' }}>
+                      <ResponsiveContainer width="100%" height={500}>
+                        <LineChart data={palayanTrendData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="name" />
+                          <YAxis />
+                          <Tooltip
+                            contentStyle={{ borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: 'none' }}
+                          />
+                          <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                          <Line type="monotone" dataKey="Hired" stroke="#3BA272" strokeWidth={3} activeDot={{ r: 8 }} />
+                          <Line type="monotone" dataKey="Seeking Employment" stroke="#EE6666" strokeWidth={3} activeDot={{ r: 8 }} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  ) : (
+                    <div className="no-data">
+                      <p>No trend data available.</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Summary Table Section */}
+                <div style={{ padding: '10px 20px 30px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', borderTop: '2px solid #eee', paddingTop: '24px' }}>
+                    <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#333' }}>📊 Summary Table</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <label style={{ fontWeight: 600, color: '#555', fontSize: '0.9rem' }}>View by:</label>
+                      <select
+                        value={trendSummaryMode}
+                        onChange={(e) => setTrendSummaryMode(e.target.value)}
+                        style={{
+                          padding: '8px 14px',
+                          borderRadius: '8px',
+                          border: '1.5px solid #ccc',
+                          fontSize: '0.9rem',
+                          background: '#fff',
+                          cursor: 'pointer',
+                          outline: 'none',
+                          fontWeight: 600,
+                          color: '#333'
+                        }}
+                      >
+                        <option value="monthly">Monthly Summary</option>
+                        <option value="annual">Annual Summary</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {palayanSummaryData.length > 0 ? (
+                    <div style={{ overflowX: 'auto', borderRadius: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.07)', border: '1px solid #eee' }}>
+                      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.92rem' }}>
+                        <thead>
+                          <tr style={{ background: 'linear-gradient(135deg, #1a237e, #283593)', color: '#fff' }}>
+                            <th style={{ padding: '14px 20px', textAlign: 'left', fontWeight: 700, letterSpacing: '0.04em' }}>Period</th>
+                            <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 700, letterSpacing: '0.04em' }}>
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#3BA272', display: 'inline-block' }}></span>
+                                Hired
+                              </span>
+                            </th>
+                            <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 700, letterSpacing: '0.04em' }}>
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#EE6666', display: 'inline-block' }}></span>
+                                Seeking Employment
+                              </span>
+                            </th>
+                            <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 700, letterSpacing: '0.04em' }}>Total Applicants</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {palayanSummaryData.map((row, idx) => (
+                            <tr
+                              key={row.sortKey}
+                              style={{
+                                background: idx % 2 === 0 ? '#fff' : '#f9fafb',
+                                transition: 'background 0.15s'
+                              }}
+                              onMouseEnter={e => e.currentTarget.style.background = '#eef2ff'}
+                              onMouseLeave={e => e.currentTarget.style.background = idx % 2 === 0 ? '#fff' : '#f9fafb'}
+                            >
+                              <td style={{ padding: '12px 20px', fontWeight: 600, color: '#333' }}>{row.period}</td>
+                              <td style={{ padding: '12px 20px', textAlign: 'center' }}>
+                                <span style={{ background: '#d4f4e8', color: '#1e7e50', padding: '3px 12px', borderRadius: '20px', fontWeight: 700 }}>
+                                  {row.hired}
+                                </span>
+                              </td>
+                              <td style={{ padding: '12px 20px', textAlign: 'center' }}>
+                                <span style={{ background: '#fde8e8', color: '#c0392b', padding: '3px 12px', borderRadius: '20px', fontWeight: 700 }}>
+                                  {row.seeking}
+                                </span>
+                              </td>
+                              <td style={{ padding: '12px 20px', textAlign: 'center', fontWeight: 700, color: '#444' }}>{row.total}</td>
+                            </tr>
+                          ))}
+                          {/* Totals Row */}
+                          <tr style={{ background: '#f1f3f9', borderTop: '2px solid #ddd' }}>
+                            <td style={{ padding: '12px 20px', fontWeight: 700, color: '#222' }}>Grand Total</td>
+                            <td style={{ padding: '12px 20px', textAlign: 'center' }}>
+                              <span style={{ background: '#3BA272', color: '#fff', padding: '3px 12px', borderRadius: '20px', fontWeight: 700 }}>
+                                {palayanSummaryData.reduce((sum, r) => sum + r.hired, 0)}
+                              </span>
+                            </td>
+                            <td style={{ padding: '12px 20px', textAlign: 'center' }}>
+                              <span style={{ background: '#EE6666', color: '#fff', padding: '3px 12px', borderRadius: '20px', fontWeight: 700 }}>
+                                {palayanSummaryData.reduce((sum, r) => sum + r.seeking, 0)}
+                              </span>
+                            </td>
+                            <td style={{ padding: '12px 20px', textAlign: 'center', fontWeight: 700, color: '#222' }}>
+                              {palayanSummaryData.reduce((sum, r) => sum + r.total, 0)}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div style={{ textAlign: 'center', padding: '30px', color: '#999' }}>No summary data available.</div>
+                  )}
                 </div>
               </div>
             )}

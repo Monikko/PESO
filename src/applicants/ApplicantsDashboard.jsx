@@ -281,6 +281,19 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
   const [selectedApplicant, setSelectedApplicant] = useState(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
+  // Re-fetch a single applicant by ID and update the search results list + open modal
+  const refreshApplicant = async (applicantId) => {
+    const { data, error } = await supabase
+      .from('applicants')
+      .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date')
+      .eq('id', applicantId)
+      .single();
+    if (!error && data) {
+      setSearchResults(prev => prev.map(a => a.id === applicantId ? data : a));
+      setSelectedApplicant(data);
+    }
+  };
+
   // Modal states
   const [showOccupationMajorModal, setShowOccupationMajorModal] = useState(false);
   const [showOccupationExactModal, setShowOccupationExactModal] = useState(false);
@@ -402,7 +415,7 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
       // Build the query
       let query = supabase
         .from('applicants')
-        .select('*')
+        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date')
         .order('created_at', { ascending: false });
 
       // Filter by first name (case-insensitive partial match)
@@ -1312,7 +1325,7 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
                       title="Click to view details"
                     >
                       <td style={{ padding: '12px', color: '#333' }}>
-                        <div style={{ fontWeight: 600 }}>{applicant.first_name} {applicant.middle_name} {applicant.surname}</div>
+                        <div style={{ fontWeight: 600 }}>{applicant.first_name} {applicant.middle_name} {applicant.surname} {applicant.suffix || ''}</div>
                         {applicant.email && <div style={{ fontSize: '0.85rem', color: '#666' }}>{applicant.email}</div>}
                       </td>
                       <td style={{ padding: '12px', color: '#666', textTransform: 'uppercase' }}>{applicant.sex || '—'}</td>
@@ -1324,11 +1337,11 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
                           borderRadius: '12px', 
                           fontSize: '0.8rem', 
                           fontWeight: 600,
-                          background: applicant.status === 'pending' ? '#fff3cd' : applicant.status === 'approved' ? '#d4edda' : '#f8d7da',
-                          color: applicant.status === 'pending' ? '#856404' : applicant.status === 'approved' ? '#155724' : '#721c24',
+                          background: (applicant.approved_by_admin || applicant.status === 'approved') ? '#d4edda' : (!applicant.status || applicant.status === 'pending') ? '#fff3cd' : '#f8d7da',
+                          color: (applicant.approved_by_admin || applicant.status === 'approved') ? '#155724' : (!applicant.status || applicant.status === 'pending') ? '#856404' : '#721c24',
                           textTransform: 'uppercase'
                         }}>
-                          {applicant.status || 'pending'}
+                          {(applicant.approved_by_admin || applicant.status === 'approved') ? 'approved' : (applicant.status || 'pending')}
                         </span>
                       </td>
                       <td style={{ padding: '12px', color: '#666', fontSize: '0.85rem' }}>
@@ -1499,20 +1512,21 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
           </div>
         </div>
       )}
-    </div>
 
-    {/* Applicant Detail Modal */}
-    {showDetailModal && (
-      <ApplicantDetailModal
-        applicant={selectedApplicant}
-        onClose={() => {
-          setShowDetailModal(false);
-          setSelectedApplicant(null);
-        }}
-        onEdit={handleEditApplicant}
-        isAdmin={user?.role === 'admin'}
-      />
-    )}
+      {/* Applicant Detail Modal */}
+      {showDetailModal && (
+        <ApplicantDetailModal
+          applicant={selectedApplicant}
+          onClose={() => {
+            setShowDetailModal(false);
+            setSelectedApplicant(null);
+          }}
+          onEdit={handleEditApplicant}
+          isAdmin={user?.role === 'admin'}
+          onAdminAccess={(intent) => onAdminAccess({ ...intent, onEditComplete: refreshApplicant })}
+        />
+      )}
+    </div>
   );
 };
 

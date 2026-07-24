@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ApplicantForm.css';
 
-const ApplicantDetailModal = ({ applicant, onClose, onEdit, isAdmin }) => {
+const ApplicantDetailModal = ({ applicant, onClose, onEdit, isAdmin, onAdminAccess }) => {
   if (!applicant) return null;
 
   const formatDate = (dateString) => {
@@ -50,8 +50,10 @@ const ApplicantDetailModal = ({ applicant, onClose, onEdit, isAdmin }) => {
           alignItems: 'center'
         }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: '1.5rem' }}>Applicant Details</h2>
-            <p style={{ margin: '4px 0 0 0', opacity: 0.9, fontSize: '0.9rem' }}>View Mode - Read Only</p>
+            <h2 style={{ margin: 0, fontSize: '1.5rem' }}>
+              {applicant.first_name} {applicant.middle_name} {applicant.surname} {applicant.suffix || ''}
+            </h2>
+            <p style={{ margin: '4px 0 0 0', opacity: 0.9, fontSize: '0.9rem' }}>Applicant Details • View Mode</p>
           </div>
           <button 
             className="close-btn" 
@@ -242,9 +244,24 @@ const ApplicantDetailModal = ({ applicant, onClose, onEdit, isAdmin }) => {
                 ✓ Logged in as Admin - You can edit this applicant
               </span>
             ) : (
-              <span>
-                💡 Login as admin to edit this applicant's information
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>💡 Need to edit?</span>
+                <button
+                  onClick={() => onAdminAccess({ type: 'edit_applicant', applicant, autoLogout: true })}
+                  style={{
+                    padding: '4px 12px',
+                    background: '#337ab7',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                    fontSize: '0.8rem'
+                  }}
+                >
+                  Login as Admin
+                </button>
+              </div>
             )}
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>

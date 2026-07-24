@@ -85,7 +85,7 @@ const ApplicantsList = () => {
               {filteredApplicants.map((applicant) => (
                 <tr key={applicant.id} style={{ borderBottom: '1px solid #ddd' }}>
                   <td style={{ padding: '12px' }}>
-                    {applicant.surname}, {applicant.first_name} {applicant.middle_name}
+                    {applicant.surname}, {applicant.first_name} {applicant.middle_name} {applicant.suffix || ''}
                   </td>
                   <td style={{ padding: '12px' }}>{applicant.email}</td>
                   <td style={{ padding: '12px' }}>{applicant.contact_number}</td>

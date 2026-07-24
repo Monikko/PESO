@@ -135,7 +135,10 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
 
         // Status
         status: 'pending',
-        notes: formData.remarks || ''
+        notes: formData.remarks || '',
+        
+        // Optional override for testing
+        ...(formData.registrationDate ? { created_at: new Date(formData.registrationDate).toISOString() } : {})
       };
 
       // Submit to Supabase
@@ -212,8 +215,8 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
                   type="date"
                   className="input-field"
                   value={formData.registrationDate}
-                  readOnly
-                  style={{ borderRight: 'none', borderRadius: '4px 0 0 4px', flex: 1, color: '#777', backgroundColor: '#f5f5f5' }}
+                  onChange={(e) => setFormData({...formData, registrationDate: e.target.value})}
+                  style={{ borderRight: 'none', borderRadius: '4px 0 0 4px', flex: 1, color: '#333', backgroundColor: '#fff' }}
                 />
                 <button type="button" className="icon-btn search-btn" style={{ background: '#f5f5f5', border: '1px solid #ccc', borderRadius: '0 4px 4px 0', borderLeft: 'none', width: '34px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

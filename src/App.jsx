@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import ApplicantForm from './applicants/ApplicantForm';
+import EditApplicantFlow from './applicants/EditApplicantFlow';
 import LoginPage from './auth/LoginPage';
 import AdminDashboard from './admin/AdminDashboard';
 import LoadingScreen from './components/LoadingScreen';
@@ -63,12 +64,17 @@ function App() {
     setShowAdminLogin(false);
   };
 
-  const handleAdminAccess = () => {
+  const [adminIntent, setAdminIntent] = useState(null);
+  const [adminRefreshKey, setAdminRefreshKey] = useState(0);
+
+  const handleAdminAccess = (intent = null) => {
+    setAdminIntent(intent);
     setShowAdminLogin(true);
   };
 
   const handleBackToHome = () => {
     setShowAdminLogin(false);
+    setAdminIntent(null);
   };
 
   // Show loading screen during initialization
@@ -78,7 +84,27 @@ function App() {
 
   // If admin is logged in, show admin dashboard
   if (session && user?.role === 'admin') {
-    return <AdminDashboard user={user} onLogout={handleLogout} />;
+    if (adminIntent?.type === 'edit_applicant') {
+      return (
+        <EditApplicantFlow
+          applicantData={adminIntent.applicant}
+          onComplete={async (updatedApplicantId) => {
+            // Refresh the applicant in the dashboard before logging out
+            if (adminIntent.onEditComplete && updatedApplicantId) {
+              await adminIntent.onEditComplete(updatedApplicantId);
+            }
+            if (adminIntent.autoLogout) {
+              await handleLogout();
+            } else {
+              // Admin Dashboard edit — trigger re-fetch
+              setAdminRefreshKey(k => k + 1);
+            }
+            setAdminIntent(null);
+          }}
+        />
+      );
+    }
+    return <AdminDashboard user={user} onLogout={handleLogout} refreshKey={adminRefreshKey} onEditApplicant={(app) => setAdminIntent({ type: 'edit_applicant', applicant: app, autoLogout: false })} />;
   }
 
   // If showing admin login page

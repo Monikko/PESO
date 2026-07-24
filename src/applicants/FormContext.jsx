@@ -4,8 +4,8 @@ const FormContext = createContext();
 
 export const useFormContext = () => useContext(FormContext);
 
-export const FormProvider = ({ children }) => {
-  const [formData, setFormData] = useState({
+export const FormProvider = ({ children, initialData }) => {
+  const [formData, setFormData] = useState(initialData || {
     file: null,
     step2: {},
     step3: {},
