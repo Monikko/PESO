@@ -330,8 +330,19 @@ const EducationModal = ({ onSave, onCancel, initialData }) => {
   const [isManualCourse, setIsManualCourse] = useState(false);
   const [manualCourse, setManualCourse] = useState('');
 
+  const isCourseAllowed = form.educationLevel && ['VOCATIONAL', 'COLLEGE', 'MASTERAL', 'POST GRADUATE'].some(kw => form.educationLevel.includes(kw));
+
   const handleChange = (field, value) => {
-    setForm(prev => ({ ...prev, [field]: value }));
+    setForm(prev => {
+      const next = { ...prev, [field]: value };
+      if (field === 'educationLevel') {
+        const allowed = ['VOCATIONAL', 'COLLEGE', 'MASTERAL', 'POST GRADUATE'].some(kw => value.includes(kw));
+        if (!allowed) {
+          next.course = '';
+        }
+      }
+      return next;
+    });
     if (errors[field]) setErrors(prev => ({ ...prev, [field]: '' }));
   };
 
@@ -466,15 +477,18 @@ const EducationModal = ({ onSave, onCancel, initialData }) => {
                     className="input-field"
                     value={form.course}
                     onChange={(e) => handleChange('course', e.target.value)}
-                    onClick={() => setShowCourseModal(true)}
+                    onClick={() => isCourseAllowed && setShowCourseModal(true)}
                     readOnly
-                    placeholder="Click to search course"
-                    style={{ cursor: 'pointer' }}
+                    disabled={!isCourseAllowed}
+                    placeholder={isCourseAllowed ? "Click to search course" : "Not applicable for this level"}
+                    style={{ cursor: isCourseAllowed ? 'pointer' : 'not-allowed', backgroundColor: isCourseAllowed ? '#fff' : '#f5f5f5' }}
                   />
                   <button 
                     className="icon-btn search-btn" 
                     title="Search course"
-                    onClick={() => setShowCourseModal(true)}
+                    onClick={() => isCourseAllowed && setShowCourseModal(true)}
+                    disabled={!isCourseAllowed}
+                    style={{ cursor: isCourseAllowed ? 'pointer' : 'not-allowed' }}
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <circle cx="11" cy="11" r="7" />
@@ -484,18 +498,19 @@ const EducationModal = ({ onSave, onCancel, initialData }) => {
                 </div>
 
                 <div style={{ marginTop: '8px' }}>
-                  <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: '0.85rem', color: '#555' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', cursor: isCourseAllowed ? 'pointer' : 'not-allowed', fontSize: '0.85rem', color: isCourseAllowed ? '#555' : '#999' }}>
                     <input 
                       type="checkbox" 
                       style={{ marginRight: '6px' }}
-                      checked={isManualCourse}
+                      checked={isManualCourse && isCourseAllowed}
                       onChange={(e) => setIsManualCourse(e.target.checked)}
+                      disabled={!isCourseAllowed}
                     />
                     Not in the list? Enter course manually
                   </label>
                 </div>
 
-                {isManualCourse && (
+                {isManualCourse && isCourseAllowed && (
                   <div className="manual-input-wrapper" style={{ marginTop: '8px' }}>
                     <input
                       type="text"
@@ -548,6 +563,7 @@ const EducationModal = ({ onSave, onCancel, initialData }) => {
                 <input
                   type="text"
                   className="input-field"
+                  placeholder="e.g. CUM LAUDE"
                   value={form.awards}
                   onChange={(e) => handleChange('awards', e.target.value)}
                 />
@@ -590,6 +606,7 @@ const Step6 = ({ onNext, onPrev }) => {
   const [records, setRecords] = useState(initialData.records || []);
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const saveStepData = () => {
     updateFormData({
@@ -600,6 +617,11 @@ const Step6 = ({ onNext, onPrev }) => {
   };
 
   const handleNext = () => {
+    if (records.length === 0) {
+      setErrors({ records: "At least one educational background record is required." });
+      return;
+    }
+    setErrors({});
     saveStepData();
     onNext();
   };
@@ -621,6 +643,7 @@ const Step6 = ({ onNext, onPrev }) => {
       setRecords(prev => [...prev, record]);
     }
     setShowModal(false);
+    if (errors.records) setErrors(prev => ({ ...prev, records: null }));
   };
 
   const editRecord = (idx) => {
@@ -642,8 +665,10 @@ const Step6 = ({ onNext, onPrev }) => {
           <span className="step-indicator">Step 6 of 11</span>
         </div>
 
-        <div className="form-body preferences-body">
+        <div className="form-body preferences-body" style={{ padding: '20px 30px' }}>
+          
           <div className="preference-section" style={{ borderBottom: 'none' }}>
+            {errors.records && <span className="error-text" style={{ display: 'block', marginBottom: '10px' }}>{errors.records}</span>}
 
             {records.length > 0 && (
               <div className="edu-records-table-wrapper">

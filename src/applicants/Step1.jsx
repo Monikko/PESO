@@ -8,6 +8,7 @@ const Step1 = ({ onNext }) => {
   const [file, setFile] = useState(formData.resumeFile || null);
   const [fileUrl, setFileUrl] = useState(null);
   const [fileError, setFileError] = useState('');
+  const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
@@ -39,6 +40,29 @@ const Step1 = ({ onNext }) => {
     if (field === 'day') d = value;
 
     updateFormData({ dob: `${y}-${m}-${d}` });
+    if (errors.dob) setErrors(prev => ({ ...prev, dob: null }));
+  };
+
+  const handleNext = () => {
+    const newErrors = {};
+    if (!formData.lastName?.trim()) newErrors.lastName = "Last name is required.";
+    if (!formData.firstName?.trim()) newErrors.firstName = "First name is required.";
+    if (!formData.middleName?.trim()) newErrors.middleName = "Middle name is required.";
+    
+    const parts = (formData.dob || '--').split('-');
+    if (!parts[0] || !parts[1] || !parts[2] || parts[0] === '' || parts[1] === '' || parts[2] === '') {
+      newErrors.dob = "Date of birth is required.";
+    }
+
+    if (!formData.sex) newErrors.sex = "Sex is required.";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+    onNext();
   };
 
   const handleUploadClick = () => {
@@ -70,35 +94,47 @@ const Step1 = ({ onNext }) => {
         <div className="form-body">
           <div className="form-row">
             <label>Last name</label>
-            <input 
-              type="text" 
-              className="input-field" 
-              autoFocus 
-              value={formData.lastName || ''} 
-              onChange={e => updateFormData({ lastName: e.target.value })} 
-            />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <input 
+                type="text" 
+                className={`input-field ${errors.lastName ? 'error-border' : ''}`} 
+                autoFocus 
+                placeholder="e.g. DELA CRUZ"
+                value={formData.lastName || ''} 
+                onChange={e => { updateFormData({ lastName: e.target.value }); if(errors.lastName) setErrors(prev => ({ ...prev, lastName: null })); }} 
+              />
+              {errors.lastName && <span className="error-text" style={{ marginTop: '4px' }}>{errors.lastName}</span>}
+            </div>
           </div>
 
           <div className="form-row">
             <label>First name</label>
-            <input 
-              type="text" 
-              className="input-field" 
-              value={formData.firstName || ''} 
-              onChange={e => updateFormData({ firstName: e.target.value })} 
-            />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <input 
+                type="text" 
+                className={`input-field ${errors.firstName ? 'error-border' : ''}`} 
+                placeholder="e.g. JUAN"
+                value={formData.firstName || ''} 
+                onChange={e => { updateFormData({ firstName: e.target.value }); if(errors.firstName) setErrors(prev => ({ ...prev, firstName: null })); }} 
+              />
+              {errors.firstName && <span className="error-text" style={{ marginTop: '4px' }}>{errors.firstName}</span>}
+            </div>
           </div>
 
           <div className="form-row">
             <label>Middle name</label>
-            <div className="input-wrapper">
-              <input 
-                type="text" 
-                className="input-field" 
-                value={formData.middleName || ''} 
-                onChange={e => updateFormData({ middleName: e.target.value })} 
-              />
-              <span className="subtext">Put hyphen (-) if not applicable</span>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <div className="input-wrapper">
+                <input 
+                  type="text" 
+                  className={`input-field ${errors.middleName ? 'error-border' : ''}`} 
+                  placeholder="e.g. SANTOS"
+                  value={formData.middleName || ''} 
+                  onChange={e => { updateFormData({ middleName: e.target.value }); if(errors.middleName) setErrors(prev => ({ ...prev, middleName: null })); }} 
+                />
+                <span className="subtext">Put hyphen (-) if not applicable</span>
+              </div>
+              {errors.middleName && <span className="error-text" style={{ marginTop: '4px' }}>{errors.middleName}</span>}
             </div>
           </div>
 
@@ -127,63 +163,69 @@ const Step1 = ({ onNext }) => {
 
           <div className="form-row">
             <label>Date of birth</label>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <select 
-                className="select-field" 
-                style={{ flex: 1, width: 'auto' }}
-                value={(formData.dob || '--').split('-')[1] || ''} 
-                onChange={e => handleDobChange('month', e.target.value)}
-              >
-                <option value="">Month</option>
-                {Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, '0')).map(m => (
-                  <option key={m} value={m}>{new Date(2000, parseInt(m) - 1, 1).toLocaleString('default', { month: 'short' })}</option>
-                ))}
-              </select>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <select 
+                  className={`select-field ${errors.dob ? 'error-border' : ''}`} 
+                  style={{ flex: 1, width: 'auto' }}
+                  value={(formData.dob || '--').split('-')[1] || ''} 
+                  onChange={e => handleDobChange('month', e.target.value)}
+                >
+                  <option value="">Month</option>
+                  {Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, '0')).map(m => (
+                    <option key={m} value={m}>{new Date(2000, parseInt(m) - 1, 1).toLocaleString('default', { month: 'short' })}</option>
+                  ))}
+                </select>
 
-              <select 
-                className="select-field" 
-                style={{ flex: 1, width: 'auto' }}
-                value={(formData.dob || '--').split('-')[2] || ''} 
-                onChange={e => handleDobChange('day', e.target.value)}
-              >
-                <option value="">Day</option>
-                {Array.from({ length: 31 }, (_, i) => (i + 1).toString().padStart(2, '0')).map(d => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-              </select>
+                <select 
+                  className={`select-field ${errors.dob ? 'error-border' : ''}`} 
+                  style={{ flex: 1, width: 'auto' }}
+                  value={(formData.dob || '--').split('-')[2] || ''} 
+                  onChange={e => handleDobChange('day', e.target.value)}
+                >
+                  <option value="">Day</option>
+                  {Array.from({ length: 31 }, (_, i) => (i + 1).toString().padStart(2, '0')).map(d => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
 
-              <select 
-                className="select-field" 
-                style={{ flex: 1, width: 'auto' }}
-                value={(formData.dob || '--').split('-')[0] || ''} 
-                onChange={e => handleDobChange('year', e.target.value)}
-              >
-                <option value="">Year</option>
-                {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(y => (
-                  <option key={y} value={y}>{y}</option>
-                ))}
-              </select>
+                <select 
+                  className={`select-field ${errors.dob ? 'error-border' : ''}`} 
+                  style={{ flex: 1, width: 'auto' }}
+                  value={(formData.dob || '--').split('-')[0] || ''} 
+                  onChange={e => handleDobChange('year', e.target.value)}
+                >
+                  <option value="">Year</option>
+                  {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(y => (
+                    <option key={y} value={y}>{y}</option>
+                  ))}
+                </select>
+              </div>
+              {errors.dob && <span className="error-text" style={{ marginTop: '4px' }}>{errors.dob}</span>}
             </div>
           </div>
 
           <div className="form-row">
             <label>Sex</label>
-            <select 
-              className="select-field" 
-              value={formData.sex || ''} 
-              onChange={e => updateFormData({ sex: e.target.value })}
-              style={{ 
-                appearance: 'auto',
-                WebkitAppearance: 'menulist',
-                MozAppearance: 'menulist',
-                background: 'white',
-                cursor: 'pointer'
-              }}
-            >
-              <option value="">SELECT</option>
-              <option value="MALE">MALE</option>
-              <option value="FEMALE">FEMALE</option>
-            </select>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <select 
+                className={`select-field ${errors.sex ? 'error-border' : ''}`} 
+                value={formData.sex || ''} 
+                onChange={e => { updateFormData({ sex: e.target.value }); if(errors.sex) setErrors(prev => ({ ...prev, sex: null })); }}
+                style={{ 
+                  appearance: 'auto',
+                  WebkitAppearance: 'menulist',
+                  MozAppearance: 'menulist',
+                  background: 'white',
+                  cursor: 'pointer'
+                }}
+              >
+                <option value="">SELECT</option>
+                <option value="MALE">MALE</option>
+                <option value="FEMALE">FEMALE</option>
+              </select>
+              {errors.sex && <span className="error-text" style={{ marginTop: '4px' }}>{errors.sex}</span>}
+            </div>
           </div>
 
           <div className="form-row resume-row">
@@ -227,7 +269,7 @@ const Step1 = ({ onNext }) => {
       {/* Navigation */}
       <div className="form-navigation">
         <button className="nav-btn previous-btn" disabled>Previous</button>
-        <button className="nav-btn next-btn" onClick={onNext}>Save &amp; Continue</button>
+        <button className="nav-btn next-btn" onClick={handleNext}>Save &amp; Continue</button>
       </div>
     </div>
   );

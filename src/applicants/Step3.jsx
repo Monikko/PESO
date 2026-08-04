@@ -9,10 +9,12 @@ const Step3 = ({ onNext, onPrev }) => {
   const [employmentStatus, setEmploymentStatus] = useState(initialData.employmentStatus || '');
   const [subStatus, setSubStatus] = useState(initialData.subStatus || '');
   const [lookingForWorkMonths, setLookingForWorkMonths] = useState(initialData.lookingForWorkMonths || '');
+  const [errors, setErrors] = useState({});
 
   const handleStatusChange = (status) => {
     setEmploymentStatus(status);
     setSubStatus(''); // reset sub status when main status changes
+    if (errors.employmentStatus) setErrors(prev => ({ ...prev, employmentStatus: null }));
   };
 
   const saveStepData = () => {
@@ -26,6 +28,11 @@ const Step3 = ({ onNext, onPrev }) => {
   };
 
   const handleNext = () => {
+    if (!employmentStatus) {
+      setErrors({ employmentStatus: "Employment status is required." });
+      return;
+    }
+    setErrors({});
     saveStepData();
     onNext();
   };
@@ -48,23 +55,26 @@ const Step3 = ({ onNext, onPrev }) => {
         <div className="form-body">
           <div className="form-row">
             <label>Employment status</label>
-            <div className="radio-group row-group">
-              <label>
-                <input 
-                  type="radio" 
-                  name="empStatus" 
-                  checked={employmentStatus === 'employed'} 
-                  onChange={() => handleStatusChange('employed')} 
-                /> Employed
-              </label>
-              <label>
-                <input 
-                  type="radio" 
-                  name="empStatus" 
-                  checked={employmentStatus === 'unemployed'} 
-                  onChange={() => handleStatusChange('unemployed')} 
-                /> Unemployed
-              </label>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <div className="radio-group row-group">
+                <label>
+                  <input 
+                    type="radio" 
+                    name="empStatus" 
+                    checked={employmentStatus === 'employed'} 
+                    onChange={() => handleStatusChange('employed')} 
+                  /> Employed
+                </label>
+                <label>
+                  <input 
+                    type="radio" 
+                    name="empStatus" 
+                    checked={employmentStatus === 'unemployed'} 
+                    onChange={() => handleStatusChange('unemployed')} 
+                  /> Unemployed
+                </label>
+              </div>
+              {errors.employmentStatus && <span className="error-text" style={{ marginTop: '4px' }}>{errors.employmentStatus}</span>}
             </div>
           </div>
 
@@ -100,6 +110,7 @@ const Step3 = ({ onNext, onPrev }) => {
               <input 
                 type="number" 
                 className="input-field" 
+                placeholder="0"
                 value={lookingForWorkMonths}
                 onChange={(e) => setLookingForWorkMonths(e.target.value)}
               />

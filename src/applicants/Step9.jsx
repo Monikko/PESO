@@ -241,6 +241,7 @@ const Step9 = ({ onNext, onPrev }) => {
                   <input 
                     type="text" 
                     className={`input-field ${workErrors.employerName ? 'error-border' : ''}`}
+                    placeholder="e.g. ABC CORPORATION"
                     value={workForm.employerName}
                     onChange={(e) => handleWorkChange('employerName', e.target.value)}
                   />
@@ -255,6 +256,7 @@ const Step9 = ({ onNext, onPrev }) => {
                   <input 
                     type="text" 
                     className={`input-field ${workErrors.address ? 'error-border' : ''}`}
+                    placeholder="e.g. MAKATI CITY"
                     value={workForm.address}
                     onChange={(e) => handleWorkChange('address', e.target.value)}
                   />
@@ -270,6 +272,7 @@ const Step9 = ({ onNext, onPrev }) => {
                     <input 
                       type="text" 
                       className={`input-field ${workErrors.positionHeld ? 'error-border' : ''}`}
+                      placeholder={isManualPosition ? "e.g. SOFTWARE ENGINEER" : "Click to search occupation"}
                       value={workForm.positionHeld}
                       onChange={(e) => handleWorkChange('positionHeld', e.target.value)}
                       onClick={() => !isManualPosition && setShowOccModal(true)}

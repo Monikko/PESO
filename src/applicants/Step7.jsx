@@ -320,6 +320,7 @@ const Step7 = ({ onNext, onPrev }) => {
                   <input 
                     type="text" 
                     className={`input-field ${certErrors.issuedBy ? 'error-border' : ''}`}
+                    placeholder="e.g. TESDA"
                     value={certForm.issuedBy}
                     onChange={(e) => handleCertChange('issuedBy', e.target.value)}
                   />
@@ -358,6 +359,7 @@ const Step7 = ({ onNext, onPrev }) => {
                   <input 
                     type="text" 
                     className="input-field"
+                    placeholder="e.g. 95%"
                     value={certForm.rating}
                     onChange={(e) => handleCertChange('rating', e.target.value)}
                   />
@@ -389,6 +391,7 @@ const Step7 = ({ onNext, onPrev }) => {
                   <input 
                     type="text" 
                     className={`input-field ${trainErrors.trainingName ? 'error-border' : ''}`}
+                    placeholder="e.g. BASIC COMPUTER LITERACY"
                     value={trainForm.trainingName}
                     onChange={(e) => handleTrainChange('trainingName', e.target.value)}
                   />
@@ -430,6 +433,7 @@ const Step7 = ({ onNext, onPrev }) => {
                   <input 
                     type="text" 
                     className={`input-field ${trainErrors.conductedBy ? 'error-border' : ''}`}
+                    placeholder="e.g. TESDA"
                     value={trainForm.conductedBy}
                     onChange={(e) => handleTrainChange('conductedBy', e.target.value)}
                   />
@@ -444,6 +448,7 @@ const Step7 = ({ onNext, onPrev }) => {
                   <input 
                     type="text" 
                     className="input-field"
+                    placeholder="e.g. NC II"
                     value={trainForm.certReceived}
                     onChange={(e) => handleTrainChange('certReceived', e.target.value)}
                   />

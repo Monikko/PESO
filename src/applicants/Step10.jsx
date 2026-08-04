@@ -119,6 +119,7 @@ const Step10 = ({ onNext, onPrev }) => {
               <input 
                 type="text"
                 className="input-field"
+                placeholder="Type other skills"
                 value={customSkill}
                 onChange={(e) => setCustomSkill(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter') handleAddCustomSkill(); }}

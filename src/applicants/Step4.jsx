@@ -152,6 +152,8 @@ const Step4 = ({ onNext, onPrev }) => {
   const [isManualOverseas, setIsManualOverseas] = useState(false);
   const [manualOverseas, setManualOverseas] = useState('');
 
+  const [errors, setErrors] = useState({});
+
   const saveStepData = () => {
     updateFormData({
       step4: {
@@ -163,6 +165,20 @@ const Step4 = ({ onNext, onPrev }) => {
   };
 
   const handleNext = () => {
+    const newErrors = {};
+    if (occupations.length === 0) {
+      newErrors.occupations = "At least one preferred occupation is required.";
+    }
+    if (localLocations.length === 0 && overseasLocations.length === 0) {
+      newErrors.locations = "At least one preferred work location (local or overseas) is required.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     saveStepData();
     onNext();
   };
@@ -177,6 +193,7 @@ const Step4 = ({ onNext, onPrev }) => {
       setOccupations(prev => [...prev, occ]);
     }
     setShowOccupationModal(false);
+    if (errors.occupations) setErrors(prev => ({ ...prev, occupations: null }));
   };
 
   const removeOccupation = (code) => {
@@ -185,17 +202,20 @@ const Step4 = ({ onNext, onPrev }) => {
 
   const addManualOccupation = () => {
     if (manualOccupation.trim()) {
-      setOccupations(prev => [...prev, { code: 'MANUAL', occupation: manualOccupation.trim() }]);
+      if (!occupations.find(o => o.occupation.toLowerCase() === manualOccupation.trim().toLowerCase())) {
+        setOccupations(prev => [...prev, { code: 'MANUAL', occupation: manualOccupation.trim().toUpperCase() }]);
+      }
       setManualOccupation('');
+      if (errors.occupations) setErrors(prev => ({ ...prev, occupations: null }));
     }
   };
 
-  const handleSelectLocalLocation = (loc) => {
-    const label = `${loc.name}, ${loc.province}`;
-    if (!localLocations.includes(label)) {
-      setLocalLocations(prev => [...prev, label]);
+  const handleSelectLocalLocation = (city) => {
+    if (!localLocations.includes(city.name)) {
+      setLocalLocations(prev => [...prev, city.name]);
     }
     setShowLocalModal(false);
+    if (errors.locations) setErrors(prev => ({ ...prev, locations: null }));
   };
 
   const handleSelectOverseasLocation = (country) => {
@@ -203,6 +223,7 @@ const Step4 = ({ onNext, onPrev }) => {
       setOverseasLocations(prev => [...prev, country.name]);
     }
     setShowOverseasModal(false);
+    if (errors.locations) setErrors(prev => ({ ...prev, locations: null }));
   };
 
   const addManualLocal = () => {
@@ -211,6 +232,7 @@ const Step4 = ({ onNext, onPrev }) => {
         setLocalLocations(prev => [...prev, manualLocal.trim()]);
       }
       setManualLocal('');
+      if (errors.locations) setErrors(prev => ({ ...prev, locations: null }));
     }
   };
 
@@ -220,6 +242,7 @@ const Step4 = ({ onNext, onPrev }) => {
         setOverseasLocations(prev => [...prev, manualOverseas.trim()]);
       }
       setManualOverseas('');
+      if (errors.locations) setErrors(prev => ({ ...prev, locations: null }));
     }
   };
 
@@ -238,6 +261,7 @@ const Step4 = ({ onNext, onPrev }) => {
           {/* Preferred Occupation */}
           <div className="preference-section">
             <h4 className="preference-heading">PREFERRED OCCUPATION</h4>
+            {errors.occupations && <span className="error-text" style={{ display: 'block', marginBottom: '8px' }}>{errors.occupations}</span>}
 
             {occupations.length > 0 && (
               <div className="added-tags">
@@ -286,6 +310,7 @@ const Step4 = ({ onNext, onPrev }) => {
           {/* Preferred Work Location - Local */}
           <div className="preference-section">
             <h4 className="preference-heading">PREFERRED WORK LOCATION - LOCAL</h4>
+            {errors.locations && <span className="error-text" style={{ display: 'block', marginBottom: '8px' }}>{errors.locations}</span>}
             {localLocations.length > 0 && (
               <div className="added-tags">
                 {localLocations.map((loc, idx) => (

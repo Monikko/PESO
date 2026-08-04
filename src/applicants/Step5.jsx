@@ -150,6 +150,7 @@ const Step5 = ({ onNext, onPrev }) => {
 
   const [languages, setLanguages] = useState(initialData.languages || []);
   const [showModal, setShowModal] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const saveStepData = () => {
     updateFormData({
@@ -160,6 +161,11 @@ const Step5 = ({ onNext, onPrev }) => {
   };
 
   const handleNext = () => {
+    if (languages.length === 0) {
+      setErrors({ languages: "At least one language or dialect is required." });
+      return;
+    }
+    setErrors({});
     saveStepData();
     onNext();
   };
@@ -174,6 +180,7 @@ const Step5 = ({ onNext, onPrev }) => {
       setLanguages(prev => [...prev, { ...lang, read: true, write: true, speak: true, understand: true }]);
     }
     setShowModal(false);
+    if (errors.languages) setErrors(prev => ({ ...prev, languages: null }));
   };
 
   const removeLanguage = (code) => {
@@ -196,6 +203,7 @@ const Step5 = ({ onNext, onPrev }) => {
 
         <div className="form-body preferences-body">
           <div className="preference-section" style={{ borderBottom: 'none' }}>
+            {errors.languages && <span className="error-text" style={{ display: 'block', marginBottom: '10px' }}>{errors.languages}</span>}
 
             {languages.length > 0 && (
               <div className="table-container" style={{ marginBottom: '15px' }}>

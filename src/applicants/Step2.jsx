@@ -59,6 +59,8 @@ const Step2 = ({ onNext, onPrev }) => {
   const [returnMonth, setReturnMonth] = useState(initialData.returnMonth || '');
   const [returnYear, setReturnYear] = useState(initialData.returnYear || '');
 
+  const [errors, setErrors] = useState({});
+
   const saveStepData = () => {
     updateFormData({
       step2: {
@@ -71,6 +73,42 @@ const Step2 = ({ onNext, onPrev }) => {
   };
 
   const handleNext = () => {
+    const newErrors = {};
+
+    if (!civilStatus) newErrors.civilStatus = "Civil status is required.";
+    if (!presentAddress?.trim()) newErrors.presentAddress = "Present address is required.";
+    if (!barangay?.trim()) newErrors.barangay = "Barangay is required.";
+    if (!city?.trim()) newErrors.city = "City/Municipality is required.";
+    if (!province?.trim()) newErrors.province = "Province is required.";
+    if (!religion) newErrors.religion = "Religion is required.";
+
+    if (!cellphone) {
+      newErrors.cellphone = "Cellphone no. is required.";
+    } else if (cellphone.startsWith('+63')) {
+      if (cellphone.length !== 13 || !/^\+63\d{10}$/.test(cellphone)) {
+        newErrors.cellphone = "Invalid format. Use +63 followed by 10 digits.";
+      }
+    } else {
+      if (cellphone.length !== 11 || !/^\d{11}$/.test(cellphone)) {
+        newErrors.cellphone = "Invalid format. Must be 11 digits.";
+      }
+    }
+
+    if (!email) {
+      newErrors.email = "Email address is required.";
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        newErrors.email = "Please enter a valid email address.";
+      }
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     saveStepData();
     onNext();
   };
@@ -154,33 +192,27 @@ const Step2 = ({ onNext, onPrev }) => {
         <div className="form-body">
           <div className="form-row">
             <label>Civil status</label>
-            <select className="select-field" value={civilStatus} onChange={(e) => setCivilStatus(e.target.value)}>
-              <option value="">SELECT</option>
-              <option value="Single">Single</option>
-              <option value="Married">Married</option>
-              <option value="Widowed">Widowed</option>
-              <option value="Separated">Separated</option>
-            </select>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <select className={`select-field ${errors.civilStatus ? 'error-border' : ''}`} value={civilStatus} onChange={(e) => { setCivilStatus(e.target.value); if(errors.civilStatus) setErrors(prev => ({...prev, civilStatus: null})); }}>
+                <option value="">SELECT</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Separated">Separated</option>
+              </select>
+              {errors.civilStatus && <span className="error-text" style={{ marginTop: '4px' }}>{errors.civilStatus}</span>}
+            </div>
           </div>
 
           <div className="form-row">
             <label>Present address</label>
-            <div className="input-wrapper">
-              <input type="text" className="input-field" placeholder="HOUSE NO., STREET, VILLAGE" autoFocus value={presentAddress} onChange={(e) => setPresentAddress(e.target.value)} />
-              <div className="checkbox-group" style={{ marginTop: '5px', paddingTop: '0' }}>
-                <label>
-                  <input 
-                    type="checkbox" 
-                    checked={notFromRegion3}
-                    onChange={(e) => {
-                      setNotFromRegion3(e.target.checked);
-                      if (e.target.checked) {
-                        setBarangay('');
-                        setCity('');
-                        setProvince('');
-                      }
-                    }}
-                  /> 
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <input type="text" className={`input-field ${errors.presentAddress ? 'error-border' : ''}`} placeholder="HOUSE NO., STREET, VILLAGE" autoFocus value={presentAddress} onChange={(e) => { setPresentAddress(e.target.value); if(errors.presentAddress) setErrors(prev => ({...prev, presentAddress: null})); }} />
+              {errors.presentAddress && <span className="error-text" style={{ marginTop: '4px' }}>{errors.presentAddress}</span>}
+              
+              <div style={{ marginTop: '10px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: '0.9rem', color: '#555' }}>
+                  <input type="checkbox" style={{ marginRight: '8px' }} checked={notFromRegion3} onChange={(e) => { setNotFromRegion3(e.target.checked); if(!e.target.checked){ setBarangay(''); setCity(''); setProvince(''); } }} />
                   Not from Region 3?
                 </label>
               </div>
@@ -189,44 +221,58 @@ const Step2 = ({ onNext, onPrev }) => {
 
           <div className="form-row">
             <label>Barangay</label>
-            <div className="input-with-button">
-              <input 
-                type="text" 
-                className={`input-field ${!notFromRegion3 ? 'cursor-pointer' : ''}`} 
-                value={barangay}
-                onChange={(e) => setBarangay(e.target.value)}
-                onClick={!notFromRegion3 ? openModal : undefined}
-                readOnly={!notFromRegion3}
-              />
-              {!notFromRegion3 && (
-                <button className="icon-btn search-btn" onClick={openModal}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                  </svg>
-                </button>
-              )}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <div className="input-with-button">
+                <input 
+                  type="text" 
+                  className={`input-field ${!notFromRegion3 ? 'cursor-pointer' : ''} ${errors.barangay ? 'error-border' : ''}`} 
+                  placeholder="Select barangay"
+                  value={barangay}
+                  onChange={(e) => { setBarangay(e.target.value); if(errors.barangay) setErrors(prev => ({...prev, barangay: null})); }}
+                  onClick={!notFromRegion3 ? openModal : undefined}
+                  readOnly={!notFromRegion3}
+                />
+                {!notFromRegion3 && (
+                  <button className="icon-btn search-btn" onClick={openModal}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <circle cx="11" cy="11" r="7"></circle>
+                      <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
+                    </svg>
+                  </button>
+                )}
+              </div>
+              {errors.barangay && <span className="error-text" style={{ marginTop: '4px' }}>{errors.barangay}</span>}
             </div>
           </div>
 
           <div className="form-row">
             <label>City/Municipality</label>
-            <input 
-              type="text" 
-              className="input-field" 
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <input 
+                type="text" 
+                className={`input-field ${errors.city ? 'error-border' : ''}`} 
+                placeholder="e.g. PALAYAN CITY"
+                value={city}
+                onChange={(e) => { setCity(e.target.value); if(errors.city) setErrors(prev => ({...prev, city: null})); }}
+                readOnly={!notFromRegion3}
+              />
+              {errors.city && <span className="error-text" style={{ marginTop: '4px' }}>{errors.city}</span>}
+            </div>
           </div>
 
           <div className="form-row">
             <label>Province</label>
-            <input 
-              type="text" 
-              className="input-field" 
-              value={province}
-              onChange={(e) => setProvince(e.target.value)}
-            />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <input 
+                type="text" 
+                className={`input-field ${errors.province ? 'error-border' : ''}`} 
+                placeholder="e.g. NUEVA ECIJA"
+                value={province}
+                onChange={(e) => { setProvince(e.target.value); if(errors.province) setErrors(prev => ({...prev, province: null})); }}
+                readOnly={!notFromRegion3}
+              />
+              {errors.province && <span className="error-text" style={{ marginTop: '4px' }}>{errors.province}</span>}
+            </div>
           </div>
 
           <div className="form-row">
@@ -252,12 +298,15 @@ const Step2 = ({ onNext, onPrev }) => {
 
           <div className="form-row">
             <label>Religion</label>
-            <select className="select-field" value={religion} onChange={(e) => setReligion(e.target.value)}>
-              <option value="">SELECT</option>
-              {religionOptions.map((rel, index) => (
-                <option key={index} value={rel}>{rel}</option>
-              ))}
-            </select>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <select className={`select-field ${errors.religion ? 'error-border' : ''}`} value={religion} onChange={(e) => { setReligion(e.target.value); if(errors.religion) setErrors(prev => ({...prev, religion: null})); }}>
+                <option value="">SELECT</option>
+                {religionOptions.map((opt, idx) => (
+                  <option key={idx} value={opt}>{opt}</option>
+                ))}
+              </select>
+              {errors.religion && <span className="error-text" style={{ marginTop: '4px' }}>{errors.religion}</span>}
+            </div>
           </div>
 
           <div className="form-row">
@@ -273,17 +322,41 @@ const Step2 = ({ onNext, onPrev }) => {
 
           <div className="form-row">
             <label>Landline no.</label>
-            <input type="text" className="input-field" value={landline} onChange={(e) => setLandline(e.target.value)} />
+            <input type="text" className="input-field" placeholder="e.g. (044) 123-4567" value={landline} onChange={(e) => setLandline(e.target.value)} />
           </div>
 
           <div className="form-row">
             <label>Cellphone no.</label>
-            <input type="text" className="input-field" value={cellphone} onChange={(e) => setCellphone(e.target.value)} />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <input 
+                type="text" 
+                className={`input-field ${errors.cellphone ? 'error-border' : ''}`} 
+                placeholder="e.g. 09123456789" 
+                value={cellphone} 
+                onChange={(e) => {
+                  setCellphone(e.target.value);
+                  if (errors.cellphone) setErrors(prev => ({ ...prev, cellphone: null }));
+                }} 
+              />
+              {errors.cellphone && <span className="error-text" style={{ marginTop: '4px' }}>{errors.cellphone}</span>}
+            </div>
           </div>
 
           <div className="form-row">
             <label>Email address</label>
-            <input type="email" className="input-field" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <input 
+                type="email" 
+                className={`input-field ${errors.email ? 'error-border' : ''}`} 
+                placeholder="e.g. juan@example.com" 
+                value={email} 
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errors.email) setErrors(prev => ({ ...prev, email: null }));
+                }} 
+              />
+              {errors.email && <span className="error-text" style={{ marginTop: '4px' }}>{errors.email}</span>}
+            </div>
           </div>
 
           <div className="form-row">
@@ -313,7 +386,7 @@ const Step2 = ({ onNext, onPrev }) => {
 
           <div className="form-row">
             <label>Household ID No.</label>
-            <input type="text" className="input-field" value={householdId} onChange={(e) => setHouseholdId(e.target.value)} />
+            <input type="text" className="input-field" placeholder="Enter Household ID" value={householdId} onChange={(e) => setHouseholdId(e.target.value)} />
           </div>
 
           <div className="form-row">
@@ -325,7 +398,7 @@ const Step2 = ({ onNext, onPrev }) => {
 
           <div className="form-row">
             <label>Specify country</label>
-            <input type="text" className="input-field" value={ofwCountry} onChange={(e) => setOfwCountry(e.target.value)} />
+            <input type="text" className="input-field" placeholder="e.g. SAUDI ARABIA" value={ofwCountry} onChange={(e) => setOfwCountry(e.target.value)} />
           </div>
 
           <div className="form-row">
@@ -337,7 +410,7 @@ const Step2 = ({ onNext, onPrev }) => {
 
           <div className="form-row">
             <label>Latest country of deployment</label>
-            <input type="text" className="input-field" value={latestDeploymentCountry} onChange={(e) => setLatestDeploymentCountry(e.target.value)} />
+            <input type="text" className="input-field" placeholder="e.g. UNITED ARAB EMIRATES" value={latestDeploymentCountry} onChange={(e) => setLatestDeploymentCountry(e.target.value)} />
           </div>
 
           <div className="form-row">

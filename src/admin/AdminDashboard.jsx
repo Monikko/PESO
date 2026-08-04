@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../supabaseClient';
 import './AdminDashboard.css';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar } from 'recharts';
 
 const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
   const [activeTab, setActiveTab] = useState('palayan');
@@ -55,6 +55,10 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
   // Trend summary view mode (monthly or annual)
   const [trendSummaryMode, setTrendSummaryMode] = useState('monthly');
 
+  // Occupation search state
+  const [occupationSearch, setOccupationSearch] = useState('');
+  const [selectedOccupation, setSelectedOccupation] = useState(null);
+
   // Colors for pie chart slices
   const COLORS = [
     '#5470C6', '#91CC75', '#FAC858', '#EE6666', '#73C0DE',
@@ -63,11 +67,10 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
     '#96CEB4', '#FFEAA7', '#DFE6E9', '#74B9FF', '#A29BFE'
   ];
 
-  // Process data for the Palayan line graph
+  // Process data for the Palayan line graph — reacts to trendSummaryMode
   const palayanTrendData = useMemo(() => {
     if (!palayanApplicants.length) return [];
 
-    // Map data by Month-Year string (e.g. "2024-01")
     const grouped = {};
 
     palayanApplicants.forEach(app => {
@@ -76,32 +79,85 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
       const date = new Date(app.created_at);
       if (isNaN(date.getTime())) return;
 
-      // Get YYYY-MM
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const monthKey = `${year}-${month}`;
+      let key;
+      let label;
 
-      if (!grouped[monthKey]) {
-        // Create month label (e.g. "Jan 2024")
+      if (trendSummaryMode === 'monthly') {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        key = `${year}-${month}`;
         const monthName = date.toLocaleString('default', { month: 'short' });
-        grouped[monthKey] = {
-          name: `${monthName} ${year}`,
-          monthKey,
+        label = `${monthName} ${year}`;
+      } else {
+        key = `${date.getFullYear()}`;
+        label = key;
+      }
+
+      if (!grouped[key]) {
+        grouped[key] = {
+          name: label,
+          sortKey: key,
           Hired: 0,
           'Seeking Employment': 0
         };
       }
 
       if (app.approved_by_admin === true) {
-        grouped[monthKey].Hired += 1;
+        grouped[key].Hired += 1;
       } else {
-        grouped[monthKey]['Seeking Employment'] += 1;
+        grouped[key]['Seeking Employment'] += 1;
       }
     });
 
     // Convert to array and sort chronologically
-    return Object.values(grouped).sort((a, b) => a.monthKey.localeCompare(b.monthKey));
+    return Object.values(grouped).sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+  }, [palayanApplicants, trendSummaryMode]);
+
+  // Compute top 10 desired occupations from Palayan applicants
+  const palayanTop10Occupations = useMemo(() => {
+    if (!palayanApplicants.length) return [];
+    const counts = {};
+    palayanApplicants.forEach(app => {
+      const occs = app.preferred_occupation;
+      if (!occs) return;
+      const list = Array.isArray(occs) ? occs : [occs];
+      list.forEach(occ => {
+        if (!occ || typeof occ !== 'string') return;
+        const key = occ.trim();
+        if (key) counts[key] = (counts[key] || 0) + 1;
+      });
+    });
+    return Object.entries(counts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
   }, [palayanApplicants]);
+
+  // Compute ALL occupations with counts (for search)
+  const palayanAllOccupations = useMemo(() => {
+    if (!palayanApplicants.length) return [];
+    const counts = {};
+    palayanApplicants.forEach(app => {
+      const occs = app.preferred_occupation;
+      if (!occs) return;
+      const list = Array.isArray(occs) ? occs : [occs];
+      list.forEach(occ => {
+        if (!occ || typeof occ !== 'string') return;
+        const key = occ.trim();
+        if (key) counts[key] = (counts[key] || 0) + 1;
+      });
+    });
+    return Object.entries(counts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+  }, [palayanApplicants]);
+
+  // Filtered occupations based on search query
+  const filteredOccupations = useMemo(() => {
+    if (!occupationSearch.trim()) return palayanAllOccupations;
+    const q = occupationSearch.toLowerCase();
+    return palayanAllOccupations.filter(o => o.name.toLowerCase().includes(q));
+  }, [palayanAllOccupations, occupationSearch]);
 
   // Process data for the Palayan summary table
   const palayanSummaryData = useMemo(() => {
@@ -254,7 +310,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
       console.log('🔍 Fetching applicants from database...');
       const { data, error } = await supabase
         .from('applicants')
-        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date');
+        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation');
 
       if (error) {
         console.error('Supabase error:', error);
@@ -265,7 +321,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
 
           const { data: dataWithoutDob, error: error2 } = await supabase
             .from('applicants')
-            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date');
+            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation');
 
           if (error2) {
             console.error('Second fetch error:', error2);
@@ -1520,11 +1576,38 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
             {activeTab === 'palayan-trend' && (
               <div className="chart-section">
                 <div className="chart-header">
-                  <h2>Hired vs. Job Seekers: Monthly Employment Overview</h2>
+                  <h2>
+                    Hired vs. Job Seekers: {trendSummaryMode === 'monthly' ? 'Monthly' : 'Annual'} Employment Overview
+                  </h2>
                   <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#6b7280', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#1a73e8' }}></span>
                     Showing data for <strong>Palayan City applicants</strong>
                   </p>
+                </div>
+
+                {/* View By Toggle — controls both the graph and summary table */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '10px', padding: '12px 20px 0' }}>
+                  <label style={{ fontWeight: 600, color: '#555', fontSize: '0.9rem' }}>View by:</label>
+                  <div style={{ display: 'flex', gap: '4px', background: '#f1f3f9', borderRadius: '10px', padding: '4px' }}>
+                    <button
+                      onClick={() => setTrendSummaryMode('monthly')}
+                      style={{
+                        padding: '6px 18px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600,
+                        fontSize: '0.88rem', transition: 'all 0.2s',
+                        background: trendSummaryMode === 'monthly' ? '#1a73e8' : 'transparent',
+                        color: trendSummaryMode === 'monthly' ? '#fff' : '#555'
+                      }}
+                    >Monthly</button>
+                    <button
+                      onClick={() => setTrendSummaryMode('annual')}
+                      style={{
+                        padding: '6px 18px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600,
+                        fontSize: '0.88rem', transition: 'all 0.2s',
+                        background: trendSummaryMode === 'annual' ? '#1a73e8' : 'transparent',
+                        color: trendSummaryMode === 'annual' ? '#fff' : '#555'
+                      }}
+                    >Annual</button>
+                  </div>
                 </div>
 
                 <div className="chart-container" style={{ padding: '20px' }}>
@@ -1551,31 +1634,284 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                   )}
                 </div>
 
+                {/* Top 10 Occupations Bar Chart */}
+                <div style={{ padding: '10px 20px 30px' }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    marginBottom: '20px', borderTop: '2px solid #eee', paddingTop: '24px'
+                  }}>
+                    <div>
+                      <h3 style={{ margin: 0, fontSize: '1.15rem', color: '#1a237e', fontWeight: 700 }}>
+                        🏆 Top 10 Desired Occupations
+                      </h3>
+                      <p style={{ margin: '4px 0 0', fontSize: '0.82rem', color: '#777' }}>
+                        Based on preferred occupations submitted by Palayan City applicants
+                      </p>
+                    </div>
+                    <div style={{
+                      background: 'linear-gradient(135deg, #1a237e, #3949ab)',
+                      color: '#fff', borderRadius: '20px',
+                      padding: '4px 14px', fontSize: '0.8rem', fontWeight: 600
+                    }}>
+                      Palayan City
+                    </div>
+                  </div>
+
+                  {palayanTop10Occupations.length > 0 ? (
+                    <div style={{
+                      background: 'linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%)',
+                      borderRadius: '16px', padding: '24px 16px 16px',
+                      boxShadow: '0 2px 16px rgba(26,35,126,0.08)', border: '1px solid #e3e8ff'
+                    }}>
+                      <ResponsiveContainer width="100%" height={420}>
+                        <BarChart
+                          data={palayanTop10Occupations}
+                          margin={{ top: 20, right: 20, left: 0, bottom: 100 }}
+                        >
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#dde3f0" />
+                          <XAxis
+                            dataKey="name"
+                            tick={{ fontSize: 11, fill: '#444', fontWeight: 500 }}
+                            axisLine={{ stroke: '#ccc' }}
+                            tickLine={false}
+                            angle={-35}
+                            textAnchor="end"
+                            interval={0}
+                          />
+                          <YAxis
+                            allowDecimals={false}
+                            tick={{ fontSize: 12, fill: '#555' }}
+                            axisLine={false}
+                            tickLine={false}
+                            label={{ value: 'Applicants', angle: -90, position: 'insideLeft', offset: 10, fontSize: 12, fill: '#888' }}
+                          />
+                          <Tooltip
+                            cursor={{ fill: 'rgba(26,35,126,0.06)' }}
+                            contentStyle={{
+                              borderRadius: '10px',
+                              boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
+                              border: 'none',
+                              fontSize: '0.88rem'
+                            }}
+                            formatter={(value) => [`${value} applicant${value !== 1 ? 's' : ''}`, 'Count']}
+                          />
+                          <Bar
+                            dataKey="count"
+                            radius={[8, 8, 0, 0]}
+                            label={{
+                              position: 'top',
+                              formatter: (v) => v,
+                              fontSize: 12,
+                              fill: '#3949ab',
+                              fontWeight: 700
+                            }}
+                          >
+                            {palayanTop10Occupations.map((_, index) => {
+                              const gradient = [
+                                '#3949ab', '#5c6bc0', '#7986cb', '#1a73e8',
+                                '#1e88e5', '#039be5', '#0097a7', '#00897b',
+                                '#43a047', '#7cb342'
+                              ];
+                              return (
+                                <Cell
+                                  key={`cell-${index}`}
+                                  fill={gradient[index % gradient.length]}
+                                />
+                              );
+                            })}
+                          </Bar>
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  ) : (
+                    <div style={{
+                      textAlign: 'center', padding: '40px 20px',
+                      color: '#aaa', background: '#f9fafb',
+                      borderRadius: '12px', border: '1px dashed #ddd'
+                    }}>
+                      <div style={{ fontSize: '2rem', marginBottom: '8px' }}>📋</div>
+                      <p style={{ margin: 0, fontSize: '0.95rem' }}>No occupation data available yet.</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Occupation Search Section */}
+                <div style={{ padding: '10px 20px 30px' }}>
+                  <div style={{ borderTop: '2px solid #eee', paddingTop: '24px', marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <div>
+                        <h3 style={{ margin: 0, fontSize: '1.15rem', color: '#1a237e', fontWeight: 700 }}>
+                          🔍 Occupation Search
+                        </h3>
+                        <p style={{ margin: '4px 0 0', fontSize: '0.82rem', color: '#777' }}>
+                          Search an occupation to view how many Palayan City applicants are seeking it
+                        </p>
+                      </div>
+                      <div style={{
+                        background: 'linear-gradient(135deg, #1a237e, #3949ab)',
+                        color: '#fff', borderRadius: '20px',
+                        padding: '4px 14px', fontSize: '0.8rem', fontWeight: 600
+                      }}>
+                        Palayan City
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Search Input */}
+                  <div style={{ position: 'relative', marginBottom: '16px' }}>
+                    <span style={{
+                      position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)',
+                      fontSize: '1rem', color: '#888', pointerEvents: 'none'
+                    }}>🔍</span>
+                    <input
+                      id="occupation-search-input"
+                      type="text"
+                      placeholder="Type an occupation (e.g. Teacher, Nurse, Driver…)"
+                      value={occupationSearch}
+                      onChange={e => { setOccupationSearch(e.target.value); setSelectedOccupation(null); }}
+                      style={{
+                        width: '100%', boxSizing: 'border-box',
+                        padding: '12px 16px 12px 42px',
+                        borderRadius: '12px', border: '1.5px solid #c5cae9',
+                        fontSize: '0.95rem', outline: 'none',
+                        background: '#f8f9ff',
+                        transition: 'border-color 0.2s, box-shadow 0.2s',
+                        boxShadow: '0 2px 8px rgba(26,35,126,0.06)'
+                      }}
+                      onFocus={e => { e.target.style.borderColor = '#3949ab'; e.target.style.boxShadow = '0 0 0 3px rgba(57,73,171,0.12)'; }}
+                      onBlur={e => { e.target.style.borderColor = '#c5cae9'; e.target.style.boxShadow = '0 2px 8px rgba(26,35,126,0.06)'; }}
+                    />
+                    {occupationSearch && (
+                      <button
+                        onClick={() => { setOccupationSearch(''); setSelectedOccupation(null); }}
+                        style={{
+                          position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
+                          background: 'none', border: 'none', cursor: 'pointer',
+                          color: '#aaa', fontSize: '1.1rem', lineHeight: 1, padding: '2px 4px'
+                        }}
+                        title="Clear search"
+                      >✕</button>
+                    )}
+                  </div>
+
+                  {/* Results Grid */}
+                  {filteredOccupations.length > 0 ? (
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                      gap: '10px',
+                      maxHeight: '320px',
+                      overflowY: 'auto',
+                      padding: '4px 2px',
+                    }}>
+                      {filteredOccupations.map((occ, idx) => {
+                        const isSelected = selectedOccupation && selectedOccupation.name === occ.name;
+                        return (
+                          <button
+                            key={occ.name}
+                            id={`occ-btn-${idx}`}
+                            onClick={() => setSelectedOccupation(isSelected ? null : occ)}
+                            style={{
+                              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                              padding: '10px 14px', borderRadius: '10px', cursor: 'pointer',
+                              border: isSelected ? '2px solid #3949ab' : '1.5px solid #e3e8ff',
+                              background: isSelected
+                                ? 'linear-gradient(135deg, #3949ab, #5c6bc0)'
+                                : 'linear-gradient(135deg, #f8f9ff, #eef2ff)',
+                              color: isSelected ? '#fff' : '#333',
+                              fontWeight: 600, fontSize: '0.88rem',
+                              textAlign: 'left', transition: 'all 0.18s',
+                              boxShadow: isSelected ? '0 4px 14px rgba(57,73,171,0.25)' : '0 1px 4px rgba(26,35,126,0.06)',
+                              transform: isSelected ? 'scale(1.02)' : 'scale(1)'
+                            }}
+                            onMouseEnter={e => { if (!isSelected) { e.currentTarget.style.borderColor = '#3949ab'; e.currentTarget.style.background = 'linear-gradient(135deg, #eef2ff, #dde3ff)'; } }}
+                            onMouseLeave={e => { if (!isSelected) { e.currentTarget.style.borderColor = '#e3e8ff'; e.currentTarget.style.background = 'linear-gradient(135deg, #f8f9ff, #eef2ff)'; } }}
+                          >
+                            <span style={{
+                              whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                              maxWidth: '150px'
+                            }} title={occ.name}>{occ.name}</span>
+                            <span style={{
+                              marginLeft: '8px', minWidth: '28px', height: '24px',
+                              borderRadius: '20px', display: 'inline-flex',
+                              alignItems: 'center', justifyContent: 'center',
+                              fontSize: '0.8rem', fontWeight: 700,
+                              background: isSelected ? 'rgba(255,255,255,0.25)' : '#3949ab',
+                              color: isSelected ? '#fff' : '#fff',
+                              padding: '0 8px'
+                            }}>{occ.count}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div style={{
+                      textAlign: 'center', padding: '32px 20px',
+                      color: '#aaa', background: '#f9fafb',
+                      borderRadius: '12px', border: '1px dashed #ddd'
+                    }}>
+                      <div style={{ fontSize: '2rem', marginBottom: '8px' }}>🔎</div>
+                      <p style={{ margin: 0, fontSize: '0.95rem' }}>
+                        No occupations found{occupationSearch ? ` matching "${occupationSearch}"` : ''}.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Selected Occupation Detail */}
+                  {selectedOccupation && (
+                    <div style={{
+                      marginTop: '20px',
+                      padding: '24px',
+                      borderRadius: '16px',
+                      background: 'linear-gradient(135deg, #1a237e 0%, #3949ab 60%, #5c6bc0 100%)',
+                      color: '#fff',
+                      boxShadow: '0 8px 32px rgba(26,35,126,0.22)',
+                      display: 'flex', alignItems: 'center', gap: '24px',
+                      flexWrap: 'wrap'
+                    }}>
+                      <div style={{ fontSize: '2.8rem' }}>💼</div>
+                      <div style={{ flex: 1, minWidth: '180px' }}>
+                        <div style={{ fontSize: '0.82rem', fontWeight: 600, opacity: 0.8, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>
+                          Selected Occupation · Palayan City
+                        </div>
+                        <div style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '4px' }}>
+                          {selectedOccupation.name}
+                        </div>
+                        <div style={{ fontSize: '0.85rem', opacity: 0.75 }}>
+                          Applicants actively seeking this role
+                        </div>
+                      </div>
+                      <div style={{ textAlign: 'center', minWidth: '120px' }}>
+                        <div style={{
+                          fontSize: '3.5rem', fontWeight: 900, lineHeight: 1,
+                          textShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                        }}>{selectedOccupation.count}</div>
+                        <div style={{ fontSize: '0.85rem', opacity: 0.8, marginTop: '4px', fontWeight: 600 }}>
+                          {selectedOccupation.count === 1 ? 'Applicant' : 'Applicants'}
+                        </div>
+                        <div style={{ fontSize: '0.78rem', opacity: 0.65, marginTop: '2px' }}>
+                          {palayanAllOccupations.length > 0
+                            ? `${((selectedOccupation.count / palayanApplicants.length) * 100).toFixed(1)}% of Palayan applicants`
+                            : ''}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setSelectedOccupation(null)}
+                        style={{
+                          alignSelf: 'flex-start', background: 'rgba(255,255,255,0.18)',
+                          border: '1px solid rgba(255,255,255,0.3)', color: '#fff',
+                          borderRadius: '8px', padding: '6px 12px', cursor: 'pointer',
+                          fontSize: '0.82rem', fontWeight: 600
+                        }}
+                      >✕ Close</button>
+                    </div>
+                  )}
+                </div>
+
                 {/* Summary Table Section */}
                 <div style={{ padding: '10px 20px 30px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', borderTop: '2px solid #eee', paddingTop: '24px' }}>
                     <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#333' }}>📊 Summary Table</h3>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <label style={{ fontWeight: 600, color: '#555', fontSize: '0.9rem' }}>View by:</label>
-                      <select
-                        value={trendSummaryMode}
-                        onChange={(e) => setTrendSummaryMode(e.target.value)}
-                        style={{
-                          padding: '8px 14px',
-                          borderRadius: '8px',
-                          border: '1.5px solid #ccc',
-                          fontSize: '0.9rem',
-                          background: '#fff',
-                          cursor: 'pointer',
-                          outline: 'none',
-                          fontWeight: 600,
-                          color: '#333'
-                        }}
-                      >
-                        <option value="monthly">Monthly Summary</option>
-                        <option value="annual">Annual Summary</option>
-                      </select>
-                    </div>
                   </div>
 
                   {palayanSummaryData.length > 0 ? (

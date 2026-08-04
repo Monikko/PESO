@@ -238,6 +238,7 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
                 <input 
                   type="text" 
                   className="input-field"
+                  placeholder="PESO ID (Auto-generated)"
                   value={formData.pesoId}
                   readOnly
                   style={{ borderRight: 'none', borderRadius: '4px 0 0 4px', flex: 1, backgroundColor: '#f5f5f5', color: '#777' }}
@@ -273,6 +274,7 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
             <div className="edu-form-control">
               <textarea 
                 className="input-field"
+                placeholder="Enter any additional remarks..."
                 value={formData.remarks}
                 onChange={(e) => handleChange('remarks', e.target.value)}
                 style={{ width: '100%', minHeight: '60px', resize: 'both' }}
@@ -287,6 +289,7 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
               <input 
                 type="text" 
                 className="input-field"
+                placeholder="Encoder's Name (Auto-filled)"
                 value={formData.encodedBy}
                 readOnly
                 style={{ width: '350px', backgroundColor: '#f5f5f5', color: '#777' }}
