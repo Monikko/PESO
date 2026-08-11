@@ -658,10 +658,9 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
           </label>
           <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '10px' }}>
             <input
-              type="text"
-              placeholder="mm/dd/yyyy"
+              type="date"
               value={searchFilters.registrationDateFrom}
-              onChange={(e) => handleDateInputChange('registrationDateFrom', e.target.value)}
+              onChange={(e) => handleInputChange('registrationDateFrom', e.target.value)}
               style={{
                 flex: 1,
                 padding: '8px 12px',
@@ -672,10 +671,9 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
             />
             <span style={{ color: '#666' }}>to</span>
             <input
-              type="text"
-              placeholder="mm/dd/yyyy"
+              type="date"
               value={searchFilters.registrationDateTo}
-              onChange={(e) => handleDateInputChange('registrationDateTo', e.target.value)}
+              onChange={(e) => handleInputChange('registrationDateTo', e.target.value)}
               style={{
                 flex: 1,
                 padding: '8px 12px',
@@ -684,30 +682,6 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
                 fontSize: '0.95rem'
               }}
             />
-            <button
-              type="button"
-              onClick={() => {
-                setDatePickerField('both');
-                setShowDatePickerModal(true);
-              }}
-              style={{
-                padding: '8px 12px',
-                border: '1px solid #ccc',
-                borderRadius: '4px',
-                background: '#f8f9fa',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-            </button>
           </div>
         </div>
 

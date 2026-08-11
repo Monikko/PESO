@@ -59,6 +59,23 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
   const [occupationSearch, setOccupationSearch] = useState('');
   const [selectedOccupation, setSelectedOccupation] = useState(null);
 
+  // Confirmation modal state
+  const [confirmModal, setConfirmModal] = useState({
+    show: false,
+    type: '', // 'approve' or 'unapprove'
+    applicantId: null,
+    applicantName: '',
+    processing: false
+  });
+
+  // Result modal state
+  const [resultModal, setResultModal] = useState({
+    show: false,
+    success: true,
+    title: '',
+    message: ''
+  });
+
   // Colors for pie chart slices
   const COLORS = [
     '#5470C6', '#91CC75', '#FAC858', '#EE6666', '#73C0DE',
@@ -210,16 +227,23 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
     fetchData();
   }, [refreshKey]);
 
-  // Function to approve an applicant (mark as hired)
-  const handleApprove = async (applicantId, applicantName) => {
-    if (!confirm(`Approve and mark ${applicantName} as HIRED?`)) {
-      return;
-    }
+  // Function to open the approve confirmation modal
+  const handleApprove = (applicantId, applicantName) => {
+    setConfirmModal({
+      show: true,
+      type: 'approve',
+      applicantId,
+      applicantName,
+      processing: false
+    });
+  };
+
+  // Function to actually process the approval
+  const processApproval = async () => {
+    const { applicantId, applicantName } = confirmModal;
+    setConfirmModal(prev => ({ ...prev, processing: true }));
 
     try {
-      console.log('Approving applicant:', applicantId);
-      console.log('Attempting to update approved_by_admin to TRUE');
-
       const { data, error } = await supabase
         .from('applicants')
         .update({
@@ -230,52 +254,67 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
         .select();
 
       if (error) {
-        console.error('❌ Approval error:', error);
-        console.error('Error code:', error.code);
-        console.error('Error hint:', error.hint);
-        console.error('Error details:', error.details);
-
-        // Check if it's an RLS error
-        if (error.message?.includes('RLS') || error.message?.includes('policy') || error.code === '42501') {
-          alert(`⚠️ Database Permission Error!\n\nRow Level Security (RLS) is blocking the update.\n\nFix:\n1. Go to Supabase Dashboard\n2. Table Editor → applicants table\n3. Click "RLS" button at top\n4. Either disable RLS OR add a policy for UPDATE\n\nError: ${error.message}`);
-        } else {
-          alert(`Error approving applicant: ${error.message}`);
-        }
+        console.error('Approval error:', error);
+        setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+        setResultModal({
+          show: true,
+          success: false,
+          title: 'Approval Failed',
+          message: error.message?.includes('RLS') || error.message?.includes('policy') || error.code === '42501'
+            ? 'Database Permission Error! Row Level Security (RLS) is blocking the update. Please check your Supabase RLS policies.'
+            : `Error approving applicant: ${error.message}`
+        });
         return;
       }
 
-      console.log('✅ Approval successful!');
-      console.log('📋 Updated record:', data);
-      console.log('🔍 Checking approved_by_admin value:', data[0]?.approved_by_admin);
-      console.log('📅 Approval date:', data[0]?.approval_date);
-
-      // Verify the update was successful
       if (data && data.length > 0 && data[0].approved_by_admin === true) {
-        alert(`✅ ${applicantName} has been approved and marked as HIRED!\n\nStatus: APPROVED\nDate: ${new Date().toLocaleString()}`);
+        setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+        setResultModal({
+          show: true,
+          success: true,
+          title: 'Applicant Approved!',
+          message: `${applicantName} has been successfully approved and marked as HIRED.`
+        });
       } else {
-        alert(`⚠️ Warning: Approval command sent but status verification failed.\n\nPlease refresh the page and check Supabase directly.`);
-        console.error('⚠️ WARNING: Update returned but approved_by_admin is not true:', data);
+        setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+        setResultModal({
+          show: true,
+          success: false,
+          title: 'Verification Failed',
+          message: 'Approval command sent but status verification failed. Please refresh the page.'
+        });
       }
 
-      // Refresh data
-      console.log('🔄 Refreshing data from database...');
       await fetchData();
-      console.log('✅ Data refresh complete');
     } catch (error) {
-      console.error('❌ Unexpected error:', error);
-      alert(`Error: ${error.message}`);
+      console.error('Unexpected error:', error);
+      setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+      setResultModal({
+        show: true,
+        success: false,
+        title: 'Error',
+        message: error.message
+      });
     }
   };
 
-  // Function to unapprove an applicant
-  const handleUnapprove = async (applicantId, applicantName) => {
-    if (!confirm(`Remove approval for ${applicantName}?`)) {
-      return;
-    }
+  // Function to open the unapprove confirmation modal
+  const handleUnapprove = (applicantId, applicantName) => {
+    setConfirmModal({
+      show: true,
+      type: 'unapprove',
+      applicantId,
+      applicantName,
+      processing: false
+    });
+  };
+
+  // Function to actually process the unapproval
+  const processUnapproval = async () => {
+    const { applicantId, applicantName } = confirmModal;
+    setConfirmModal(prev => ({ ...prev, processing: true }));
 
     try {
-      console.log('Unapproving applicant:', applicantId);
-
       const { data, error } = await supabase
         .from('applicants')
         .update({
@@ -287,18 +326,34 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
 
       if (error) {
         console.error('Unapproval error:', error);
-        alert(`Error removing approval: ${error.message}`);
+        setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+        setResultModal({
+          show: true,
+          success: false,
+          title: 'Error',
+          message: `Error removing approval: ${error.message}`
+        });
         return;
       }
 
-      console.log('Unapproval successful:', data);
-      alert(`Approval removed for ${applicantName}`);
+      setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+      setResultModal({
+        show: true,
+        success: true,
+        title: 'Approval Removed',
+        message: `Approval has been removed for ${applicantName}.`
+      });
 
-      // Refresh data
       await fetchData();
     } catch (error) {
       console.error('Unexpected error:', error);
-      alert(`Error: ${error.message}`);
+      setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+      setResultModal({
+        show: true,
+        success: false,
+        title: 'Error',
+        message: error.message
+      });
     }
   };
 
@@ -1314,10 +1369,10 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
 
                   {/* Key Performance Indicators */}
                   <div className="kpi-section">
-                    <h3>📈 Key Performance Indicators</h3>
+                    <h3>Key Performance Indicators</h3>
                     <div className="stats-cards">
                       <div className="stat-card employed">
-                        <div className="stat-icon">✅</div>
+                        <div className="stat-icon"></div>
                         <div className="stat-content">
                           <div className="stat-label">Approved (Hired)</div>
                           <div className="stat-value">{employmentStats.employed.toLocaleString()}</div>
@@ -1331,7 +1386,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                       </div>
 
                       <div className="stat-card unemployed">
-                        <div className="stat-icon">⏳</div>
+                        <div className="stat-icon"></div>
                         <div className="stat-content">
                           <div className="stat-label">Seeking Employment</div>
                           <div className="stat-value">{employmentStats.unemployed.toLocaleString()}</div>
@@ -1345,7 +1400,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                       </div>
 
                       <div className="stat-card male">
-                        <div className="stat-icon">👨</div>
+                        <div className="stat-icon"></div>
                         <div className="stat-content">
                           <div className="stat-label">Male Registrants</div>
                           <div className="stat-value">{employmentStats.male.toLocaleString()}</div>
@@ -1359,7 +1414,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                       </div>
 
                       <div className="stat-card female">
-                        <div className="stat-icon">👩</div>
+                        <div className="stat-icon"></div>
                         <div className="stat-content">
                           <div className="stat-label">Female Registrants</div>
                           <div className="stat-value">{employmentStats.female.toLocaleString()}</div>
@@ -1373,7 +1428,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                       </div>
 
                       <div className="stat-card youth">
-                        <div className="stat-icon">👶</div>
+                        <div className="stat-icon"></div>
                         <div className="stat-content">
                           <div className="stat-label">Youth Applicants (18 & Below)</div>
                           <div className="stat-value">{ageStats.age18AndBelow.toLocaleString()}</div>
@@ -1390,10 +1445,10 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
 
                   {/* Data Insights */}
                   <div className="insights-section">
-                    <h3>💡 Key Insights & Recommendations</h3>
+                    <h3>Key Insights & Recommendations</h3>
                     <div className="insights-grid">
                       <div className="insight-card">
-                        <div className="insight-icon">📊</div>
+                        <div className="insight-icon"></div>
                         <div className="insight-content">
                           <h4>Approval Status</h4>
                           <p>
@@ -1406,7 +1461,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                       </div>
 
                       <div className="insight-card">
-                        <div className="insight-icon">⚖️</div>
+                        <div className="insight-icon"></div>
                         <div className="insight-content">
                           <h4>Gender Balance</h4>
                           <p>
@@ -1419,7 +1474,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                       </div>
 
                       <div className="insight-card">
-                        <div className="insight-icon">🎯</div>
+                        <div className="insight-icon"></div>
                         <div className="insight-content">
                           <h4>Strategic Focus</h4>
                           <p>
@@ -1429,7 +1484,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                       </div>
 
                       <div className="insight-card">
-                        <div className="insight-icon">📍</div>
+                        <div className="insight-icon"></div>
                         <div className="insight-content">
                           <h4>Geographic Coverage</h4>
                           <p>
@@ -1439,7 +1494,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
                       </div>
 
                       <div className="insight-card">
-                        <div className="insight-icon">👶</div>
+                        <div className="insight-icon"></div>
                         <div className="insight-content">
                           <h4>Youth Employment Focus</h4>
                           <p>
@@ -1455,7 +1510,7 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
 
                   {/* Analytical Charts */}
                   <div className="analytics-section">
-                    <h3>📉 Statistical Analysis</h3>
+                    <h3>Statistical Analysis</h3>
                     <div className="charts-row">
                       <div className="chart-box">
                         <h4>Employment Status Distribution</h4>
@@ -1989,6 +2044,71 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
           </>
         )}
       </div>
+
+      {/* Confirmation Modal */}
+      {confirmModal.show && (
+        <div className="confirm-modal-overlay" onClick={() => !confirmModal.processing && setConfirmModal(prev => ({ ...prev, show: false }))}>
+          <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <div className={`confirm-modal-icon ${confirmModal.type === 'approve' ? 'approve' : 'unapprove'}`}>
+              {confirmModal.type === 'approve' ? '✓' : '✕'}
+            </div>
+            <h3 className="confirm-modal-title">
+              {confirmModal.type === 'approve' ? 'Approve Applicant' : 'Remove Approval'}
+            </h3>
+            <p className="confirm-modal-message">
+              {confirmModal.type === 'approve'
+                ? <>Are you sure you want to approve and mark <strong>{confirmModal.applicantName}</strong> as <span style={{ color: '#27ae60', fontWeight: 700 }}>HIRED</span>?</>
+                : <>Are you sure you want to remove approval for <strong>{confirmModal.applicantName}</strong>?</>
+              }
+            </p>
+            <div className="confirm-modal-actions">
+              <button
+                className="confirm-modal-btn cancel"
+                onClick={() => setConfirmModal(prev => ({ ...prev, show: false }))}
+                disabled={confirmModal.processing}
+              >
+                Cancel
+              </button>
+              <button
+                className={`confirm-modal-btn ${confirmModal.type === 'approve' ? 'approve' : 'unapprove'}`}
+                onClick={() => confirmModal.type === 'approve' ? processApproval() : processUnapproval()}
+                disabled={confirmModal.processing}
+              >
+                {confirmModal.processing
+                  ? 'Processing...'
+                  : confirmModal.type === 'approve' ? 'Yes, Approve' : 'Yes, Remove'
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Result Modal */}
+      {resultModal.show && (
+        <div className="confirm-modal-overlay" onClick={() => setResultModal(prev => ({ ...prev, show: false }))}>
+          <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <div className={`confirm-modal-icon ${resultModal.success ? 'success' : 'error'}`}>
+              {resultModal.success ? '✓' : '!'}
+            </div>
+            <h3 className="confirm-modal-title">{resultModal.title}</h3>
+            <p className="confirm-modal-message">{resultModal.message}</p>
+            {resultModal.success && (
+              <p style={{ fontSize: '0.85rem', color: '#888', marginTop: '4px' }}>
+                {new Date().toLocaleString()}
+              </p>
+            )}
+            <div className="confirm-modal-actions">
+              <button
+                className="confirm-modal-btn approve"
+                onClick={() => setResultModal(prev => ({ ...prev, show: false }))}
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
