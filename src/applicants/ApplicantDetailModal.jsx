@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import './ApplicantForm.css';
 
-const ApplicantDetailModal = ({ applicant, onClose, onEdit, isAdmin, onAdminAccess }) => {
+const ApplicantDetailModal = ({ applicant, onClose }) => {
   const [fullData, setFullData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -97,89 +97,43 @@ const ApplicantDetailModal = ({ applicant, onClose, onEdit, isAdmin, onAdminAcce
             padding: '20px 30px', 
             borderTop: '1px solid #dee2e6',
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             alignItems: 'center',
-            gap: '16px',
-            flexWrap: 'wrap'
+            gap: '12px'
           }}>
-            <div style={{ fontSize: '0.85rem', color: '#666' }}>
-              {isAdmin ? (
-                <span style={{ color: '#5cb85c', fontWeight: 600 }}>
-                  ✓ Logged in as Admin
-                </span>
-              ) : (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span>💡 Need to edit?</span>
-                  <button
-                    onClick={() => onAdminAccess?.({ type: 'edit_applicant', applicant: data, autoLogout: true })}
-                    style={{
-                      padding: '4px 12px',
-                      background: '#337ab7',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                      fontWeight: 600,
-                      fontSize: '0.8rem'
-                    }}
-                  >
-                    Login as Admin
-                  </button>
-                </div>
-              )}
-            </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button
-                onClick={handlePrint}
-                style={{
-                  padding: '10px 24px',
-                  background: '#5cb85c',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}
-              >
-                🖨️ Print Resume
-              </button>
-              <button
-                onClick={onClose}
-                style={{
-                  padding: '10px 24px',
-                  background: '#6c757d',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                  cursor: 'pointer'
-                }}
-              >
-                Close
-              </button>
-              {isAdmin && (
-                <button
-                  onClick={() => onEdit(data)}
-                  style={{
-                    padding: '10px 24px',
-                    background: '#428bca',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    fontSize: '0.9rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  ✏️ Edit
-                </button>
-              )}
-            </div>
+            <button
+              onClick={handlePrint}
+              style={{
+                padding: '10px 24px',
+                background: '#5cb85c',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              🖨️ Print Resume
+            </button>
+            <button
+              onClick={onClose}
+              style={{
+                padding: '10px 24px',
+                background: '#6c757d',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>

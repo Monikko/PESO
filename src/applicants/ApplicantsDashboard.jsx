@@ -281,19 +281,6 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
   const [selectedApplicant, setSelectedApplicant] = useState(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
-  // Re-fetch a single applicant by ID and update the search results list + open modal
-  const refreshApplicant = async (applicantId) => {
-    const { data, error } = await supabase
-      .from('applicants')
-      .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date')
-      .eq('id', applicantId)
-      .single();
-    if (!error && data) {
-      setSearchResults(prev => prev.map(a => a.id === applicantId ? data : a));
-      setSelectedApplicant(data);
-    }
-  };
-
   // Modal states
   const [showOccupationMajorModal, setShowOccupationMajorModal] = useState(false);
   const [showOccupationExactModal, setShowOccupationExactModal] = useState(false);
@@ -683,22 +670,6 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
   const handleViewApplicant = (applicant) => {
     setSelectedApplicant(applicant);
     setShowDetailModal(true);
-  };
-
-  const handleEditApplicant = (applicant) => {
-    // Check if user is admin
-    if (!user || user.role !== 'admin') {
-      // Prompt for admin login
-      if (confirm('You need to login as admin to edit applicant details. Login now?')) {
-        onAdminAccess();
-      }
-      return;
-    }
-    
-    // Close modal and open edit mode
-    setShowDetailModal(false);
-    alert('Edit functionality will be implemented next. Applicant ID: ' + applicant.id);
-    // TODO: Open edit form with applicant data
   };
 
   return (
@@ -1712,9 +1683,6 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
             setShowDetailModal(false);
             setSelectedApplicant(null);
           }}
-          onEdit={handleEditApplicant}
-          isAdmin={user?.role === 'admin'}
-          onAdminAccess={(intent) => onAdminAccess({ ...intent, onEditComplete: refreshApplicant })}
         />
       )}
     </div>
