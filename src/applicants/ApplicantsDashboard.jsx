@@ -412,12 +412,13 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
     setHasSearched(true);
     
     try {
-      // Build the query
+      // Build the query - fetch ALL columns needed for filtering
       let query = supabase
         .from('applicants')
-        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date')
+        .select('*')
         .order('created_at', { ascending: false });
 
+      // Basic filters - Apply at database level for efficiency
       // Filter by first name (case-insensitive partial match)
       if (searchFilters.firstName.trim()) {
         query = query.ilike('first_name', `%${searchFilters.firstName.trim()}%`);
@@ -441,6 +442,21 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
         query = query.lte('created_at', searchFilters.registrationDateTo);
       }
 
+      // Gender filter
+      if (searchFilters.gender !== 'ALL') {
+        query = query.eq('sex', searchFilters.gender);
+      }
+
+      // Civil status filter
+      if (searchFilters.civilStatus !== 'ALL') {
+        query = query.eq('civil_status', searchFilters.civilStatus);
+      }
+
+      // Religion filter
+      if (searchFilters.religion !== 'ALL') {
+        query = query.eq('religion', searchFilters.religion);
+      }
+
       const { data, error } = await query;
 
       if (error) {
@@ -448,7 +464,195 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
         alert(`Error searching applicants: ${error.message}`);
         setSearchResults([]);
       } else {
-        setSearchResults(data || []);
+        // Apply client-side filtering for complex JSONB fields and calculated values
+        let filteredResults = data || [];
+
+        // Filter by preferred occupation (stored as TEXT[] array)
+        if (searchFilters.preferredPositionMajor.length > 0 || searchFilters.preferredPositionExact.length > 0) {
+          filteredResults = filteredResults.filter(applicant => {
+            const prefOccupations = applicant.preferred_occupation || [];
+            
+            // Check major grouping match
+            if (searchFilters.preferredPositionMajor.length > 0) {
+              const hasMajorMatch = searchFilters.preferredPositionMajor.some(searchOcc => 
+                prefOccupations.some(occ => occ.toLowerCase().includes(searchOcc.occupation.toLowerCase()))
+              );
+              if (!hasMajorMatch) return false;
+            }
+
+            // Check exact title match
+            if (searchFilters.preferredPositionExact.length > 0) {
+              const hasExactMatch = searchFilters.preferredPositionExact.some(searchOcc => 
+                prefOccupations.some(occ => occ.toLowerCase() === searchOcc.occupation.toLowerCase())
+              );
+              if (!hasExactMatch) return false;
+            }
+
+            return true;
+          });
+        }
+
+        // Filter by highest education level
+        if (searchFilters.highestEducation !== 'ALL') {
+          filteredResults = filteredResults.filter(applicant => {
+            const level = searchFilters.highestEducation;
+            if (level === 'ELEMENTARY') return applicant.elementary_school;
+            if (level === 'HIGH SCHOOL') return applicant.secondary_school;
+            if (level === 'SENIOR HIGH SCHOOL') return applicant.secondary_level === 'SENIOR HIGH SCHOOL';
+            if (level === 'VOCATIONAL') return applicant.vocational_courses && Object.keys(applicant.vocational_courses).length > 0;
+            if (level === 'COLLEGE') return applicant.tertiary_school;
+            if (level === 'POST GRADUATE') return applicant.graduate_school;
+            return true;
+          });
+        }
+
+        // Filter by course/major (check tertiary_course field)
+        if (searchFilters.courseMajor.length > 0) {
+          filteredResults = filteredResults.filter(applicant => {
+            const course = (applicant.tertiary_course || '').toLowerCase();
+            return searchFilters.courseMajor.some(searchCourse => 
+              course.includes(searchCourse.toLowerCase())
+            );
+          });
+        }
+
+        // Filter by license (check eligibilities JSONB -> licenses array)
+        if (searchFilters.license.length > 0) {
+          filteredResults = filteredResults.filter(applicant => {
+            const licenses = applicant.eligibilities?.licenses || [];
+            return searchFilters.license.some(searchLicense => 
+              licenses.some(lic => lic.license?.toLowerCase().includes(searchLicense.toLowerCase()))
+            );
+          });
+        }
+
+        // Filter by eligibility (check eligibilities JSONB -> eligibilities array)
+        if (searchFilters.eligibility.length > 0) {
+          filteredResults = filteredResults.filter(applicant => {
+            const eligibilities = applicant.eligibilities?.eligibilities || [];
+            return searchFilters.eligibility.some(searchElig => 
+              eligibilities.some(elig => elig.eligibility?.toLowerCase().includes(searchElig.toLowerCase()))
+            );
+          });
+        }
+
+        // Filter by certification (check vocational_courses JSONB -> certifications array)
+        if (searchFilters.certification.length > 0) {
+          filteredResults = filteredResults.filter(applicant => {
+            const certifications = applicant.vocational_courses?.certifications || [];
+            return searchFilters.certification.some(searchCert => 
+              certifications.some(cert => cert.certificate?.toLowerCase().includes(searchCert.toLowerCase()))
+            );
+          });
+        }
+
+        // Filter by language/dialect (check languages JSONB array)
+        if (searchFilters.languageDialect.length > 0) {
+          filteredResults = filteredResults.filter(applicant => {
+            const languages = applicant.languages || [];
+            return searchFilters.languageDialect.some(searchLang => 
+              languages.some(lang => lang.language?.toLowerCase().includes(searchLang.toLowerCase()))
+            );
+          });
+        }
+
+        // Filter by residence (check city_municipality field)
+        if (searchFilters.residence.length > 0) {
+          filteredResults = filteredResults.filter(applicant => {
+            const city = (applicant.city_municipality || '').toLowerCase();
+            return searchFilters.residence.some(searchRes => 
+              city.includes(searchRes.split(',')[0].toLowerCase())
+            );
+          });
+        }
+
+        // Filter by minimum work experience (calculate from work_experiences JSONB)
+        if (searchFilters.minWorkExperience) {
+          const minMonths = parseInt(searchFilters.minWorkExperience);
+          filteredResults = filteredResults.filter(applicant => {
+            const experiences = applicant.work_experiences || [];
+            // Calculate total months of experience
+            const totalMonths = experiences.reduce((sum, exp) => {
+              if (exp.fromMonth && exp.toMonth) {
+                const from = new Date(exp.fromYear, exp.fromMonth - 1);
+                const to = new Date(exp.toYear, exp.toMonth - 1);
+                const months = (to.getFullYear() - from.getFullYear()) * 12 + (to.getMonth() - from.getMonth());
+                return sum + months;
+              }
+              return sum;
+            }, 0);
+            return totalMonths >= minMonths;
+          });
+        }
+
+        // Filter by age range (calculate from date_of_birth)
+        if (searchFilters.minimumAge || searchFilters.maximumAge) {
+          filteredResults = filteredResults.filter(applicant => {
+            if (!applicant.date_of_birth) return false;
+            const birthDate = new Date(applicant.date_of_birth);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+              age--;
+            }
+
+            if (searchFilters.minimumAge && age < parseInt(searchFilters.minimumAge)) return false;
+            if (searchFilters.maximumAge && age > parseInt(searchFilters.maximumAge)) return false;
+            return true;
+          });
+        }
+
+        // Filter by minimum height
+        if (searchFilters.minimumHeight) {
+          const minHeight = parseFloat(searchFilters.minimumHeight);
+          filteredResults = filteredResults.filter(applicant => {
+            const height = parseFloat(applicant.height);
+            return !isNaN(height) && height >= minHeight;
+          });
+        }
+
+        // Filter by disabilities
+        const selectedDisabilities = Object.entries(searchFilters.disabilities)
+          .filter(([key, value]) => value)
+          .map(([key]) => key);
+        
+        if (selectedDisabilities.length > 0) {
+          filteredResults = filteredResults.filter(applicant => {
+            const classification = applicant.classification || {};
+            // Check if applicant has any of the selected disabilities
+            return selectedDisabilities.some(disability => {
+              if (disability === 'visual') return classification.visualImpairment;
+              if (disability === 'hearing') return classification.hearingImpairment;
+              if (disability === 'speech') return classification.speechImpairment;
+              if (disability === 'physical') return classification.physicalDisability;
+              if (disability === 'mental') return classification.mentalDisability;
+              if (disability === 'others') return classification.otherDisability;
+              return false;
+            });
+          });
+        }
+
+        // Filter by skills (check other_skills JSONB array)
+        if (searchFilters.skills.trim()) {
+          const skillTerms = searchFilters.skills.toLowerCase().split(/\s+/).filter(Boolean);
+          filteredResults = filteredResults.filter(applicant => {
+            const skills = applicant.other_skills || [];
+            const skillText = skills.map(s => s.skill || '').join(' ').toLowerCase();
+            return skillTerms.some(term => skillText.includes(term));
+          });
+        }
+
+        // Filter by remarks (check notes field)
+        if (searchFilters.remarks.trim()) {
+          const remarkTerms = searchFilters.remarks.toLowerCase().split(/\s+/).filter(Boolean);
+          filteredResults = filteredResults.filter(applicant => {
+            const notes = (applicant.notes || '').toLowerCase();
+            return remarkTerms.some(term => notes.includes(term));
+          });
+        }
+
+        setSearchResults(filteredResults);
       }
     } catch (err) {
       console.error('Unexpected error:', err);
