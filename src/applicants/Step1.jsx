@@ -14,12 +14,39 @@ const Step1 = ({ onNext }) => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
-      if (selectedFile.type !== 'application/pdf' && !selectedFile.name.toLowerCase().endsWith('.pdf')) {
-        setFileError('Only PDF files are allowed.');
+      // Accept PDF and common image formats (for scanned documents)
+      const allowedTypes = [
+        'application/pdf',
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/webp',
+        'image/gif',
+        'image/bmp',
+        'image/tiff'
+      ];
+      
+      const fileExtension = selectedFile.name.toLowerCase().split('.').pop();
+      const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'tiff', 'tif'];
+      
+      const isValidType = allowedTypes.includes(selectedFile.type) || allowedExtensions.includes(fileExtension);
+      
+      if (!isValidType) {
+        setFileError('Only PDF and image files (JPG, PNG, WEBP, etc.) are allowed.');
         setFile(null);
         setFileUrl(null);
         return;
       }
+      
+      // Check file size (max 10MB)
+      const maxSize = 10 * 1024 * 1024; // 10MB
+      if (selectedFile.size > maxSize) {
+        setFileError('File size must be less than 10MB.');
+        setFile(null);
+        setFileUrl(null);
+        return;
+      }
+      
       setFileError('');
       setFile(selectedFile);
       updateFormData({ resumeFile: selectedFile });
@@ -240,7 +267,7 @@ const Step1 = ({ onNext }) => {
                   <polyline points="10 9 9 9 8 9"></polyline>
                 </svg>
                 <span className="box-text" style={{ textAlign: 'center', padding: '0 8px', wordBreak: 'break-word', fontSize: file ? '0.8rem' : 'inherit', color: file ? '#2ecc71' : '#aaa', fontWeight: file ? 'bold' : 'normal', transition: 'color 0.3s ease' }}>
-                  {file ? file.name : 'PDF ONLY'}
+                  {file ? file.name : 'PDF or Image (JPG, PNG, etc.)'}
                 </span>
               </div>
               <div className="upload-actions">
@@ -249,7 +276,7 @@ const Step1 = ({ onNext }) => {
                   ref={fileInputRef} 
                   onChange={handleFileChange} 
                   style={{ display: 'none' }} 
-                  accept=".pdf,application/pdf"
+                  accept=".pdf,.jpg,.jpeg,.png,.webp,.gif,.bmp,.tiff,.tif,application/pdf,image/*"
                 />
                 <div className="file-info">
                   <button className="choose-btn" onClick={handleUploadClick}>Choose File</button>
