@@ -633,14 +633,27 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
           });
         }
 
-        // Filter by skills (check other_skills JSONB array)
+        // Filter by skills (check other_skills array - stored as simple string array)
         if (searchFilters.skills.trim()) {
           const skillTerms = searchFilters.skills.toLowerCase().split(/\s+/).filter(Boolean);
+          console.log('🔍 Skills Search - Search terms:', skillTerms);
+          
           filteredResults = filteredResults.filter(applicant => {
             const skills = applicant.other_skills || [];
-            const skillText = skills.map(s => s.skill || '').join(' ').toLowerCase();
-            return skillTerms.some(term => skillText.includes(term));
+            // Skills are stored as array of strings: ["DRIVING", "COMPUTER LITERATE"]
+            const skillText = skills.join(' ').toLowerCase();
+            
+            // Match if ANY search term is found in the skills text
+            const hasMatch = skillTerms.some(term => skillText.includes(term));
+            
+            if (hasMatch) {
+              console.log('✅ Match found:', applicant.first_name, applicant.surname, '- Skills:', skills);
+            }
+            
+            return hasMatch;
           });
+          
+          console.log(`📊 Skills filter result: ${filteredResults.length} applicants matched`);
         }
 
         // Filter by remarks (check notes field)
