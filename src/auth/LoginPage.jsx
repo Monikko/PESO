@@ -3,10 +3,8 @@ import { supabase } from '../supabaseClient';
 import './LoginPage.css';
 
 const LoginPage = ({ onLogin, onBack }) => {
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email] = useState('pesopalayancity002@gmail.com'); // Pre-filled admin email (read-only)
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -17,72 +15,20 @@ const LoginPage = ({ onLogin, onBack }) => {
     setLoading(true);
 
     try {
-      if (isSignUp) {
-        // Sign Up with Supabase
-        
-        // Validate email contains @gmail.com
-        if (!email.includes('@gmail.com')) {
-          setError('Email must be a Gmail address (@gmail.com)');
-          setLoading(false);
-          return;
-        }
+      // Admin Sign In with Supabase
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-        // Check passwords match
-        if (password !== confirmPassword) {
-          setError('Passwords do not match');
-          setLoading(false);
-          return;
-        }
-
-        // Password strength validation
-        if (password.length < 6) {
-          setError('Password must be at least 6 characters');
-          setLoading(false);
-          return;
-        }
-
-        const { data, error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: window.location.origin,
-          }
-        });
-
-        if (signUpError) {
-          setError(signUpError.message);
-          setLoading(false);
-          return;
-        }
-
-        // Check if email confirmation is required
-        if (data?.user && !data.session) {
-          setError('Please check your email to confirm your account before signing in.');
-          setLoading(false);
-          return;
-        }
-
-        // Success - user is now logged in
-        onLogin({ email, role: 'user' });
-        
-      } else {
-        // Sign In with Supabase
-        
-        const { data, error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (signInError) {
-          setError(signInError.message);
-          setLoading(false);
-          return;
-        }
-
-        // Success - user is now logged in
-        const role = email === 'pesopalayancity002@gmail.com' ? 'admin' : 'user';
-        onLogin({ email, role });
+      if (signInError) {
+        setError(signInError.message);
+        setLoading(false);
+        return;
       }
+
+      // Success - admin is now logged in
+      onLogin({ email, role: 'admin' });
     } catch (err) {
       console.error('Authentication error:', err);
       setError('An unexpected error occurred. Please try again.');
@@ -106,7 +52,7 @@ const LoginPage = ({ onLogin, onBack }) => {
         )}
 
         <form className="login-form" onSubmit={handleSubmit}>
-          <h2>{isSignUp ? 'Sign Up' : 'Sign In'}</h2>
+          <h2>Admin Login</h2>
 
           {error && (
             <div className="error-message">
@@ -115,15 +61,21 @@ const LoginPage = ({ onLogin, onBack }) => {
           )}
 
           <div className="form-group">
-            <label>Email</label>
+            <label>Admin Email</label>
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="yourname@gmail.com"
-              required
-              autoFocus
+              readOnly
+              style={{
+                backgroundColor: '#f0f0f0',
+                cursor: 'not-allowed',
+                color: '#333',
+                fontWeight: 600
+              }}
             />
+            <small style={{ display: 'block', marginTop: '4px', color: '#666', fontSize: '0.85rem' }}>
+              Official PESO Palayan City admin account
+            </small>
           </div>
 
           <div className="form-group">
@@ -132,23 +84,11 @@ const LoginPage = ({ onLogin, onBack }) => {
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password"
+              placeholder="Enter admin password"
               required
+              autoFocus
             />
           </div>
-
-          {isSignUp && (
-            <div className="form-group">
-              <label>Confirm Password</label>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Re-enter password"
-                required
-              />
-            </div>
-          )}
 
           <div className="show-password-wrapper">
             <label>
@@ -162,26 +102,8 @@ const LoginPage = ({ onLogin, onBack }) => {
           </div>
 
           <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? 'Please wait...' : (isSignUp ? 'Sign Up' : 'Sign In')}
+            {loading ? 'Signing in...' : 'Sign In as Admin'}
           </button>
-
-          <div className="toggle-mode">
-            {isSignUp ? (
-              <p>
-                Already have an account?{' '}
-                <button type="button" onClick={() => setIsSignUp(false)} className="link-btn">
-                  Sign In
-                </button>
-              </p>
-            ) : (
-              <p>
-                Don't have an account?{' '}
-                <button type="button" onClick={() => setIsSignUp(true)} className="link-btn">
-                  Sign Up
-                </button>
-              </p>
-            )}
-          </div>
         </form>
       </div>
     </div>
