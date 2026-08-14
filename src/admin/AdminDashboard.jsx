@@ -3,7 +3,7 @@ import { supabase } from '../supabaseClient';
 import './AdminDashboard.css';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar } from 'recharts';
 
-const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
+const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey }) => {
   const [activeTab, setActiveTab] = useState('palayan');
   const [palayanData, setPalayanData] = useState([]);
   const [otherPlacesData, setOtherPlacesData] = useState([]);
@@ -248,7 +248,8 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
         .from('applicants')
         .update({
           approved_by_admin: true,
-          approval_date: new Date().toISOString()
+          approval_date: new Date().toISOString(),
+          approved_by: adminName || user.email // Track who approved
         })
         .eq('id', applicantId)
         .select();
@@ -737,7 +738,14 @@ const AdminDashboard = ({ user, onLogout, onEditApplicant, refreshKey }) => {
         <div className="admin-user-section">
           <div className="admin-user-info">
             <span className="admin-badge">ADMIN</span>
-            <span className="admin-email">{user?.email}</span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <span className="admin-email" style={{ fontWeight: 600, fontSize: '1rem', color: '#2c3e50' }}>
+                {adminName || 'Admin User'}
+              </span>
+              <span style={{ fontSize: '0.75rem', color: '#7f8c8d' }}>
+                {user?.email}
+              </span>
+            </div>
           </div>
           <button onClick={onLogout} className="admin-logout-btn">
             Logout

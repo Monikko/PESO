@@ -3,6 +3,7 @@ import { supabase } from './supabaseClient';
 import ApplicantForm from './applicants/ApplicantForm';
 import EditApplicantFlow from './applicants/EditApplicantFlow';
 import LoginPage from './auth/LoginPage';
+import AdminNameSelection from './auth/AdminNameSelection';
 import AdminDashboard from './admin/AdminDashboard';
 import LoadingScreen from './components/LoadingScreen';
 
@@ -11,6 +12,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [showNameSelection, setShowNameSelection] = useState(false);
+  const [adminName, setAdminName] = useState(null);
 
   // Check for existing Supabase session on mount
   useEffect(() => {
@@ -52,16 +55,28 @@ function App() {
   }, []);
 
   const handleLogin = async (credentials) => {
-    // This function is no longer needed - LoginPage handles auth directly
-    // Keeping for compatibility
-    return true;
+    // After successful Supabase auth, show name selection
+    setShowNameSelection(true);
+    setShowAdminLogin(false);
+  };
+
+  const handleNameSelection = (name) => {
+    setAdminName(name);
+    setShowNameSelection(false);
+    // Update user object with admin name
+    setUser(prevUser => ({
+      ...prevUser,
+      adminName: name
+    }));
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setSession(null);
     setUser(null);
+    setAdminName(null);
     setShowAdminLogin(false);
+    setShowNameSelection(false);
   };
 
   const [adminIntent, setAdminIntent] = useState(null);
@@ -82,8 +97,21 @@ function App() {
     return <LoadingScreen />;
   }
 
-  // If admin is logged in, show admin dashboard
-  if (session && user?.role === 'admin') {
+  // Show name selection after login (before dashboard)
+  if (showNameSelection) {
+    return (
+      <AdminNameSelection 
+        onSelectName={handleNameSelection}
+        onBack={() => {
+          setShowNameSelection(false);
+          handleLogout();
+        }}
+      />
+    );
+  }
+
+  // If admin is logged in AND has selected name, show admin dashboard
+  if (session && user?.role === 'admin' && adminName) {
     if (adminIntent?.type === 'edit_applicant') {
       return (
         <EditApplicantFlow
@@ -104,7 +132,7 @@ function App() {
         />
       );
     }
-    return <AdminDashboard user={user} onLogout={handleLogout} refreshKey={adminRefreshKey} onEditApplicant={(app) => setAdminIntent({ type: 'edit_applicant', applicant: app, autoLogout: false })} />;
+    return <AdminDashboard user={user} adminName={adminName} onLogout={handleLogout} refreshKey={adminRefreshKey} onEditApplicant={(app) => setAdminIntent({ type: 'edit_applicant', applicant: app, autoLogout: false })} />;
   }
 
   // If showing admin login page
