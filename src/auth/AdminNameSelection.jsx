@@ -3,28 +3,16 @@ import './LoginPage.css';
 
 const AdminNameSelection = ({ onSelectName, onBack }) => {
   const [selectedName, setSelectedName] = useState('');
-  const [customName, setCustomName] = useState('');
-  const [showCustomInput, setShowCustomInput] = useState(false);
 
   const predefinedAdmins = [
-    'Maria Santos',
-    'Juan Dela Cruz',
-    'Ana Reyes',
-    'Pedro Garcia',
-    'Linda Torres',
-    'Carlos Mendoza'
+    "Ma'am Jennifer",
+    "Ma'am Mar-sem"
   ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const adminName = showCustomInput ? customName.trim() : selectedName;
-    
-    if (!adminName) {
-      alert('Please select or enter your name');
-      return;
-    }
-
-    onSelectName(adminName);
+  const handleNameSelect = (name) => {
+    setSelectedName(name);
+    // Auto-redirect to dashboard immediately after selection
+    onSelectName(name);
   };
 
   return (
@@ -39,112 +27,50 @@ const AdminNameSelection = ({ onSelectName, onBack }) => {
           ← Back to Login
         </button>
 
-        <form className="login-form" onSubmit={handleSubmit}>
+        <div className="login-form">
           <h2>Who is using the admin dashboard?</h2>
           
           <p style={{ 
             fontSize: '0.9rem', 
             color: '#666', 
-            marginBottom: '20px',
+            marginBottom: '30px',
             textAlign: 'center'
           }}>
-            This helps track who approved each applicant
+            Select your name to continue
           </p>
 
-          {!showCustomInput ? (
-            <>
-              <div className="form-group">
-                <label>Select Your Name</label>
-                <select
-                  value={selectedName}
-                  onChange={(e) => setSelectedName(e.target.value)}
-                  required
-                  autoFocus
-                  style={{
-                    width: '100%',
-                    padding: '12px',
-                    fontSize: '1rem',
-                    border: '1px solid #ddd',
-                    borderRadius: '4px',
-                    backgroundColor: 'white',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <option value="">-- Select Your Name --</option>
-                  {predefinedAdmins.map((name) => (
-                    <option key={name} value={name}>{name}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div style={{ textAlign: 'center', margin: '16px 0' }}>
-                <button
-                  type="button"
-                  onClick={() => setShowCustomInput(true)}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#337ab7',
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                    fontSize: '0.9rem'
-                  }}
-                >
-                  My name is not in the list
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="form-group">
-                <label>Enter Your Name</label>
-                <input
-                  type="text"
-                  value={customName}
-                  onChange={(e) => setCustomName(e.target.value)}
-                  placeholder="Enter your full name"
-                  required
-                  autoFocus
-                  style={{
-                    width: '100%',
-                    padding: '12px',
-                    fontSize: '1rem',
-                    border: '1px solid #ddd',
-                    borderRadius: '4px'
-                  }}
-                />
-              </div>
-
-              <div style={{ textAlign: 'center', margin: '16px 0' }}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowCustomInput(false);
-                    setCustomName('');
-                  }}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#337ab7',
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                    fontSize: '0.9rem'
-                  }}
-                >
-                  ← Choose from list instead
-                </button>
-              </div>
-            </>
-          )}
-
-          <button 
-            type="submit" 
-            className="login-btn"
-            style={{ marginTop: '20px' }}
-          >
-            Continue to Dashboard
-          </button>
-        </form>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {predefinedAdmins.map((name) => (
+              <button
+                key={name}
+                type="button"
+                onClick={() => handleNameSelect(name)}
+                style={{
+                  padding: '20px',
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  color: '#fff',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                }}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

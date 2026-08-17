@@ -11,6 +11,36 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
   const [totalPalayan, setTotalPalayan] = useState(0);
   const [totalOther, setTotalOther] = useState(0);
 
+  // Time-based greeting
+  const [greeting, setGreeting] = useState('');
+
+  // Function to get greeting based on current time
+  const getGreeting = () => {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour >= 5 && hour < 12) {
+      return 'Good Morning';
+    } else if (hour >= 12 && hour < 18) {
+      return 'Good Afternoon';
+    } else {
+      return 'Good Evening';
+    }
+  };
+
+  // Update greeting on mount and every minute
+  useEffect(() => {
+    // Set initial greeting
+    setGreeting(getGreeting());
+
+    // Update greeting every minute to keep it real-time
+    const interval = setInterval(() => {
+      setGreeting(getGreeting());
+    }, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Full applicant data for tables
   const [palayanApplicants, setPalayanApplicants] = useState([]);
   const [otherApplicants, setOtherApplicants] = useState([]);
@@ -236,6 +266,332 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       applicantName,
       processing: false
     });
+  };
+
+  // Export to CSV function
+  const exportApplicantsToCSV = (applicants, filename) => {
+    if (!applicants || applicants.length === 0) {
+      alert('No applicants to export!');
+      return;
+    }
+
+    // CSV Headers
+    const headers = [
+      'No.',
+      'Full Name',
+      'Sex',
+      'Date of Birth',
+      'Age',
+      'Civil Status',
+      'Contact Number',
+      'Email',
+      'Barangay',
+      'City/Municipality',
+      'Province',
+      'Employment Status',
+      'Registration Date',
+      'Status',
+      'Approved By',
+      'Approval Date'
+    ];
+
+    // CSV Rows
+    const rows = applicants.map((applicant, index) => {
+      const age = calculateAge(applicant.date_of_birth);
+      const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''} ${applicant.suffix || ''}`.trim();
+      const registrationDate = applicant.created_at
+        ? new Date(applicant.created_at).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        })
+        : 'N/A';
+      const approvalDate = applicant.approval_date
+        ? new Date(applicant.approval_date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+        : 'N/A';
+
+      return [
+        index + 1,
+        fullName,
+        applicant.sex || 'N/A',
+        applicant.date_of_birth || 'N/A',
+        age !== null ? age : 'N/A',
+        applicant.civil_status || 'N/A',
+        applicant.contact_number || 'N/A',
+        applicant.email || 'N/A',
+        applicant.barangay || 'N/A',
+        applicant.city_municipality || 'N/A',
+        applicant.province || 'N/A',
+        applicant.employment_status || 'N/A',
+        registrationDate,
+        applicant.approved_by_admin ? 'Approved' : 'Pending',
+        applicant.approved_by || 'N/A',
+        approvalDate
+      ];
+    });
+
+    // Create CSV content
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n');
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+  // Export handlers for each tab
+  const handleExportPalayan = () => {
+    const filtered = filterAndSortApplicants(palayanApplicants, palayanFilters);
+    const filename = `palayan-applicants-${new Date().toISOString().split('T')[0]}.csv`;
+    exportApplicantsToCSV(filtered, filename);
+  };
+
+  const handleExportOther = () => {
+    const filtered = filterAndSortApplicants(otherApplicants, otherFilters);
+    const filename = `other-places-applicants-${new Date().toISOString().split('T')[0]}.csv`;
+    exportApplicantsToCSV(filtered, filename);
+  };
+
+  // Print handlers for monthly reports
+  const handlePrintPalayan = () => {
+    const filtered = filterAndSortApplicants(palayanApplicants, palayanFilters);
+    if (!filtered || filtered.length === 0) {
+      alert('No applicants to print!');
+      return;
+    }
+    printApplicantsList(filtered, 'Palayan City');
+  };
+
+  const handlePrintOther = () => {
+    const filtered = filterAndSortApplicants(otherApplicants, otherFilters);
+    if (!filtered || filtered.length === 0) {
+      alert('No applicants to print!');
+      return;
+    }
+    printApplicantsList(filtered, 'Other Municipalities');
+  };
+
+  // Print function for monthly reports
+  const printApplicantsList = (applicants, title) => {
+    const printWindow = window.open('', '_blank');
+    const currentDate = new Date().toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Monthly Report - ${title}</title>
+        <style>
+          @media print {
+            @page { margin: 0.5in; }
+          }
+          body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            color: #000;
+          }
+          .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+          }
+          .report-header h1 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 24px;
+          }
+          .report-header h2 {
+            margin: 5px 0;
+            color: #34495e;
+            font-size: 18px;
+            font-weight: normal;
+          }
+          .report-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+          }
+          .report-info div {
+            font-size: 14px;
+          }
+          .report-info strong {
+            color: #2c3e50;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 11px;
+          }
+          th {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #2c3e50;
+          }
+          td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+          }
+          tr:nth-child(even) {
+            background-color: #f8f9fa;
+          }
+          .status-approved {
+            color: #27ae60;
+            font-weight: 600;
+          }
+          .status-pending {
+            color: #e67e22;
+            font-weight: 600;
+          }
+          .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+          }
+          .signatures {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            padding-top: 30px;
+          }
+          .signature-line {
+            text-align: center;
+          }
+          .signature-line .line {
+            border-top: 1px solid #000;
+            width: 200px;
+            margin: 40px auto 10px;
+          }
+          .signature-line .label {
+            font-size: 12px;
+            color: #2c3e50;
+            font-weight: 600;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="report-header">
+          <h1>PUBLIC EMPLOYMENT SERVICE OFFICE (PESO)</h1>
+          <h2>Monthly Applicants Report - ${title}</h2>
+          <p style="margin: 5px 0; color: #7f8c8d;">Palayan City, Nueva Ecija</p>
+        </div>
+
+        <div class="report-info">
+          <div><strong>Report Generated:</strong> ${currentDate}</div>
+          <div><strong>Total Applicants:</strong> ${applicants.length}</div>
+          <div><strong>Generated By:</strong> ${adminName || 'Admin'}</div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 30px;">No.</th>
+              <th>Full Name</th>
+              <th style="width: 50px;">Sex</th>
+              <th style="width: 80px;">Birth Date</th>
+              <th style="width: 40px;">Age</th>
+              <th style="width: 90px;">Civil Status</th>
+              <th style="width: 100px;">Contact</th>
+              <th>Location</th>
+              <th style="width: 100px;">Employment Status</th>
+              <th style="width: 80px;">Reg. Date</th>
+              <th style="width: 70px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${applicants.map((applicant, index) => {
+              const birthDate = applicant.date_of_birth 
+                ? new Date(applicant.date_of_birth).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                : 'N/A';
+              
+              const regDate = applicant.created_at 
+                ? new Date(applicant.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                : 'N/A';
+
+              const fullName = `${applicant.surname || ''}, ${applicant.firstname || ''} ${applicant.middlename || ''} ${applicant.suffix || ''}`.trim();
+              
+              const location = `${applicant.barangay || ''}, ${applicant.city_municipality || ''}`.trim();
+
+              return `
+                <tr>
+                  <td>${index + 1}</td>
+                  <td>${fullName}</td>
+                  <td>${applicant.sex || 'N/A'}</td>
+                  <td>${birthDate}</td>
+                  <td>${applicant.age || 'N/A'}</td>
+                  <td>${applicant.civil_status || 'N/A'}</td>
+                  <td>${applicant.contact_number || 'N/A'}</td>
+                  <td>${location}</td>
+                  <td>${applicant.employment_status || 'N/A'}</td>
+                  <td>${regDate}</td>
+                  <td class="${applicant.status === 'approved' ? 'status-approved' : 'status-pending'}">
+                    ${applicant.status === 'approved' ? 'Approved' : 'Pending'}
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+
+        <div class="signatures">
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Prepared By</div>
+          </div>
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Reviewed By</div>
+          </div>
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Approved By</div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <p>Public Employment Service Office (PESO) - Palayan City, Nueva Ecija</p>
+          <p>This is a computer-generated report.</p>
+        </div>
+
+        <script>
+          window.onload = function() {
+            window.print();
+          };
+        </script>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.write(printContent);
+    printWindow.document.close();
   };
 
   // Function to actually process the approval
@@ -739,8 +1095,13 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
           <div className="admin-user-info">
             <span className="admin-badge">ADMIN</span>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <span className="admin-email" style={{ fontWeight: 600, fontSize: '1rem', color: '#2c3e50' }}>
-                {adminName || 'Admin User'}
+              <span style={{ 
+                fontWeight: 600, 
+                fontSize: '1.1rem', 
+                color: '#2c3e50',
+                marginBottom: '2px'
+              }}>
+                {greeting}, {adminName || 'Admin User'}!
               </span>
               <span style={{ fontSize: '0.75rem', color: '#7f8c8d' }}>
                 {user?.email}
@@ -863,7 +1224,35 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                 {/* Applicants List Table */}
                 {palayanData.length > 0 && (
                   <div className="applicants-list-section">
-                    <h3>Registered Applicants - Palayan City</h3>
+                    <div className="section-header-with-export">
+                      <h3>Registered Applicants - Palayan City</h3>
+                      <div className="action-buttons-group">
+                        <button 
+                          className="print-btn"
+                          onClick={handlePrintPalayan}
+                          title="Print Monthly Report"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="6 9 6 2 18 2 18 9"/>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                            <rect x="6" y="14" width="12" height="8"/>
+                          </svg>
+                          Print Report
+                        </button>
+                        <button 
+                          className="export-csv-btn"
+                          onClick={handleExportPalayan}
+                          title="Export to CSV"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                          </svg>
+                          Export to CSV
+                        </button>
+                      </div>
+                    </div>
 
                     {/* Filters */}
                     <div className="filters-bar">
@@ -1131,7 +1520,35 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                 {/* Applicants List Table */}
                 {otherPlacesData.length > 0 && (
                   <div className="applicants-list-section">
-                    <h3>Registered Applicants - Other Municipalities</h3>
+                    <div className="section-header-with-export">
+                      <h3>Registered Applicants - Other Municipalities</h3>
+                      <div className="action-buttons-group">
+                        <button 
+                          className="print-btn"
+                          onClick={handlePrintOther}
+                          title="Print Monthly Report"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="6 9 6 2 18 2 18 9"/>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                            <rect x="6" y="14" width="12" height="8"/>
+                          </svg>
+                          Print Report
+                        </button>
+                        <button 
+                          className="export-csv-btn"
+                          onClick={handleExportOther}
+                          title="Export to CSV"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                          </svg>
+                          Export to CSV
+                        </button>
+                      </div>
+                    </div>
 
                     {/* Filters */}
                     <div className="filters-bar">

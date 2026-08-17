@@ -5,6 +5,7 @@ import EditApplicantFlow from './applicants/EditApplicantFlow';
 import LoginPage from './auth/LoginPage';
 import AdminNameSelection from './auth/AdminNameSelection';
 import AdminDashboard from './admin/AdminDashboard';
+import AuditLog from './admin/AuditLog';
 import LoadingScreen from './components/LoadingScreen';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [showNameSelection, setShowNameSelection] = useState(false);
   const [adminName, setAdminName] = useState(null);
+  const [showAuditLog, setShowAuditLog] = useState(false);
 
   // Check for existing Supabase session on mount
   useEffect(() => {
@@ -28,6 +30,12 @@ function App() {
           role: existingSession.user.email === 'pesopalayancity002@gmail.com' ? 'admin' : 'user',
           supabaseUser: existingSession.user
         });
+      }
+      
+      // Check for secret audit log URL
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('audit') === 'dev2024') {
+        setShowAuditLog(true);
       }
       
       // Show loading screen for 3 seconds
@@ -95,6 +103,14 @@ function App() {
   // Show loading screen during initialization
   if (isLoading) {
     return <LoadingScreen />;
+  }
+
+  // Show audit log if secret URL is accessed
+  if (showAuditLog) {
+    return <AuditLog onBack={() => {
+      setShowAuditLog(false);
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }} />;
   }
 
   // Show name selection after login (before dashboard)
