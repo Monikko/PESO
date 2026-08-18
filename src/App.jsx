@@ -25,11 +25,24 @@ function App() {
       
       if (existingSession) {
         setSession(existingSession);
+        const userEmail = existingSession.user.email;
+        
+        // Try to restore admin name from session storage (only works if tab wasn't closed)
+        const savedAdminName = sessionStorage.getItem('admin_name');
+        
         setUser({
-          email: existingSession.user.email,
-          role: existingSession.user.email === 'pesopalayancity002@gmail.com' ? 'admin' : 'user',
-          supabaseUser: existingSession.user
+          email: userEmail,
+          role: userEmail === 'pesopalayancity002@gmail.com' ? 'admin' : 'user',
+          supabaseUser: existingSession.user,
+          adminName: savedAdminName || null
         });
+        
+        if (savedAdminName) {
+          setAdminName(savedAdminName);
+        } else if (userEmail === 'pesopalayancity002@gmail.com') {
+          // If admin but no name saved, show name selection
+          setShowNameSelection(true);
+        }
       }
       
       // Check for secret audit log URL
@@ -62,6 +75,33 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Auto-logout when tab/window is closed
+  useEffect(() => {
+    // Mark that the app is running in this tab
+    sessionStorage.setItem('app_active', 'true');
+
+    const handleBeforeUnload = async () => {
+      // Sign out from Supabase when tab is closing
+      if (session) {
+        // Clear session storage
+        sessionStorage.removeItem('app_active');
+        sessionStorage.removeItem('admin_name');
+        
+        // Sign out from Supabase
+        await supabase.auth.signOut();
+      }
+    };
+
+    // Listen for tab close/refresh
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      // Clean up on unmount
+      sessionStorage.removeItem('app_active');
+    };
+  }, [session]);
+
   const handleLogin = async (credentials) => {
     // After successful Supabase auth, show name selection
     setShowNameSelection(true);
@@ -71,6 +111,8 @@ function App() {
   const handleNameSelection = (name) => {
     setAdminName(name);
     setShowNameSelection(false);
+    // Save admin name to session storage (clears on tab close)
+    sessionStorage.setItem('admin_name', name);
     // Update user object with admin name
     setUser(prevUser => ({
       ...prevUser,
@@ -85,6 +127,9 @@ function App() {
     setAdminName(null);
     setShowAdminLogin(false);
     setShowNameSelection(false);
+    // Clear session storage
+    sessionStorage.removeItem('admin_name');
+    sessionStorage.removeItem('app_active');
   };
 
   const [adminIntent, setAdminIntent] = useState(null);
