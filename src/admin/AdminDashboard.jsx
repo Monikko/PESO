@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../supabaseClient';
 import './AdminDashboard.css';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar } from 'recharts';
+import * as XLSX from 'xlsx';
 
 const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey }) => {
   const [activeTab, setActiveTab] = useState('palayan');
@@ -268,35 +269,15 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     });
   };
 
-  // Export to CSV function
-  const exportApplicantsToCSV = (applicants, filename) => {
+  // Export to Excel function with auto-fit columns
+  const exportApplicantsToExcel = (applicants, filename) => {
     if (!applicants || applicants.length === 0) {
       alert('No applicants to export!');
       return;
     }
 
-    // CSV Headers
-    const headers = [
-      'No.',
-      'Full Name',
-      'Sex',
-      'Date of Birth',
-      'Age',
-      'Civil Status',
-      'Contact Number',
-      'Email',
-      'Barangay',
-      'City/Municipality',
-      'Province',
-      'Employment Status',
-      'Registration Date',
-      'Status',
-      'Approved By',
-      'Approval Date'
-    ];
-
-    // CSV Rows
-    const rows = applicants.map((applicant, index) => {
+    // Prepare data for Excel
+    const data = applicants.map((applicant, index) => {
       const age = calculateAge(applicant.date_of_birth);
       const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''} ${applicant.suffix || ''}`.trim();
       const registrationDate = applicant.created_at
@@ -316,53 +297,81 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         })
         : 'N/A';
 
-      return [
-        index + 1,
-        fullName,
-        applicant.sex || 'N/A',
-        applicant.date_of_birth || 'N/A',
-        age !== null ? age : 'N/A',
-        applicant.civil_status || 'N/A',
-        applicant.contact_number || 'N/A',
-        applicant.email || 'N/A',
-        applicant.barangay || 'N/A',
-        applicant.city_municipality || 'N/A',
-        applicant.province || 'N/A',
-        applicant.employment_status || 'N/A',
-        registrationDate,
-        applicant.approved_by_admin ? 'Approved' : 'Pending',
-        applicant.approved_by || 'N/A',
-        approvalDate
-      ];
+      return {
+        'No.': index + 1,
+        'Full Name': fullName,
+        'Sex': applicant.sex || 'N/A',
+        'Date of Birth': applicant.date_of_birth || 'N/A',
+        'Age': age !== null ? age : 'N/A',
+        'Civil Status': applicant.civil_status || 'N/A',
+        'Contact Number': applicant.contact_number || 'N/A',
+        'Email': applicant.email || 'N/A',
+        'Barangay': applicant.barangay || 'N/A',
+        'City/Municipality': applicant.city_municipality || 'N/A',
+        'Province': applicant.province || 'N/A',
+        'Employment Status': applicant.employment_status || 'N/A',
+        'Registration Date': registrationDate,
+        'Status': applicant.approved_by_admin ? 'Approved' : 'Pending',
+        'Approved By': applicant.approved_by || 'N/A',
+        'Approval Date': approvalDate
+      };
     });
 
-    // Create CSV content
-    const csvContent = [
-      headers.join(','),
-      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
-    ].join('\n');
+    // Create worksheet
+    const worksheet = XLSX.utils.json_to_sheet(data);
 
-    // Create blob and download
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.click();
-    window.URL.revokeObjectURL(url);
+    // Auto-fit columns
+    const columnWidths = [
+      { wch: 5 },  // No.
+      { wch: 30 }, // Full Name
+      { wch: 8 },  // Sex
+      { wch: 15 }, // Date of Birth
+      { wch: 5 },  // Age
+      { wch: 15 }, // Civil Status
+      { wch: 15 }, // Contact Number
+      { wch: 25 }, // Email
+      { wch: 20 }, // Barangay
+      { wch: 20 }, // City/Municipality
+      { wch: 15 }, // Province
+      { wch: 18 }, // Employment Status
+      { wch: 18 }, // Registration Date
+      { wch: 10 }, // Status
+      { wch: 20 }, // Approved By
+      { wch: 20 }  // Approval Date
+    ];
+    worksheet['!cols'] = columnWidths;
+
+    // Style header row
+    const range = XLSX.utils.decode_range(worksheet['!ref']);
+    for (let col = range.s.c; col <= range.e.c; col++) {
+      const cellAddress = XLSX.utils.encode_cell({ r: 0, c: col });
+      if (!worksheet[cellAddress]) continue;
+      worksheet[cellAddress].s = {
+        font: { bold: true, color: { rgb: "FFFFFF" } },
+        fill: { fgColor: { rgb: "2c3e50" } },
+        alignment: { horizontal: "center", vertical: "center" }
+      };
+    }
+
+    // Create workbook
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Applicants');
+
+    // Save file
+    XLSX.writeFile(workbook, filename);
   };
 
   // Export handlers for each tab
   const handleExportPalayan = () => {
     const filtered = filterAndSortApplicants(palayanApplicants, palayanFilters);
-    const filename = `palayan-applicants-${new Date().toISOString().split('T')[0]}.csv`;
-    exportApplicantsToCSV(filtered, filename);
+    const filename = `palayan-applicants-${new Date().toISOString().split('T')[0]}.xlsx`;
+    exportApplicantsToExcel(filtered, filename);
   };
 
   const handleExportOther = () => {
     const filtered = filterAndSortApplicants(otherApplicants, otherFilters);
-    const filename = `other-places-applicants-${new Date().toISOString().split('T')[0]}.csv`;
-    exportApplicantsToCSV(filtered, filename);
+    const filename = `other-places-applicants-${new Date().toISOString().split('T')[0]}.xlsx`;
+    exportApplicantsToExcel(filtered, filename);
   };
 
   // Print handlers for monthly reports
@@ -1280,14 +1289,14 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                         <button 
                           className="export-csv-btn"
                           onClick={handleExportPalayan}
-                          title="Export to CSV"
+                          title="Export to Excel"
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                             <polyline points="7 10 12 15 17 10"/>
                             <line x1="12" y1="15" x2="12" y2="3"/>
                           </svg>
-                          Export to CSV
+                          Export to Excel
                         </button>
                       </div>
                     </div>
