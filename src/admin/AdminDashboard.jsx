@@ -509,6 +509,8 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
               justify-content: space-around;
               margin-top: 50px;
               padding-top: 30px;
+              page-break-inside: avoid;
+              break-inside: avoid;
             }
             .signature-line {
               text-align: center;
@@ -523,6 +525,16 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
               color: #2c3e50;
               font-weight: 600;
             }
+            .footer {
+              margin-top: 40px;
+              padding-top: 20px;
+              border-top: 2px solid #ecf0f1;
+              text-align: center;
+              font-size: 12px;
+              color: #7f8c8d;
+              page-break-inside: avoid;
+              break-inside: avoid;
+            }
             @media print {
               body {
                 padding: 0;
@@ -530,6 +542,11 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
               .report-info {
                 background: #fff;
                 border: 1px solid #ddd;
+              }
+              /* Keep signatures and footer together */
+              .signatures, .footer {
+                page-break-inside: avoid;
+                break-inside: avoid;
               }
             }
           </style>
