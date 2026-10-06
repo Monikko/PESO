@@ -846,24 +846,24 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                   age = calculatedAge;
                 }
 
-                const fullName = \`\${applicant.surname || ''}, \${applicant.first_name || ''} \${applicant.middle_name || ''} \${applicant.suffix || ''}\`.trim();
+                const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''} ${applicant.suffix || ''}`.trim();
                 
-                const location = \`\${applicant.barangay || ''}, \${applicant.city_municipality || ''}\`.trim();
+                const location = `${applicant.barangay || ''}, ${applicant.city_municipality || ''}`.trim();
 
-                return \`
+                return `
                   <tr>
-                    <td>\${index + 1}</td>
-                    <td>\${fullName}</td>
-                    <td>\${applicant.sex || 'N/A'}</td>
-                    <td>\${birthDate}</td>
-                    <td>\${age}</td>
-                    <td>\${location}</td>
-                    <td>\${applicant.employment_status || 'N/A'}</td>
-                    <td class="\${applicant.approved_by_admin ? 'status-approved' : 'status-pending'}">
-                      \${applicant.approved_by_admin ? 'Approved' : 'Pending'}
+                    <td>${index + 1}</td>
+                    <td>${fullName}</td>
+                    <td>${applicant.sex || 'N/A'}</td>
+                    <td>${birthDate}</td>
+                    <td>${age}</td>
+                    <td>${location}</td>
+                    <td>${applicant.employment_status || 'N/A'}</td>
+                    <td class="${applicant.approved_by_admin ? 'status-approved' : 'status-pending'}">
+                      ${applicant.approved_by_admin ? 'Approved' : 'Pending'}
                     </td>
                   </tr>
-                \`;
+                `;
               }).join('')}
             </tbody>
           </table>
