@@ -546,13 +546,24 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         ? new Date(applicant.date_of_birth).toLocaleDateString('en-US')
         : 'N/A';
       
-      const age = applicant.date_of_birth 
-        ? new Date().getFullYear() - new Date(applicant.date_of_birth).getFullYear()
-        : 'N/A';
+      // Calculate age properly
+      let age = 'N/A';
+      if (applicant.date_of_birth) {
+        const today = new Date();
+        const birth = new Date(applicant.date_of_birth);
+        let calculatedAge = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+          calculatedAge--;
+        }
+        age = calculatedAge;
+      }
 
       const registrationDate = applicant.created_at 
         ? new Date(applicant.created_at).toLocaleDateString('en-US')
         : 'N/A';
+      
+      const contact = applicant.cellphone_no || applicant.landline_no || applicant.contact_no || 'N/A';
 
       return {
         'No.': index + 1,
@@ -561,9 +572,9 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         'Birth Date': birthDate,
         'Age': age,
         'Civil Status': applicant.civil_status || 'N/A',
-        'Contact': applicant.landline_no || applicant.cellphone_no || 'N/A',
+        'Contact': contact,
         'Email': applicant.email || 'N/A',
-        'Municipality': applicant.municipality || 'N/A',
+        'Municipality': applicant.city_municipality || 'N/A',
         'Barangay': applicant.barangay || 'N/A',
         'Employment Status': applicant.employment_status || 'N/A',
         'Preferred Occupation': Array.isArray(applicant.preferred_occupation) 
@@ -825,31 +836,46 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                   ? new Date(applicant.date_of_birth).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
                   : 'N/A';
                 
+                // Calculate age from date_of_birth
+                let age = 'N/A';
+                if (applicant.date_of_birth) {
+                  const today = new Date();
+                  const birth = new Date(applicant.date_of_birth);
+                  let calculatedAge = today.getFullYear() - birth.getFullYear();
+                  const monthDiff = today.getMonth() - birth.getMonth();
+                  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                    calculatedAge--;
+                  }
+                  age = calculatedAge;
+                }
+                
                 const regDate = applicant.created_at 
                   ? new Date(applicant.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
                   : 'N/A';
 
-                const fullName = `${applicant.surname || ''}, ${applicant.firstname || ''} ${applicant.middlename || ''} ${applicant.suffix || ''}`.trim();
+                const fullName = \`\${applicant.surname || ''}, \${applicant.first_name || ''} \${applicant.middle_name || ''} \${applicant.suffix || ''}\`.trim();
                 
-                const location = `${applicant.barangay || ''}, ${applicant.city_municipality || ''}`.trim();
+                const location = \`\${applicant.barangay || ''}, \${applicant.city_municipality || ''}\`.trim();
+                
+                const contact = applicant.cellphone_no || applicant.landline_no || applicant.contact_no || 'N/A';
 
-                return `
+                return \`
                   <tr>
-                    <td>${index + 1}</td>
-                    <td>${fullName}</td>
-                    <td>${applicant.sex || 'N/A'}</td>
-                    <td>${birthDate}</td>
-                    <td>${applicant.age || 'N/A'}</td>
-                    <td>${applicant.civil_status || 'N/A'}</td>
-                    <td>${applicant.contact_number || 'N/A'}</td>
-                    <td>${location}</td>
-                    <td>${applicant.employment_status || 'N/A'}</td>
-                    <td>${regDate}</td>
-                    <td class="${applicant.status === 'approved' ? 'status-approved' : 'status-pending'}">
-                      ${applicant.status === 'approved' ? 'Approved' : 'Pending'}
+                    <td>\${index + 1}</td>
+                    <td>\${fullName}</td>
+                    <td>\${applicant.sex || 'N/A'}</td>
+                    <td>\${birthDate}</td>
+                    <td>\${age}</td>
+                    <td>\${applicant.civil_status || 'N/A'}</td>
+                    <td>\${contact}</td>
+                    <td>\${location}</td>
+                    <td>\${applicant.employment_status || 'N/A'}</td>
+                    <td>\${regDate}</td>
+                    <td class="\${applicant.approved_by_admin ? 'status-approved' : 'status-pending'}">
+                      \${applicant.approved_by_admin ? 'Approved' : 'Pending'}
                     </td>
                   </tr>
-                `;
+                \`;
               }).join('')}
             </tbody>
           </table>
@@ -1046,7 +1072,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       console.log('🔍 Fetching applicants from database...');
       const { data, error } = await supabase
         .from('applicants')
-        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation');
+        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_no, cellphone_no, landline_no');
 
       if (error) {
         console.error('Supabase error:', error);
@@ -1057,7 +1083,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
 
           const { data: dataWithoutDob, error: error2 } = await supabase
             .from('applicants')
-            .select('id, barangay, city_municipality, province, employment_status, sex, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation');
+            .select('id, barangay, city_municipality, province, employment_status, sex, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_no, cellphone_no, landline_no');
 
           if (error2) {
             console.error('Second fetch error:', error2);
