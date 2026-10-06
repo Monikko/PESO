@@ -410,7 +410,18 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
           <meta charset="UTF-8">
           <style>
             @media print {
-              @page { margin: 0.5in; }
+              @page { 
+                margin: 0.5in;
+              }
+              /* Hide browser-generated header/footer with URL */
+              @page {
+                margin-top: 0.75in;
+                margin-bottom: 0.75in;
+              }
+            }
+            /* Hide any auto-generated links */
+            a[href]:after {
+              content: none !important;
             }
             body {
               font-family: Arial, sans-serif;
@@ -597,8 +608,9 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
           </div>
 
           <div class="footer">
-            <p>Public Employment Service Office (PESO) - Palayan City, Nueva Ecija</p>
-            <p>This is a computer-generated report.</p>
+            <p style="margin: 5px 0;">Public Employment Service Office (PESO)</p>
+            <p style="margin: 5px 0;">Palayan City, Nueva Ecija</p>
+            <p style="margin: 10px 0 0 0; font-style: italic;">This is a computer-generated report.</p>
           </div>
         </body>
         </html>
