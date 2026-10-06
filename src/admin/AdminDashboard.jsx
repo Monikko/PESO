@@ -1500,29 +1500,22 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                     <>
                       <div className="chart-wrapper">
                         <ResponsiveContainer width="100%" height={500}>
-                          <PieChart>
-                            <Pie
-                              data={palayanData}
-                              cx="50%"
-                              cy="50%"
-                              labelLine={false}
-                              label={renderCustomLabel}
-                              outerRadius={180}
-                              fill="#8884d8"
-                              dataKey="value"
-                            >
+                          <BarChart
+                            data={palayanData}
+                            layout="vertical"
+                            margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
+                          >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis type="number" />
+                            <YAxis dataKey="name" type="category" width={150} />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="value" name="Job Seekers" radius={[0, 8, 8, 0]}>
                               {palayanData.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                               ))}
-                            </Pie>
-                            <Tooltip />
-                            <Legend
-                              layout="vertical"
-                              align="right"
-                              verticalAlign="middle"
-                              iconType="circle"
-                            />
-                          </PieChart>
+                            </Bar>
+                          </BarChart>
                         </ResponsiveContainer>
                       </div>
 
