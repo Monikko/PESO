@@ -412,6 +412,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
             @media print {
               @page { 
                 margin: 0.5in;
+                size: landscape; /* Set landscape as default */
               }
               /* Hide browser-generated header/footer with URL */
               @page {
@@ -439,12 +440,17 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
               margin: 0 0 10px 0;
               color: #2c3e50;
               font-size: 24px;
+              text-align: center; /* Center the title */
             }
             .report-header h2 {
               margin: 5px 0;
               color: #34495e;
               font-size: 18px;
               font-weight: normal;
+              text-align: center; /* Center the subtitle */
+            }
+            .report-header p {
+              text-align: center; /* Center location */
             }
             .report-info {
               display: flex;
