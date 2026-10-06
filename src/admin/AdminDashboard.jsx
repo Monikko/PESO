@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../supabaseClient';
 import './AdminDashboard.css';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar } from 'recharts';
-import * as XLSX from 'xlsx';
 
 const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey }) => {
   const [activeTab, setActiveTab] = useState('palayan');
@@ -269,109 +268,474 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     });
   };
 
-  // Export to Excel function with auto-fit columns
-  const exportApplicantsToExcel = (applicants, filename) => {
-    if (!applicants || applicants.length === 0) {
-      alert('No applicants to export!');
+  // Print Summary Report with Graph (replaces CSV export)
+  const printSummaryReportPalayan = () => {
+    if (!palayanData || palayanData.length === 0) {
+      alert('No data to print!');
       return;
     }
 
-    // Prepare data for Excel
-    const data = applicants.map((applicant, index) => {
-      const age = calculateAge(applicant.date_of_birth);
-      const fullName = `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''} ${applicant.suffix || ''}`.trim();
-      const registrationDate = applicant.created_at
-        ? new Date(applicant.created_at).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        })
-        : 'N/A';
-      const approvalDate = applicant.approval_date
-        ? new Date(applicant.approval_date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-        : 'N/A';
-
-      return {
-        'No.': index + 1,
-        'Full Name': fullName,
-        'Sex': applicant.sex || 'N/A',
-        'Date of Birth': applicant.date_of_birth || 'N/A',
-        'Age': age !== null ? age : 'N/A',
-        'Civil Status': applicant.civil_status || 'N/A',
-        'Contact Number': applicant.contact_number || 'N/A',
-        'Email': applicant.email || 'N/A',
-        'Barangay': applicant.barangay || 'N/A',
-        'City/Municipality': applicant.city_municipality || 'N/A',
-        'Province': applicant.province || 'N/A',
-        'Employment Status': applicant.employment_status || 'N/A',
-        'Registration Date': registrationDate,
-        'Status': applicant.approved_by_admin ? 'Approved' : 'Pending',
-        'Approved By': applicant.approved_by || 'N/A',
-        'Approval Date': approvalDate
-      };
+    const currentDate = new Date().toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
     });
 
-    // Create worksheet
-    const worksheet = XLSX.utils.json_to_sheet(data);
+    // Create chart data rows
+    const chartRows = palayanData.map((item, index) => `
+      <tr>
+        <td style="text-align: center;">${index + 1}</td>
+        <td>${item.name}</td>
+        <td style="text-align: center;">${item.value}</td>
+        <td style="text-align: center;">${((item.value / totalPalayan) * 100).toFixed(1)}%</td>
+      </tr>
+    `).join('');
 
-    // Auto-fit columns
-    const columnWidths = [
-      { wch: 5 },  // No.
-      { wch: 30 }, // Full Name
-      { wch: 8 },  // Sex
-      { wch: 15 }, // Date of Birth
-      { wch: 5 },  // Age
-      { wch: 15 }, // Civil Status
-      { wch: 15 }, // Contact Number
-      { wch: 25 }, // Email
-      { wch: 20 }, // Barangay
-      { wch: 20 }, // City/Municipality
-      { wch: 15 }, // Province
-      { wch: 18 }, // Employment Status
-      { wch: 18 }, // Registration Date
-      { wch: 10 }, // Status
-      { wch: 20 }, // Approved By
-      { wch: 20 }  // Approval Date
-    ];
-    worksheet['!cols'] = columnWidths;
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Summary Report - Palayan City</title>
+        <meta charset="UTF-8">
+        <style>
+          @media print {
+            @page { 
+              margin: 0.75in;
+              size: portrait;
+            }
+          }
+          body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            color: #000;
+            margin: 0;
+          }
+          .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+          }
+          .report-header h1 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 24px;
+          }
+          .report-header h2 {
+            margin: 5px 0;
+            color: #34495e;
+            font-size: 18px;
+            font-weight: normal;
+          }
+          .report-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+          }
+          .report-info div {
+            font-size: 14px;
+          }
+          .report-info strong {
+            color: #2c3e50;
+          }
+          .chart-placeholder {
+            width: 100%;
+            height: 400px;
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            font-size: 16px;
+            color: #7f8c8d;
+            font-style: italic;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+          }
+          th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #2c3e50;
+          }
+          td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+          }
+          tr:nth-child(even) {
+            background-color: #f8f9fa;
+          }
+          .total-row {
+            background: #e8f4f8 !important;
+            font-weight: bold;
+            border-top: 2px solid #2c3e50;
+          }
+          .signatures {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 60px;
+            padding-top: 30px;
+            page-break-inside: avoid;
+          }
+          .signature-line {
+            text-align: center;
+          }
+          .signature-line .line {
+            border-top: 1px solid #000;
+            width: 200px;
+            margin: 40px auto 10px;
+          }
+          .signature-line .label {
+            font-size: 12px;
+            color: #2c3e50;
+            font-weight: 600;
+          }
+          .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+            page-break-inside: avoid;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="report-header">
+          <h1>PUBLIC EMPLOYMENT SERVICE OFFICE (PESO)</h1>
+          <h2>Job Seekers Summary Report - Palayan City</h2>
+          <p style="margin: 5px 0; color: #7f8c8d;">Per Barangay Distribution</p>
+        </div>
 
-    // Style header row
-    const range = XLSX.utils.decode_range(worksheet['!ref']);
-    for (let col = range.s.c; col <= range.e.c; col++) {
-      const cellAddress = XLSX.utils.encode_cell({ r: 0, c: col });
-      if (!worksheet[cellAddress]) continue;
-      worksheet[cellAddress].s = {
-        font: { bold: true, color: { rgb: "FFFFFF" } },
-        fill: { fgColor: { rgb: "2c3e50" } },
-        alignment: { horizontal: "center", vertical: "center" }
-      };
+        <div class="report-info">
+          <div><strong>Report Generated:</strong> ${currentDate}</div>
+          <div><strong>Total Job Seekers:</strong> ${totalPalayan}</div>
+          <div><strong>Generated By:</strong> ${adminName || 'Admin'}</div>
+        </div>
+
+        <div class="chart-placeholder">
+          [ Pie Chart: Job Seekers Distribution by Barangay ]<br>
+          <small style="display: block; margin-top: 10px;">Please refer to the data table below for exact numbers</small>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px; text-align: center;">No.</th>
+              <th>Barangay</th>
+              <th style="width: 120px; text-align: center;">Job Seekers</th>
+              <th style="width: 120px; text-align: center;">Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${chartRows}
+            <tr class="total-row">
+              <td colspan="2" style="text-align: right; padding-right: 20px;">TOTAL:</td>
+              <td style="text-align: center;">${totalPalayan}</td>
+              <td style="text-align: center;">100%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="signatures">
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Prepared By</div>
+          </div>
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Reviewed By</div>
+          </div>
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Approved By</div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <p style="margin: 5px 0;">Public Employment Service Office (PESO)</p>
+          <p style="margin: 5px 0;">Palayan City, Nueva Ecija</p>
+          <p style="margin: 10px 0 0 0; font-style: italic;">This is a computer-generated report.</p>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Create hidden iframe for printing
+    const printFrame = document.createElement('iframe');
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = 'none';
+    document.body.appendChild(printFrame);
+
+    const frameDoc = printFrame.contentWindow || printFrame.contentDocument;
+    if (frameDoc.document) {
+      frameDoc.document.open();
+      frameDoc.document.write(printContent);
+      frameDoc.document.close();
     }
 
-    // Create workbook
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Applicants');
-
-    // Save file
-    XLSX.writeFile(workbook, filename);
+    setTimeout(() => {
+      try {
+        printFrame.contentWindow.focus();
+        printFrame.contentWindow.print();
+        setTimeout(() => {
+          document.body.removeChild(printFrame);
+        }, 1000);
+      } catch (e) {
+        console.error('Print error:', e);
+        document.body.removeChild(printFrame);
+        alert('Error printing. Please try again.');
+      }
+    }, 500);
   };
 
-  // Export handlers for each tab
-  const handleExportPalayan = () => {
-    const filtered = filterAndSortApplicants(palayanApplicants, palayanFilters);
-    const filename = `palayan-applicants-${new Date().toISOString().split('T')[0]}.xlsx`;
-    exportApplicantsToExcel(filtered, filename);
-  };
+  const printSummaryReportOther = () => {
+    if (!otherPlacesData || otherPlacesData.length === 0) {
+      alert('No data to print!');
+      return;
+    }
 
-  const handleExportOther = () => {
-    const filtered = filterAndSortApplicants(otherApplicants, otherFilters);
-    const filename = `other-places-applicants-${new Date().toISOString().split('T')[0]}.xlsx`;
-    exportApplicantsToExcel(filtered, filename);
+    const currentDate = new Date().toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+
+    const chartRows = otherPlacesData.map((item, index) => `
+      <tr>
+        <td style="text-align: center;">${index + 1}</td>
+        <td>${item.name}</td>
+        <td style="text-align: center;">${item.value}</td>
+        <td style="text-align: center;">${((item.value / totalOther) * 100).toFixed(1)}%</td>
+      </tr>
+    `).join('');
+
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Summary Report - Other Municipalities</title>
+        <meta charset="UTF-8">
+        <style>
+          @media print {
+            @page { 
+              margin: 0.75in;
+              size: portrait;
+            }
+          }
+          body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            color: #000;
+            margin: 0;
+          }
+          .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+          }
+          .report-header h1 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 24px;
+          }
+          .report-header h2 {
+            margin: 5px 0;
+            color: #34495e;
+            font-size: 18px;
+            font-weight: normal;
+          }
+          .report-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+          }
+          .report-info div {
+            font-size: 14px;
+          }
+          .report-info strong {
+            color: #2c3e50;
+          }
+          .chart-placeholder {
+            width: 100%;
+            height: 400px;
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            font-size: 16px;
+            color: #7f8c8d;
+            font-style: italic;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+          }
+          th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #2c3e50;
+          }
+          td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+          }
+          tr:nth-child(even) {
+            background-color: #f8f9fa;
+          }
+          .total-row {
+            background: #e8f4f8 !important;
+            font-weight: bold;
+            border-top: 2px solid #2c3e50;
+          }
+          .signatures {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 60px;
+            padding-top: 30px;
+            page-break-inside: avoid;
+          }
+          .signature-line {
+            text-align: center;
+          }
+          .signature-line .line {
+            border-top: 1px solid #000;
+            width: 200px;
+            margin: 40px auto 10px;
+          }
+          .signature-line .label {
+            font-size: 12px;
+            color: #2c3e50;
+            font-weight: 600;
+          }
+          .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+            page-break-inside: avoid;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="report-header">
+          <h1>PUBLIC EMPLOYMENT SERVICE OFFICE (PESO)</h1>
+          <h2>Job Seekers Summary Report - Other Municipalities</h2>
+          <p style="margin: 5px 0; color: #7f8c8d;">Per Municipality Distribution</p>
+        </div>
+
+        <div class="report-info">
+          <div><strong>Report Generated:</strong> ${currentDate}</div>
+          <div><strong>Total Job Seekers:</strong> ${totalOther}</div>
+          <div><strong>Generated By:</strong> ${adminName || 'Admin'}</div>
+        </div>
+
+        <div class="chart-placeholder">
+          [ Pie Chart: Job Seekers Distribution by Municipality ]<br>
+          <small style="display: block; margin-top: 10px;">Please refer to the data table below for exact numbers</small>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px; text-align: center;">No.</th>
+              <th>Municipality/City</th>
+              <th style="width: 120px; text-align: center;">Job Seekers</th>
+              <th style="width: 120px; text-align: center;">Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${chartRows}
+            <tr class="total-row">
+              <td colspan="2" style="text-align: right; padding-right: 20px;">TOTAL:</td>
+              <td style="text-align: center;">${totalOther}</td>
+              <td style="text-align: center;">100%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="signatures">
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Prepared By</div>
+          </div>
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Reviewed By</div>
+          </div>
+          <div class="signature-line">
+            <div class="line"></div>
+            <div class="label">Approved By</div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <p style="margin: 5px 0;">Public Employment Service Office (PESO)</p>
+          <p style="margin: 5px 0;">Palayan City, Nueva Ecija</p>
+          <p style="margin: 10px 0 0 0; font-style: italic;">This is a computer-generated report.</p>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Create hidden iframe for printing
+    const printFrame = document.createElement('iframe');
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = 'none';
+    document.body.appendChild(printFrame);
+
+    const frameDoc = printFrame.contentWindow || printFrame.contentDocument;
+    if (frameDoc.document) {
+      frameDoc.document.open();
+      frameDoc.document.write(printContent);
+      frameDoc.document.close();
+    }
+
+    setTimeout(() => {
+      try {
+        printFrame.contentWindow.focus();
+        printFrame.contentWindow.print();
+        setTimeout(() => {
+          document.body.removeChild(printFrame);
+        }, 1000);
+      } catch (e) {
+        console.error('Print error:', e);
+        document.body.removeChild(printFrame);
+        alert('Error printing. Please try again.');
+      }
+    }, 500);
   };
 
   // Print handlers for monthly reports
@@ -1334,16 +1698,16 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                           Print Report
                         </button>
                         <button 
-                          className="export-csv-btn"
-                          onClick={handleExportPalayan}
-                          title="Export to Excel"
+                          className="summary-report-btn"
+                          onClick={printSummaryReportPalayan}
+                          title="Print Summary Report"
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="7 10 12 15 17 10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
                           </svg>
-                          Export to Excel
+                          Print Summary Report
                         </button>
                       </div>
                     </div>
@@ -1630,16 +1994,16 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                           Print Report
                         </button>
                         <button 
-                          className="export-csv-btn"
-                          onClick={handleExportOther}
-                          title="Export to CSV"
+                          className="summary-report-btn"
+                          onClick={printSummaryReportOther}
+                          title="Print Summary Report"
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="7 10 12 15 17 10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
                           </svg>
-                          Export to CSV
+                          Print Summary Report
                         </button>
                       </div>
                     </div>

@@ -746,13 +746,13 @@
   flex-shrink: 0;
 }
 
-/* Export CSV Button */
-.export-csv-btn {
+/* Summary Report Button */
+.summary-report-btn {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+  background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -760,21 +760,21 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+  box-shadow: 0 2px 8px rgba(142, 68, 173, 0.3);
 }
 
-.export-csv-btn:hover {
-  background: linear-gradient(135deg, #229954 0%, #1e8449 100%);
+.summary-report-btn:hover {
+  background: linear-gradient(135deg, #7d3c98 0%, #8e44ad 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+  box-shadow: 0 4px 12px rgba(142, 68, 173, 0.4);
 }
 
-.export-csv-btn:active {
+.summary-report-btn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(39, 174, 96, 0.3);
+  box-shadow: 0 2px 6px rgba(142, 68, 173, 0.3);
 }
 
-.export-csv-btn svg {
+.summary-report-btn svg {
   flex-shrink: 0;
 }
 
