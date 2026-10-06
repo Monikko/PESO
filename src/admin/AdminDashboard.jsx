@@ -820,13 +820,10 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                 <th style="width: 30px;">No.</th>
                 <th>Full Name</th>
                 <th style="width: 50px;">Sex</th>
-                <th style="width: 80px;">Birth Date</th>
+                <th style="width: 90px;">Birth Date</th>
                 <th style="width: 40px;">Age</th>
-                <th style="width: 90px;">Civil Status</th>
-                <th style="width: 100px;">Contact</th>
                 <th>Location</th>
-                <th style="width: 100px;">Employment Status</th>
-                <th style="width: 80px;">Reg. Date</th>
+                <th style="width: 120px;">Employment Status</th>
                 <th style="width: 70px;">Status</th>
               </tr>
             </thead>
@@ -848,16 +845,10 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                   }
                   age = calculatedAge;
                 }
-                
-                const regDate = applicant.created_at 
-                  ? new Date(applicant.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-                  : 'N/A';
 
                 const fullName = \`\${applicant.surname || ''}, \${applicant.first_name || ''} \${applicant.middle_name || ''} \${applicant.suffix || ''}\`.trim();
                 
                 const location = \`\${applicant.barangay || ''}, \${applicant.city_municipality || ''}\`.trim();
-                
-                const contact = applicant.cellphone_no || applicant.landline_no || applicant.contact_no || 'N/A';
 
                 return \`
                   <tr>
@@ -866,11 +857,8 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                     <td>\${applicant.sex || 'N/A'}</td>
                     <td>\${birthDate}</td>
                     <td>\${age}</td>
-                    <td>\${applicant.civil_status || 'N/A'}</td>
-                    <td>\${contact}</td>
                     <td>\${location}</td>
                     <td>\${applicant.employment_status || 'N/A'}</td>
-                    <td>\${regDate}</td>
                     <td class="\${applicant.approved_by_admin ? 'status-approved' : 'status-pending'}">
                       \${applicant.approved_by_admin ? 'Approved' : 'Pending'}
                     </td>
