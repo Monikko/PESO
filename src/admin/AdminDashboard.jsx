@@ -563,7 +563,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         ? new Date(applicant.created_at).toLocaleDateString('en-US')
         : 'N/A';
       
-      const contact = applicant.cellphone_no || applicant.landline_no || 'N/A';
+      const contact = applicant.contact_number || applicant.landline || 'N/A';
 
       return {
         'No.': index + 1,
@@ -1060,7 +1060,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       console.log('🔍 Fetching applicants from database...');
       const { data, error } = await supabase
         .from('applicants')
-        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, cellphone_no, landline_no');
+        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_number, landline, email');
 
       if (error) {
         console.error('Supabase error:', error);
@@ -1071,7 +1071,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
 
           const { data: dataWithoutDob, error: error2 } = await supabase
             .from('applicants')
-            .select('id, barangay, city_municipality, province, employment_status, sex, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, cellphone_no, landline_no');
+            .select('id, barangay, city_municipality, province, employment_status, sex, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_number, landline, email');
 
           if (error2) {
             console.error('Second fetch error:', error2);
