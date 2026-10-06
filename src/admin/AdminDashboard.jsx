@@ -817,14 +817,14 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
           <table>
             <thead>
               <tr>
-                <th style="width: 30px;">No.</th>
-                <th style="min-width: 200px;">Full Name</th>
-                <th style="width: 50px;">Sex</th>
-                <th style="width: 90px;">Birth Date</th>
-                <th style="width: 40px;">Age</th>
-                <th style="min-width: 150px;">Location</th>
-                <th style="width: 120px;">Employment Status</th>
-                <th style="width: 70px;">Status</th>
+                <th style="width: 40px;">No.</th>
+                <th style="min-width: 250px;">Full Name</th>
+                <th style="width: 60px;">Sex</th>
+                <th style="width: 100px;">Birth Date</th>
+                <th style="width: 45px;">Age</th>
+                <th style="min-width: 180px;">Location</th>
+                <th style="width: 130px;">Employment Status</th>
+                <th style="width: 80px;">Status</th>
               </tr>
             </thead>
             <tbody>

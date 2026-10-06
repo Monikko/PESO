@@ -9,19 +9,79 @@ const WINDOW_SIZE = 10;
 const LANGUAGE_COLUMNS = [
   { key: 'code', label: 'Code', width: '80px', blue: true },
   { key: 'name', label: 'Language', blue: true },
+  { key: 'type', label: 'Type', width: '120px', blue: false },
 ];
 
 // The 3 most common languages shown by default
 const TOP_CODES = ['L038', 'L086', 'L128'];
-const topLanguages = TOP_CODES.map(code => languagesData.find(l => l.code === code));
+const topLanguagesRaw = TOP_CODES.map(code => languagesData.find(l => l.code === code));
 
 // Full sorted list (top 3 first, then alphabetical)
 const sortedLanguages = [
-  ...topLanguages,
+  ...topLanguagesRaw,
   ...languagesData.filter(l => !TOP_CODES.includes(l.code)).sort((a, b) =>
     a.name.localeCompare(b.name)
   ),
 ];
+
+// Function to determine language type
+const getLanguageType = (langName) => {
+  const name = langName.toUpperCase();
+  
+  // Major International Languages
+  if (['ENGLISH', 'MANDARIN', 'SPANISH', 'FRENCH', 'GERMAN', 'ITALIAN', 
+       'PORTUGUESE', 'RUSSIAN', 'JAPANESE', 'KOREAN', 'ARABIC', 'HINDI',
+       'BENGALI', 'URDU', 'TURKISH', 'POLISH', 'DUTCH', 'SWEDISH',
+       'DANISH', 'NORWEGIAN', 'FINNISH', 'GREEK', 'HEBREW', 'THAI',
+       'VIETNAMESE', 'INDONESIAN', 'MALAY', 'PERSIAN', 'SWAHILI',
+       'UKRAINIAN', 'CZECH', 'ROMANIAN', 'HUNGARIAN', 'SERBIAN',
+       'CROATIAN', 'BULGARIAN', 'SLOVAK', 'LITHUANIAN', 'LATVIAN',
+       'ESTONIAN', 'SLOVENIAN', 'ALBANIAN', 'MACEDONIAN', 'GEORGIAN',
+       'ARMENIAN', 'AZERBAIJANI', 'KAZAKH', 'UZBEK', 'MONGOLIAN',
+       'NEPALI', 'SINHALA', 'BURMESE', 'KHMER', 'LAO', 'AMHARIC',
+       'SOMALI', 'HAUSA', 'YORUBA', 'IGBO', 'ZULU', 'AFRIKAANS'].includes(name)) {
+    return 'International';
+  }
+  
+  // Philippine National Language
+  if (name === 'TAGALOG' || name === 'FILIPINO') {
+    return 'Filipino';
+  }
+  
+  // Philippine Regional Languages and Dialects
+  if (name.includes('BIKOL') || name.includes('CEBUANO') || name.includes('ILOCANO') ||
+      name.includes('HILIGAYNON') || name.includes('WARAY') || name.includes('KAPAMPANGAN') ||
+      name.includes('PANGASINAN') || name.includes('MARANAO') || name.includes('MAGUINDANAO') ||
+      name.includes('TAUSUG') || name.includes('CHAVACANO') || name.includes('SURIGAONON') ||
+      name.includes('AKLANON') || name.includes('KINARAY') || name.includes('CAPIZNON') ||
+      name.includes('BONTOK') || name.includes('IFUGAO') || name.includes('KALINGA') ||
+      name.includes('KANKANAY') || name.includes('IBALOI') || name.includes('ISNAG') ||
+      name.includes('ITAWIS') || name.includes('IVATAN') || name.includes('IBANAG') ||
+      name.includes('ILONGGO') || name.includes('ROMBLOMANON') || name.includes('MASBATENYO') ||
+      name.includes('AGTA') || name.includes('AYTA') || name.includes('ATTA') ||
+      name.includes('DUMAGAT') || name.includes('MANOBO') || name.includes('TBOLI') ||
+      name.includes('BAGOBO') || name.includes('MANDAYA') || name.includes('MANSAKA') ||
+      name.includes('SAMA') || name.includes('YAKAN') || name.includes('MOLBOG') ||
+      name.includes('PALAWANO') || name.includes('TAGBANWA') || name.includes('BATAK') ||
+      name.includes('CUYONON') || name.includes('AGUTAYNEN') || name.includes('BINUKID') ||
+      name.includes('BUKIDNON') || name.includes('HIGAONON') || name.includes('SUBANEN') ||
+      name.includes('BALANGAO') || name.includes('BONTOC') || name.includes('GADDANG') ||
+      name.includes('ISINAI') || name.includes('YOGAD') || name.includes('PARANAN')) {
+    return 'Filipino';
+  }
+  
+  // Default: Filipino dialect if not recognized as international
+  return 'Filipino';
+};
+
+// Enrich languages with type information
+const enrichedLanguages = sortedLanguages.map(lang => ({
+  ...lang,
+  type: getLanguageType(lang.name)
+}));
+
+// Top 3 enriched
+const topLanguages = enrichedLanguages.slice(0, 3);
 
 const LanguageModal = ({ onClose, onSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,9 +100,10 @@ const LanguageModal = ({ onClose, onSelect }) => {
       setHasSearched(false);
       setResults([]);
     } else {
-      const filtered = sortedLanguages.filter(lang =>
+      const filtered = enrichedLanguages.filter(lang =>
         lang.code.toLowerCase().includes(lowerTerm) ||
-        lang.name.toLowerCase().includes(lowerTerm)
+        lang.name.toLowerCase().includes(lowerTerm) ||
+        lang.type.toLowerCase().includes(lowerTerm)
       );
       setResults(filtered);
       setHasSearched(true);
@@ -211,6 +272,7 @@ const Step5 = ({ onNext, onPrev }) => {
                   <thead>
                     <tr>
                       <th style={{ textAlign: 'left', color: '#555' }}>Language</th>
+                      <th style={{ width: '120px', color: '#555' }}>Type</th>
                       <th style={{ width: '70px', color: '#555' }}>Read</th>
                       <th style={{ width: '70px', color: '#555' }}>Write</th>
                       <th style={{ width: '70px', color: '#555' }}>Speak</th>
@@ -222,6 +284,9 @@ const Step5 = ({ onNext, onPrev }) => {
                     {languages.map((lang) => (
                       <tr key={lang.code} style={{ cursor: 'default', backgroundColor: '#fff' }}>
                         <td style={{ textAlign: 'left', textTransform: 'uppercase' }}>{lang.name}</td>
+                        <td style={{ textAlign: 'center', color: lang.type === 'International' ? '#2196F3' : '#4CAF50', fontWeight: '600' }}>
+                          {lang.type || getLanguageType(lang.name)}
+                        </td>
                         <td style={{ textAlign: 'center' }}>
                           <input type="checkbox" checked={lang.read} onChange={() => toggleLanguageSkill(lang.code, 'read')} />
                         </td>

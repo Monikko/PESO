@@ -406,9 +406,12 @@ const ResumeContent = ({ data }) => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px' }}>
             {data.languages.map((lang, idx) => (
               <div key={idx} style={{ padding: '8px 12px', background: '#f8f9fa', borderRadius: '4px', borderLeft: '3px solid #16a085' }}>
-                <div style={{ fontWeight: 600, color: '#2c3e50' }}>{lang.language}</div>
-                <div style={{ fontSize: '0.85rem', color: '#7f8c8d' }}>
-                  Read: {lang.read} • Write: {lang.write} • Speak: {lang.speak} • Understand: {lang.understand}
+                <div style={{ fontWeight: 600, color: '#2c3e50', textTransform: 'uppercase' }}>{lang.name || lang.language}</div>
+                <div style={{ fontSize: '0.85rem', color: '#7f8c8d', marginTop: '4px' }}>
+                  <span style={{ marginRight: '8px' }}>Read: <span style={{ color: lang.read ? '#16a085' : '#e74c3c', fontWeight: 600 }}>{lang.read ? '✓' : '✗'}</span></span>
+                  <span style={{ marginRight: '8px' }}>Write: <span style={{ color: lang.write ? '#16a085' : '#e74c3c', fontWeight: 600 }}>{lang.write ? '✓' : '✗'}</span></span>
+                  <span style={{ marginRight: '8px' }}>Speak: <span style={{ color: lang.speak ? '#16a085' : '#e74c3c', fontWeight: 600 }}>{lang.speak ? '✓' : '✗'}</span></span>
+                  <span>Understand: <span style={{ color: lang.understand ? '#16a085' : '#e74c3c', fontWeight: 600 }}>{lang.understand ? '✓' : '✗'}</span></span>
                 </div>
               </div>
             ))}
