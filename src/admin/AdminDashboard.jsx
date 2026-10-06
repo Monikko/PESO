@@ -393,18 +393,9 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     printApplicantsList(filtered, 'Other Municipalities');
   };
 
-  // Print function for monthly reports
+  // Print function for monthly reports - Using iframe method (no popup blocking)
   const printApplicantsList = (applicants, title) => {
     try {
-      // Try to open a new window
-      const printWindow = window.open('', '_blank');
-      
-      if (!printWindow) {
-        // If popup was blocked, show alert
-        alert('Pop-up blocked! Please allow pop-ups for this site and try again.');
-        return;
-      }
-
       const currentDate = new Date().toLocaleDateString('en-US', { 
         year: 'numeric', 
         month: 'long', 
@@ -609,26 +600,47 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
             <p>Public Employment Service Office (PESO) - Palayan City, Nueva Ecija</p>
             <p>This is a computer-generated report.</p>
           </div>
-
-          <script>
-            // Wait for content to load, then print
-            window.addEventListener('load', function() {
-              setTimeout(function() {
-                window.print();
-              }, 250);
-            });
-          </script>
         </body>
         </html>
       `;
 
-      printWindow.document.open();
-      printWindow.document.write(printContent);
-      printWindow.document.close();
+      // Create hidden iframe for printing (no popup!)
+      const printFrame = document.createElement('iframe');
+      printFrame.style.position = 'fixed';
+      printFrame.style.right = '0';
+      printFrame.style.bottom = '0';
+      printFrame.style.width = '0';
+      printFrame.style.height = '0';
+      printFrame.style.border = 'none';
+      document.body.appendChild(printFrame);
+
+      const frameDoc = printFrame.contentWindow || printFrame.contentDocument;
+      if (frameDoc.document) {
+        frameDoc.document.open();
+        frameDoc.document.write(printContent);
+        frameDoc.document.close();
+      }
+
+      // Wait for content to load, then print
+      setTimeout(() => {
+        try {
+          printFrame.contentWindow.focus();
+          printFrame.contentWindow.print();
+          
+          // Remove iframe after printing
+          setTimeout(() => {
+            document.body.removeChild(printFrame);
+          }, 1000);
+        } catch (e) {
+          console.error('Print error:', e);
+          document.body.removeChild(printFrame);
+          alert('Error printing. Please try again.');
+        }
+      }, 500);
       
     } catch (error) {
       console.error('Print error:', error);
-      alert('Error opening print window. Please check if pop-ups are blocked.');
+      alert('Error creating print preview. Please try again.');
     }
   };
 
