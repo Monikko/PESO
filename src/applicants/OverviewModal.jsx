@@ -258,8 +258,8 @@ const OverviewModal = ({ onClose, onSubmitFinal }) => {
                   <IL label="Religion"><IField value={e2.religion} onChange={v => setE2(p => ({ ...p, religion: v }))} /></IL>
                   <IL label="Present Address"><IField value={e2.presentAddress} onChange={v => setE2(p => ({ ...p, presentAddress: v }))} /></IL>
                   <IL label="Barangay"><IField value={e2.barangay} onChange={v => setE2(p => ({ ...p, barangay: v }))} /></IL>
-                  <IL label="City/Municipality"><IField value={e2.city} onChange={v => setE2(p => ({ ...p, city: v }))} /></IL>
-                  <IL label="Province"><IField value={e2.province} onChange={v => setE2(p => ({ ...p, province: v }))} /></IL>
+                  <IL label="City/Municipality"><IField value={e2.city} readOnly /></IL>
+                  <IL label="Province"><IField value={e2.province} readOnly /></IL>
                   <IL label="Height (cm)"><IField value={e2.heightCm} onChange={v => setE2(p => ({ ...p, heightCm: v }))} /></IL>
                   <IL label="Cellphone"><IField value={e2.cellphone} onChange={v => setE2(p => ({ ...p, cellphone: v }))} /></IL>
                   <IL label="Landline"><IField value={e2.landline} onChange={v => setE2(p => ({ ...p, landline: v }))} /></IL>
