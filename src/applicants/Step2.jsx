@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './ApplicantForm.css';
-import region3Data from '../data/region3.json';
+import nuevaEcijaData from '../data/nuevaEcija.json';
 import { useFormContext } from './FormContext';
 
 const religionOptions = [
@@ -31,9 +31,9 @@ const Step2 = ({ onNext, onPrev }) => {
   const itemsPerPage = 10;
   
   const [barangay, setBarangay] = useState(initialData.barangay || '');
-  const [city, setCity] = useState(initialData.city || '');
-  const [province, setProvince] = useState(initialData.province || '');
-  const [notFromRegion3, setNotFromRegion3] = useState(initialData.notFromRegion3 || false);
+  // Hardcode city and province to Palayan City
+  const [city] = useState('PALAYAN CITY (Capital)');
+  const [province] = useState('NUEVA ECIJA');
 
   const [heightCm, setHeightCm] = useState(initialData.heightCm || '');
   const [isHeightModalOpen, setIsHeightModalOpen] = useState(false);
@@ -61,10 +61,15 @@ const Step2 = ({ onNext, onPrev }) => {
 
   const [errors, setErrors] = useState({});
 
+  // Filter to only Palayan City barangays
+  const palayanBarangays = useMemo(() => {
+    return nuevaEcijaData.filter(item => item.city.includes('PALAYAN CITY'));
+  }, []);
+
   const saveStepData = () => {
     updateFormData({
       step2: {
-        civilStatus, presentAddress, barangay, city, province, notFromRegion3,
+        civilStatus, presentAddress, barangay, city, province,
         heightCm, religion, tin, landline, cellphone, email, disabilities,
         is4ps, householdId, isOfw, ofwCountry, isFormerOfw, latestDeploymentCountry,
         returnMonth, returnYear
@@ -136,8 +141,9 @@ const Step2 = ({ onNext, onPrev }) => {
     const lowerTerm = searchTerm.toLowerCase();
     const searchTerms = lowerTerm.split(/\s+/).filter(Boolean);
     
-    const results = region3Data.filter(item => {
-      const fullString = `${item.name.toLowerCase()} ${item.city.toLowerCase()}`;
+    // Search only within Palayan City barangays
+    const results = palayanBarangays.filter(item => {
+      const fullString = `${item.name.toLowerCase()}`;
       return searchTerms.every(term => fullString.includes(term));
     }).sort((a, b) => a.name.localeCompare(b.name));
     setSearchResults(results);
@@ -152,16 +158,6 @@ const Step2 = ({ onNext, onPrev }) => {
 
   const handleSelectBarangay = (item) => {
     setBarangay(item.name);
-    
-    // Parse the mock city string "CABANATUAN CITY, NUEVA ECIJA"
-    const parts = item.city.split(',');
-    if (parts.length > 1) {
-      setCity(parts[0].trim());
-      setProvince(parts[1].trim());
-    } else {
-      setCity(item.city);
-    }
-    
     closeModal();
   };
 
@@ -209,13 +205,6 @@ const Step2 = ({ onNext, onPrev }) => {
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
               <input type="text" className={`input-field ${errors.presentAddress ? 'error-border' : ''}`} placeholder="HOUSE NO., STREET, VILLAGE" autoFocus value={presentAddress} onChange={(e) => { setPresentAddress(e.target.value); if(errors.presentAddress) setErrors(prev => ({...prev, presentAddress: null})); }} />
               {errors.presentAddress && <span className="error-text" style={{ marginTop: '4px' }}>{errors.presentAddress}</span>}
-              
-              <div style={{ marginTop: '10px' }}>
-                <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: '0.9rem', color: '#555' }}>
-                  <input type="checkbox" style={{ marginRight: '8px' }} checked={notFromRegion3} onChange={(e) => { setNotFromRegion3(e.target.checked); if(!e.target.checked){ setBarangay(''); setCity(''); setProvince(''); } }} />
-                  Not from Region 3?
-                </label>
-              </div>
             </div>
           </div>
 
@@ -225,21 +214,19 @@ const Step2 = ({ onNext, onPrev }) => {
               <div className="input-with-button">
                 <input 
                   type="text" 
-                  className={`input-field ${!notFromRegion3 ? 'cursor-pointer' : ''} ${errors.barangay ? 'error-border' : ''}`} 
+                  className={`input-field cursor-pointer ${errors.barangay ? 'error-border' : ''}`} 
                   placeholder="Select barangay"
                   value={barangay}
                   onChange={(e) => { setBarangay(e.target.value); if(errors.barangay) setErrors(prev => ({...prev, barangay: null})); }}
-                  onClick={!notFromRegion3 ? openModal : undefined}
-                  readOnly={!notFromRegion3}
+                  onClick={openModal}
+                  readOnly
                 />
-                {!notFromRegion3 && (
-                  <button className="icon-btn search-btn" onClick={openModal}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <circle cx="11" cy="11" r="7"></circle>
-                      <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
-                    </svg>
-                  </button>
-                )}
+                <button className="icon-btn search-btn" onClick={openModal}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
+                  </svg>
+                </button>
               </div>
               {errors.barangay && <span className="error-text" style={{ marginTop: '4px' }}>{errors.barangay}</span>}
             </div>
@@ -253,8 +240,8 @@ const Step2 = ({ onNext, onPrev }) => {
                 className={`input-field ${errors.city ? 'error-border' : ''}`} 
                 placeholder="e.g. PALAYAN CITY"
                 value={city}
-                onChange={(e) => { setCity(e.target.value); if(errors.city) setErrors(prev => ({...prev, city: null})); }}
-                readOnly={!notFromRegion3}
+                readOnly
+                style={{ backgroundColor: '#f5f5f5', cursor: 'not-allowed' }}
               />
               {errors.city && <span className="error-text" style={{ marginTop: '4px' }}>{errors.city}</span>}
             </div>
@@ -268,8 +255,8 @@ const Step2 = ({ onNext, onPrev }) => {
                 className={`input-field ${errors.province ? 'error-border' : ''}`} 
                 placeholder="e.g. NUEVA ECIJA"
                 value={province}
-                onChange={(e) => { setProvince(e.target.value); if(errors.province) setErrors(prev => ({...prev, province: null})); }}
-                readOnly={!notFromRegion3}
+                readOnly
+                style={{ backgroundColor: '#f5f5f5', cursor: 'not-allowed' }}
               />
               {errors.province && <span className="error-text" style={{ marginTop: '4px' }}>{errors.province}</span>}
             </div>
