@@ -3,6 +3,7 @@ import './ApplicantForm.css';
 
 import { useFormContext } from './FormContext';
 import { useSupabase } from '../hooks/useSupabase';
+import { supabase } from '../supabaseClient';
 import OverviewModal from './OverviewModal';
 
 const Step11 = ({ onPrev, onSubmit, pesoId }) => {
@@ -32,6 +33,92 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
     setSubmitting(true);
 
     try {
+      // Check for existing applicant with same details
+      console.log('Checking for duplicate applicant...');
+      
+      const { data: existingApplicants, error: checkError } = await supabase
+        .from('applicants')
+        .select('id, surname, first_name, middle_name, contact_number, email')
+        .eq('surname', globalFormData.lastName)
+        .eq('first_name', globalFormData.firstName);
+
+      if (checkError) {
+        console.error('Error checking for duplicates:', checkError);
+      }
+
+      if (existingApplicants && existingApplicants.length > 0) {
+        // Check if any existing applicant matches our criteria
+        const isDuplicate = existingApplicants.some(existing => {
+          // Match by name (surname + first name + middle name)
+          const nameMatch = 
+            existing.surname?.toUpperCase() === globalFormData.lastName?.toUpperCase() &&
+            existing.first_name?.toUpperCase() === globalFormData.firstName?.toUpperCase() &&
+            (existing.middle_name?.toUpperCase() || '') === (globalFormData.middleName?.toUpperCase() || '');
+
+          // Match by contact number
+          const contactMatch = 
+            existing.contact_number && 
+            globalFormData.step2?.cellphone &&
+            existing.contact_number.replace(/\D/g, '') === globalFormData.step2.cellphone.replace(/\D/g, '');
+
+          // Match by email (if both exist)
+          const emailMatch = 
+            existing.email && 
+            globalFormData.step2?.email &&
+            existing.email.toLowerCase() === globalFormData.step2.email.toLowerCase();
+
+          // Consider it a duplicate if:
+          // - Name matches AND (contact number matches OR email matches)
+          return nameMatch && (contactMatch || emailMatch);
+        });
+
+        if (isDuplicate) {
+          const existingMatch = existingApplicants.find(existing => {
+            const nameMatch = 
+              existing.surname?.toUpperCase() === globalFormData.lastName?.toUpperCase() &&
+              existing.first_name?.toUpperCase() === globalFormData.firstName?.toUpperCase() &&
+              (existing.middle_name?.toUpperCase() || '') === (globalFormData.middleName?.toUpperCase() || '');
+
+            const contactMatch = 
+              existing.contact_number && 
+              globalFormData.step2?.cellphone &&
+              existing.contact_number.replace(/\D/g, '') === globalFormData.step2.cellphone.replace(/\D/g, '');
+
+            const emailMatch = 
+              existing.email && 
+              globalFormData.step2?.email &&
+              existing.email.toLowerCase() === globalFormData.step2.email.toLowerCase();
+
+            return nameMatch && (contactMatch || emailMatch);
+          });
+
+          const fullName = `${globalFormData.lastName}, ${globalFormData.firstName} ${globalFormData.middleName || ''}`.trim();
+          const matchReason = [];
+          
+          if (existingMatch.contact_number && globalFormData.step2?.cellphone &&
+              existingMatch.contact_number.replace(/\D/g, '') === globalFormData.step2.cellphone.replace(/\D/g, '')) {
+            matchReason.push(`Contact Number: ${globalFormData.step2.cellphone}`);
+          }
+          
+          if (existingMatch.email && globalFormData.step2?.email &&
+              existingMatch.email.toLowerCase() === globalFormData.step2.email.toLowerCase()) {
+            matchReason.push(`Email: ${globalFormData.step2.email}`);
+          }
+
+          alert(
+            `⚠️ DUPLICATE APPLICANT DETECTED\n\n` +
+            `The applicant "${fullName}" is already registered in the system.\n\n` +
+            `Matching Information:\n` +
+            `${matchReason.join('\n')}\n\n` +
+            `Please verify the applicant's information before proceeding.\n` +
+            `If this is a different person, please ensure their contact information is unique.`
+          );
+          
+          setSubmitting(false);
+          return;
+        }
+      }
+
       // Prepare the complete form data for submission
       let photoUrl = null;
       let resumeUrl = null;
