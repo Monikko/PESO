@@ -1095,9 +1095,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       console.error('Unexpected error:', error);
       alert(`Unexpected error loading dashboard data:\n\n${error.message}`);
       setPalayanData([]);
-      setOtherPlacesData([]);
       setTotalPalayan(0);
-      setTotalOther(0);
       setEmploymentStats({ employed: 0, unemployed: 0, male: 0, female: 0 });
       setAgeStats({ age18AndBelow: 0, age19to25: 0, age26to35: 0, age36to50: 0, age51AndAbove: 0 });
     } finally {
@@ -1120,9 +1118,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
 
     // Set empty data so dashboard still shows
     setPalayanData([]);
-    setOtherPlacesData([]);
     setTotalPalayan(0);
-    setTotalOther(0);
     setEmploymentStats({ employed: 0, unemployed: 0, male: 0, female: 0 });
     setAgeStats({ age18AndBelow: 0, age19to25: 0, age26to35: 0, age36to50: 0, age51AndAbove: 0 });
   };
@@ -1131,9 +1127,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     if (!data || data.length === 0) {
       console.log('No applicants found in database');
       setPalayanData([]);
-      setOtherPlacesData([]);
       setTotalPalayan(0);
-      setTotalOther(0);
       setEmploymentStats({ employed: 0, unemployed: 0, male: 0, female: 0 });
       setAgeStats({ age18AndBelow: 0, age19to25: 0, age26to35: 0, age36to50: 0, age51AndAbove: 0 });
       setLoading(false);
@@ -1238,18 +1232,12 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     const palayanApplicantsList = data.filter(
       app => app.city_municipality?.toUpperCase().includes('PALAYAN')
     );
-    const otherApplicantsList = data.filter(
-      app => !app.city_municipality?.toUpperCase().includes('PALAYAN')
-    );
 
     // Store full applicant lists
     setPalayanApplicants(palayanApplicantsList);
-    setOtherApplicants(otherApplicantsList);
 
     console.log('Palayan applicants list:', palayanApplicantsList);
-    console.log('Other applicants list:', otherApplicantsList);
     console.log('Palayan applicants count:', palayanApplicantsList.length);
-    console.log('Other applicants count:', otherApplicantsList.length);
     console.log('Sample applicant approved status:', palayanApplicantsList[0]?.approved_by_admin);
 
     // Group Palayan by barangay
@@ -1259,29 +1247,15 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       return acc;
     }, {});
 
-    // Group Others by city/municipality (normalize to strip ", NUEVA ECIJA" suffix)
-    const otherGrouped = otherApplicantsList.reduce((acc, app) => {
-      const raw = app.city_municipality || 'Unknown';
-      const city = raw.split(',')[0].trim().toUpperCase();
-      acc[city] = (acc[city] || 0) + 1;
-      return acc;
-    }, {});
-
     // Convert to array format for charts
     const palayanChartData = Object.entries(palayanGrouped)
       .map(([name, value]) => ({ name, value }))
       .sort((a, b) => b.value - a.value);
 
-    const otherChartData = Object.entries(otherGrouped)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
-
     setPalayanData(palayanChartData);
-    setOtherPlacesData(otherChartData);
     setTotalPalayan(palayanApplicantsList.length);
-    setTotalOther(otherApplicantsList.length);
 
-    console.log(`Loaded: ${palayanApplicantsList.length} Palayan applicants, ${otherApplicantsList.length} other applicants`);
+    console.log(`Loaded: ${palayanApplicantsList.length} Palayan applicants`);
     console.log(`Employment: ${employedCount} employed, ${unemployedCount} unemployed`);
     console.log(`Gender: ${maleCount} male, ${femaleCount} female`);
     console.log(`Age: ${age18AndBelowCount} (≤18), ${age19to25Count} (19-25), ${age26to35Count} (26-35), ${age36to50Count} (36-50), ${age51AndAboveCount} (51+)`);
