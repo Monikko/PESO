@@ -520,97 +520,6 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     }, 500);
   };
 
-  // Export to Excel for Other Municipalities
-  const exportOtherToExcel = () => {
-    const filtered = filterAndSortApplicants(otherApplicants, otherFilters);
-    if (!filtered || filtered.length === 0) {
-      alert('No applicants to export!');
-      return;
-    }
-
-    const exportData = filtered.map((applicant, index) => {
-      const birthDate = applicant.date_of_birth 
-        ? new Date(applicant.date_of_birth).toLocaleDateString('en-US')
-        : 'N/A';
-      
-      // Calculate age properly
-      let age = 'N/A';
-      if (applicant.date_of_birth) {
-        const today = new Date();
-        const birth = new Date(applicant.date_of_birth);
-        let calculatedAge = today.getFullYear() - birth.getFullYear();
-        const monthDiff = today.getMonth() - birth.getMonth();
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-          calculatedAge--;
-        }
-        age = calculatedAge;
-      }
-
-      const registrationDate = applicant.created_at 
-        ? new Date(applicant.created_at).toLocaleDateString('en-US')
-        : 'N/A';
-      
-      const contact = applicant.contact_number || applicant.landline || 'N/A';
-
-      return {
-        'No.': index + 1,
-        'Full Name': `${applicant.surname || ''}, ${applicant.first_name || ''} ${applicant.middle_name || ''}`.trim(),
-        'Sex': applicant.sex || 'N/A',
-        'Birth Date': birthDate,
-        'Age': age,
-        'Civil Status': applicant.civil_status || 'N/A',
-        'Contact': contact,
-        'Email': applicant.email || 'N/A',
-        'Municipality': applicant.city_municipality || 'N/A',
-        'Barangay': applicant.barangay || 'N/A',
-        'Employment Status': applicant.employment_status || 'N/A',
-        'Preferred Occupation': Array.isArray(applicant.preferred_occupation) 
-          ? applicant.preferred_occupation.join(', ') 
-          : applicant.preferred_occupation || 'N/A',
-        'Registration Date': registrationDate,
-        'Status': applicant.approved_by_admin ? 'Approved' : 'Pending'
-      };
-    });
-
-    const worksheet = XLSX.utils.json_to_sheet(exportData);
-    
-    // Auto-fit column widths
-    const colWidths = [
-      { wch: 5 },   // No.
-      { wch: 30 },  // Full Name
-      { wch: 8 },   // Sex
-      { wch: 12 },  // Birth Date
-      { wch: 5 },   // Age
-      { wch: 15 },  // Civil Status
-      { wch: 15 },  // Contact
-      { wch: 25 },  // Email
-      { wch: 20 },  // Municipality
-      { wch: 20 },  // Barangay
-      { wch: 20 },  // Employment Status
-      { wch: 30 },  // Preferred Occupation
-      { wch: 15 },  // Registration Date
-      { wch: 10 }   // Status
-    ];
-    worksheet['!cols'] = colWidths;
-
-    // Style the header row
-    const range = XLSX.utils.decode_range(worksheet['!ref']);
-    for (let C = range.s.c; C <= range.e.c; ++C) {
-      const address = XLSX.utils.encode_col(C) + "1";
-      if (!worksheet[address]) continue;
-      worksheet[address].s = {
-        font: { bold: true, color: { rgb: "FFFFFF" } },
-        fill: { fgColor: { rgb: "2C3E50" } },
-        alignment: { horizontal: "center", vertical: "center" }
-      };
-    }
-
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Other Municipalities');
-    
-    const fileName = `PESO_Other_Municipalities_${new Date().toISOString().split('T')[0]}.xlsx`;
-    XLSX.writeFile(workbook, fileName);
-  };
   // Print handlers for monthly reports
   const handlePrintPalayan = () => {
     const filtered = filterAndSortApplicants(palayanApplicants, palayanFilters);
@@ -619,15 +528,6 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       return;
     }
     printApplicantsList(filtered, 'Palayan City');
-  };
-
-  const handlePrintOther = () => {
-    const filtered = filterAndSortApplicants(otherApplicants, otherFilters);
-    if (!filtered || filtered.length === 0) {
-      alert('No applicants to print!');
-      return;
-    }
-    printApplicantsList(filtered, 'Other Municipalities');
   };
 
   // Print function for monthly reports - Using iframe method (no popup blocking)
@@ -1047,7 +947,8 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       console.log('🔍 Fetching applicants from database...');
       const { data, error } = await supabase
         .from('applicants')
-        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_number, landline, email');
+        .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_number, landline, email')
+        .ilike('city_municipality', '%PALAYAN%'); // Only fetch Palayan City applicants
 
       if (error) {
         console.error('Supabase error:', error);
@@ -1058,7 +959,8 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
 
           const { data: dataWithoutDob, error: error2 } = await supabase
             .from('applicants')
-            .select('id, barangay, city_municipality, province, employment_status, sex, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_number, landline, email');
+            .select('id, barangay, city_municipality, province, employment_status, sex, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_number, landline, email')
+            .ilike('city_municipality', '%PALAYAN%'); // Only fetch Palayan City applicants
 
           if (error2) {
             console.error('Second fetch error:', error2);
@@ -1228,10 +1130,8 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       age51AndAbove: age51AndAboveCount
     });
 
-    // Separate Palayan City and Others
-    const palayanApplicantsList = data.filter(
-      app => app.city_municipality?.toUpperCase().includes('PALAYAN')
-    );
+    // All fetched data is already Palayan City applicants (filtered at database level)
+    const palayanApplicantsList = data;
 
     // Store full applicant lists
     setPalayanApplicants(palayanApplicantsList);
@@ -1286,16 +1186,6 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     const barangays = [...new Set(palayanApplicants.map(app => app.barangay).filter(Boolean))];
     return barangays.sort();
   };
-
-  // Helper: Get unique municipalities from other applicants
-  const getUniqueMunicipalities = () => {
-    // Normalize city_municipality by taking only the part before the first comma
-    // This handles both "BONGABON" and "BONGABON, NUEVA ECIJA" as the same entry
-    const normalized = otherApplicants
-      .map(app => app.city_municipality)
-      .filter(Boolean)
-      .map(city => city.split(',')[0].trim().toUpperCase());
-    const municipalities = [...new Set(normalized)];
     return municipalities.sort();
   };
 
