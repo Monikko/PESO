@@ -34,7 +34,14 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
 
     try {
       // Check for existing applicant with same details
-      console.log('Checking for duplicate applicant...');
+      console.log('🔍 Checking for duplicate applicant...');
+      console.log('Current applicant data:', {
+        surname: globalFormData.lastName,
+        firstName: globalFormData.firstName,
+        middleName: globalFormData.middleName,
+        contactNumber: globalFormData.step2?.cellphone,
+        email: globalFormData.step2?.email
+      });
       
       const { data: existingApplicants, error: checkError } = await supabase
         .from('applicants')
@@ -43,8 +50,10 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
         .eq('first_name', globalFormData.firstName);
 
       if (checkError) {
-        console.error('Error checking for duplicates:', checkError);
+        console.error('❌ Error checking for duplicates:', checkError);
       }
+
+      console.log(`Found ${existingApplicants?.length || 0} applicants with same surname and first name:`, existingApplicants);
 
       if (existingApplicants && existingApplicants.length > 0) {
         // Check if any existing applicant matches our criteria
@@ -73,6 +82,8 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
         });
 
         if (isDuplicate) {
+          console.log('⚠️ DUPLICATE DETECTED!');
+          
           const existingMatch = existingApplicants.find(existing => {
             const nameMatch = 
               existing.surname?.toUpperCase() === globalFormData.lastName?.toUpperCase() &&
@@ -116,7 +127,11 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
           
           setSubmitting(false);
           return;
+        } else {
+          console.log('✅ No duplicate found - proceeding with registration');
         }
+      } else {
+        console.log('✅ No existing applicants with same name - proceeding with registration');
       }
 
       // Prepare the complete form data for submission
