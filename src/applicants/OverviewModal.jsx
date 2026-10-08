@@ -88,6 +88,18 @@ const SectionHeader = ({ title, editing, onEdit, onCancel }) => (
 const OverviewModal = ({ onClose, onSubmitFinal }) => {
   const { formData, updateFormData } = useFormContext();
   const [editing, setEditing] = useState(null); // which step is open for edit
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmitClick = async () => {
+    if (isSubmitting) return; // Prevent multiple submissions
+    setIsSubmitting(true);
+    try {
+      await onSubmitFinal();
+    } catch (error) {
+      console.error('Submission error:', error);
+      setIsSubmitting(false);
+    }
+  };
 
   const s2 = formData.step2 || {};
   const s3 = formData.step3 || {};
@@ -634,9 +646,21 @@ const OverviewModal = ({ onClose, onSubmitFinal }) => {
 
         {/* Footer */}
         <div className="modal-footer" style={{ padding: '14px 20px', borderTop: '1px solid #eee', display: 'flex', justifyContent: 'flex-end', gap: '10px', flexShrink: 0 }}>
-          <button className="nav-btn previous-btn" onClick={onClose} style={{ width: 'auto', padding: '0 20px' }}>Cancel</button>
-          <button className="nav-btn next-btn" onClick={onSubmitFinal} style={{ width: 'auto', padding: '0 20px', background: '#5cb85c', borderColor: '#4cae4c' }}>
-            Submit Application
+          <button className="nav-btn previous-btn" onClick={onClose} style={{ width: 'auto', padding: '0 20px' }} disabled={isSubmitting}>Cancel</button>
+          <button 
+            className="nav-btn next-btn" 
+            onClick={handleSubmitClick} 
+            disabled={isSubmitting}
+            style={{ 
+              width: 'auto', 
+              padding: '0 20px', 
+              background: isSubmitting ? '#95d5a0' : '#5cb85c', 
+              borderColor: isSubmitting ? '#7ec98a' : '#4cae4c',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+              opacity: isSubmitting ? 0.7 : 1
+            }}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit Application'}
           </button>
         </div>
       </div>
