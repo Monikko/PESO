@@ -1244,8 +1244,6 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     const barangays = [...new Set(palayanApplicants.map(app => app.barangay).filter(Boolean))];
     return barangays.sort();
   };
-    return municipalities.sort();
-  };
 
   // Helper: Filter and sort applicants
   const filterAndSortApplicants = (applicants, filters) => {
