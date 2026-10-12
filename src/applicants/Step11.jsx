@@ -21,6 +21,12 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
 
   const [submitting, setSubmitting] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
+  const [duplicateModal, setDuplicateModal] = useState({
+    show: false,
+    existingName: '',
+    newName: '',
+    matchReasons: []
+  });
 
   const saveStepData = () => {
     updateFormData({
@@ -184,19 +190,16 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
           
           if (existingMatch.email && globalFormData.step2?.email &&
               existingMatch.email.toLowerCase() === globalFormData.step2.email.toLowerCase()) {
-            matchReason.push(`✓ Email: ${globalFormData.step2.email}`);
+            matchReason.push(`Email: ${globalFormData.step2.email}`);
           }
 
-          alert(
-            `⚠️ DUPLICATE APPLICANT DETECTED\n\n` +
-            `This applicant is already registered in the system.\n\n` +
-            `Existing Record: ${existingFullName}\n` +
-            `Your Entry: ${fullName}\n\n` +
-            `Matching Information:\n` +
-            `${matchReason.join('\n')}\n\n` +
-            `Registration cannot proceed to prevent duplicate records.\n` +
-            `If you believe this is an error, please contact the PESO office.`
-          );
+          // Show custom modal instead of alert
+          setDuplicateModal({
+            show: true,
+            existingName: existingFullName,
+            newName: fullName,
+            matchReasons: matchReason
+          });
           
           console.error('🚫 REGISTRATION BLOCKED - Duplicate detected');
           setSubmitting(false);
@@ -493,6 +496,193 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
       {error && (
         <div style={{ color: 'red', textAlign: 'center', marginTop: '10px', padding: '10px', background: '#fee', borderRadius: '4px' }}>
           {error}
+        </div>
+      )}
+
+      {/* Duplicate Detection Modal */}
+      {duplicateModal.show && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.75)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000,
+            padding: '20px'
+          }}
+          onClick={() => setDuplicateModal({ show: false, existingName: '', newName: '', matchReasons: [] })}
+        >
+          <div 
+            style={{
+              background: 'white',
+              borderRadius: '16px',
+              maxWidth: '520px',
+              width: '100%',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+              overflow: 'hidden',
+              animation: 'slideDown 0.3s ease-out'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div style={{
+              background: 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)',
+              padding: '24px',
+              textAlign: 'center',
+              color: 'white'
+            }}>
+              <div style={{ fontSize: '48px', marginBottom: '12px' }}>⚠️</div>
+              <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700 }}>
+                DUPLICATE APPLICANT DETECTED
+              </h2>
+            </div>
+
+            {/* Body */}
+            <div style={{ padding: '32px 28px' }}>
+              <p style={{ 
+                fontSize: '1rem', 
+                color: '#555', 
+                marginBottom: '24px',
+                lineHeight: '1.6'
+              }}>
+                This applicant is already registered in the system.
+              </p>
+
+              {/* Existing vs New */}
+              <div style={{
+                background: '#f8f9fa',
+                borderRadius: '8px',
+                padding: '16px',
+                marginBottom: '24px',
+                border: '1px solid #e9ecef'
+              }}>
+                <div style={{ marginBottom: '12px' }}>
+                  <div style={{ 
+                    fontSize: '0.75rem', 
+                    color: '#6c757d', 
+                    fontWeight: 600, 
+                    textTransform: 'uppercase',
+                    marginBottom: '4px'
+                  }}>
+                    Existing Record:
+                  </div>
+                  <div style={{ 
+                    fontSize: '1.05rem', 
+                    color: '#2c3e50', 
+                    fontWeight: 700 
+                  }}>
+                    {duplicateModal.existingName}
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ 
+                    fontSize: '0.75rem', 
+                    color: '#6c757d', 
+                    fontWeight: 600, 
+                    textTransform: 'uppercase',
+                    marginBottom: '4px'
+                  }}>
+                    Your Entry:
+                  </div>
+                  <div style={{ 
+                    fontSize: '1.05rem', 
+                    color: '#2c3e50', 
+                    fontWeight: 700 
+                  }}>
+                    {duplicateModal.newName}
+                  </div>
+                </div>
+              </div>
+
+              {/* Matching Information */}
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{ 
+                  fontSize: '0.9rem', 
+                  fontWeight: 600, 
+                  color: '#2c3e50',
+                  marginBottom: '12px'
+                }}>
+                  Matching Information:
+                </div>
+                <div style={{
+                  background: '#fff3cd',
+                  border: '1px solid #ffc107',
+                  borderRadius: '8px',
+                  padding: '14px'
+                }}>
+                  {duplicateModal.matchReasons.map((reason, idx) => (
+                    <div 
+                      key={idx}
+                      style={{ 
+                        fontSize: '0.9rem', 
+                        color: '#856404',
+                        marginBottom: idx < duplicateModal.matchReasons.length - 1 ? '6px' : 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}
+                    >
+                      <span style={{ color: '#28a745', fontSize: '1rem' }}>✓</span>
+                      <span>{reason}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Warning Message */}
+              <div style={{
+                background: '#fff3cd',
+                border: '1px solid #ffc107',
+                borderRadius: '8px',
+                padding: '14px',
+                marginBottom: '24px'
+              }}>
+                <p style={{ 
+                  margin: 0, 
+                  fontSize: '0.9rem', 
+                  color: '#856404',
+                  lineHeight: '1.5'
+                }}>
+                  <strong>Registration cannot proceed</strong> to prevent duplicate records. 
+                  If you believe this is an error, please contact the PESO office.
+                </p>
+              </div>
+
+              {/* OK Button */}
+              <button
+                onClick={() => setDuplicateModal({ show: false, existingName: '', newName: '', matchReasons: [] })}
+                style={{
+                  width: '100%',
+                  padding: '14px',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  boxShadow: '0 4px 12px rgba(102, 126, 234, 0.4)'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)';
+                }}
+              >
+                OK, I Understand
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
