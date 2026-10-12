@@ -924,8 +924,8 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         setResultModal({
           show: true,
           success: false,
-          title: 'Deletion Failed',
-          message: `Failed to delete ${applicantName}. Please try again.\n\nError: ${error.message}`
+          title: 'Archive Failed',
+          message: `Failed to archive ${applicantName}. Please try again.\n\nError: ${error.message}`
         });
         return;
       }
@@ -935,7 +935,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       setResultModal({
         show: true,
         success: true,
-        title: 'Applicant Deleted',
+        title: 'Applicant Archived',
         message: `${applicantName} has been moved to archive. The record can be restored if needed.`
       });
 
@@ -1682,10 +1682,10 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                                     <button
                                       className="action-btn delete-btn"
                                       onClick={() => handleDelete(applicant.id, fullName)}
-                                      title="Delete Applicant"
+                                      title="Archive Applicant"
                                       style={{ background: '#d9534f', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
                                     >
-                                      Delete
+                                      Archive
                                     </button>
                                   </div>
                                 </td>
@@ -2296,13 +2296,13 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
               {confirmModal.type === 'approve' ? '✓' : confirmModal.type === 'delete' ? '🗑' : '✕'}
             </div>
             <h3 className="confirm-modal-title">
-              {confirmModal.type === 'approve' ? 'Approve Applicant' : confirmModal.type === 'delete' ? 'Delete Applicant' : 'Remove Approval'}
+              {confirmModal.type === 'approve' ? 'Approve Applicant' : confirmModal.type === 'delete' ? 'Archive Applicant' : 'Remove Approval'}
             </h3>
             <p className="confirm-modal-message">
               {confirmModal.type === 'approve' ? (
                 <>Are you sure you want to approve and mark <strong>{confirmModal.applicantName}</strong> as <span style={{ color: '#27ae60', fontWeight: 700 }}>HIRED</span>?</>
               ) : confirmModal.type === 'delete' ? (
-                <>Are you sure you want to <span style={{ color: '#d9534f', fontWeight: 700 }}>permanently delete</span> <strong>{confirmModal.applicantName}</strong>? This action cannot be undone!</>
+                <>Are you sure you want to <span style={{ color: '#d9534f', fontWeight: 700 }}>archive</span> <strong>{confirmModal.applicantName}</strong>? This will move them to the archive and they can be restored later if needed.</>
               ) : (
                 <>Are you sure you want to remove approval for <strong>{confirmModal.applicantName}</strong>?</>
               )}
@@ -2322,7 +2322,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
               >
                 {confirmModal.processing
                   ? 'Processing...'
-                  : confirmModal.type === 'approve' ? 'Yes, Approve' : confirmModal.type === 'delete' ? 'Yes, Delete' : 'Yes, Remove'
+                  : confirmModal.type === 'approve' ? 'Yes, Approve' : confirmModal.type === 'delete' ? 'Yes, Archive' : 'Yes, Remove'
                 }
               </button>
             </div>
