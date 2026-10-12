@@ -33,18 +33,20 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
     setSubmitting(true);
 
     try {
-      // Check for existing applicant with same details
-      console.log('🔍 Checking for duplicate applicant...');
-      console.log('Current applicant data:', {
+      console.log('=== STARTING DUPLICATE CHECK ===');
+      console.log('Applicant data:', {
         surname: globalFormData.lastName,
         firstName: globalFormData.firstName,
         middleName: globalFormData.middleName,
         contactNumber: globalFormData.step2?.cellphone,
         email: globalFormData.step2?.email
       });
+
+      // CRITICAL: Comprehensive duplicate detection
+      // This must complete before allowing registration
       
-      // COMPREHENSIVE DUPLICATE CHECK
       // Check 1: By name (surname + first name)
+      console.log('Check 1: Searching by name...');
       const { data: existingByName, error: checkError1 } = await supabase
         .from('applicants')
         .select('id, surname, first_name, middle_name, contact_number, email')
@@ -52,9 +54,12 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
         .ilike('first_name', globalFormData.firstName)
         .is('deleted_at', null);
 
+      console.log('Found by name:', existingByName?.length || 0, existingByName);
+
       // Check 2: By contact number (if provided)
       let existingByContact = [];
       if (globalFormData.step2?.cellphone) {
+        console.log('Check 2: Searching by contact number...');
         const cleanContact = globalFormData.step2.cellphone.replace(/\D/g, '');
         const { data: contactData, error: checkError2 } = await supabase
           .from('applicants')
@@ -62,17 +67,20 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
           .ilike('contact_number', `%${cleanContact}%`)
           .is('deleted_at', null);
         existingByContact = contactData || [];
+        console.log('Found by contact:', existingByContact.length, existingByContact);
       }
 
       // Check 3: By email (if provided)
       let existingByEmail = [];
       if (globalFormData.step2?.email) {
+        console.log('Check 3: Searching by email...');
         const { data: emailData, error: checkError3 } = await supabase
           .from('applicants')
           .select('id, surname, first_name, middle_name, contact_number, email')
           .ilike('email', globalFormData.step2.email)
           .is('deleted_at', null);
         existingByEmail = emailData || [];
+        console.log('Found by email:', existingByEmail.length, existingByEmail);
       }
 
       // Combine all results (remove duplicates by id)
@@ -81,11 +89,11 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
         new Map(allExisting.map(item => [item.id, item])).values()
       );
 
+      console.log('Total unique existing applicants found:', existingApplicants.length);
+
       if (checkError1) {
         console.error('❌ Error checking for duplicates:', checkError1);
       }
-
-      console.log(`Found ${existingApplicants?.length || 0} potentially duplicate applicants:`, existingApplicants);
 
       if (existingApplicants && existingApplicants.length > 0) {
         // Check if any existing applicant matches our criteria
@@ -190,8 +198,9 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
             `If you believe this is an error, please contact the PESO office.`
           );
           
+          console.error('🚫 REGISTRATION BLOCKED - Duplicate detected');
           setSubmitting(false);
-          return;
+          return; // CRITICAL: Stop execution here
         } else {
           console.log('✅ No duplicate found - proceeding with registration');
         }
