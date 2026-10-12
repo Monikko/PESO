@@ -43,18 +43,49 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
         email: globalFormData.step2?.email
       });
       
-      const { data: existingApplicants, error: checkError } = await supabase
+      // COMPREHENSIVE DUPLICATE CHECK
+      // Check 1: By name (surname + first name)
+      const { data: existingByName, error: checkError1 } = await supabase
         .from('applicants')
         .select('id, surname, first_name, middle_name, contact_number, email')
-        .ilike('surname', globalFormData.lastName)  // Case-insensitive search
-        .ilike('first_name', globalFormData.firstName)  // Case-insensitive search
-        .is('deleted_at', null);  // Exclude soft-deleted applicants
+        .ilike('surname', globalFormData.lastName)
+        .ilike('first_name', globalFormData.firstName)
+        .is('deleted_at', null);
 
-      if (checkError) {
-        console.error('❌ Error checking for duplicates:', checkError);
+      // Check 2: By contact number (if provided)
+      let existingByContact = [];
+      if (globalFormData.step2?.cellphone) {
+        const cleanContact = globalFormData.step2.cellphone.replace(/\D/g, '');
+        const { data: contactData, error: checkError2 } = await supabase
+          .from('applicants')
+          .select('id, surname, first_name, middle_name, contact_number, email')
+          .ilike('contact_number', `%${cleanContact}%`)
+          .is('deleted_at', null);
+        existingByContact = contactData || [];
       }
 
-      console.log(`Found ${existingApplicants?.length || 0} applicants with same surname and first name:`, existingApplicants);
+      // Check 3: By email (if provided)
+      let existingByEmail = [];
+      if (globalFormData.step2?.email) {
+        const { data: emailData, error: checkError3 } = await supabase
+          .from('applicants')
+          .select('id, surname, first_name, middle_name, contact_number, email')
+          .ilike('email', globalFormData.step2.email)
+          .is('deleted_at', null);
+        existingByEmail = emailData || [];
+      }
+
+      // Combine all results (remove duplicates by id)
+      const allExisting = [...(existingByName || []), ...existingByContact, ...existingByEmail];
+      const existingApplicants = Array.from(
+        new Map(allExisting.map(item => [item.id, item])).values()
+      );
+
+      if (checkError1) {
+        console.error('❌ Error checking for duplicates:', checkError1);
+      }
+
+      console.log(`Found ${existingApplicants?.length || 0} potentially duplicate applicants:`, existingApplicants);
 
       if (existingApplicants && existingApplicants.length > 0) {
         // Check if any existing applicant matches our criteria
@@ -91,9 +122,12 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
             new: globalFormData.step2?.email?.toLowerCase()
           });
 
-          // Consider it a duplicate if:
-          // - Name matches AND (contact number matches OR email matches)
-          const isDup = nameMatch && (contactMatch || emailMatch);
+          // STRICTER DUPLICATE DETECTION:
+          // Consider it a duplicate if ANY of these conditions are true:
+          // 1. Full name matches (surname + first name + middle name) - likely same person
+          // 2. Contact number matches (even if name is slightly different)
+          // 3. Email matches (even if name is slightly different)
+          const isDup = nameMatch || contactMatch || emailMatch;
           console.log('Is duplicate?', isDup);
           
           return isDup;
@@ -118,29 +152,42 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
               globalFormData.step2?.email &&
               existing.email.toLowerCase() === globalFormData.step2.email.toLowerCase();
 
-            return nameMatch && (contactMatch || emailMatch);
+            return nameMatch || contactMatch || emailMatch;
           });
 
           const fullName = `${globalFormData.lastName}, ${globalFormData.firstName} ${globalFormData.middleName || ''}`.trim();
+          const existingFullName = `${existingMatch.surname}, ${existingMatch.first_name} ${existingMatch.middle_name || ''}`.trim();
           const matchReason = [];
+          
+          // Check what matched
+          const nameMatches = 
+            existingMatch.surname?.toUpperCase() === globalFormData.lastName?.toUpperCase() &&
+            existingMatch.first_name?.toUpperCase() === globalFormData.firstName?.toUpperCase() &&
+            (existingMatch.middle_name?.toUpperCase() || '') === (globalFormData.middleName?.toUpperCase() || '');
+          
+          if (nameMatches) {
+            matchReason.push(`✓ Name: ${fullName}`);
+          }
           
           if (existingMatch.contact_number && globalFormData.step2?.cellphone &&
               existingMatch.contact_number.replace(/\D/g, '') === globalFormData.step2.cellphone.replace(/\D/g, '')) {
-            matchReason.push(`Contact Number: ${globalFormData.step2.cellphone}`);
+            matchReason.push(`✓ Contact Number: ${globalFormData.step2.cellphone}`);
           }
           
           if (existingMatch.email && globalFormData.step2?.email &&
               existingMatch.email.toLowerCase() === globalFormData.step2.email.toLowerCase()) {
-            matchReason.push(`Email: ${globalFormData.step2.email}`);
+            matchReason.push(`✓ Email: ${globalFormData.step2.email}`);
           }
 
           alert(
             `⚠️ DUPLICATE APPLICANT DETECTED\n\n` +
-            `The applicant "${fullName}" is already registered in the system.\n\n` +
+            `This applicant is already registered in the system.\n\n` +
+            `Existing Record: ${existingFullName}\n` +
+            `Your Entry: ${fullName}\n\n` +
             `Matching Information:\n` +
             `${matchReason.join('\n')}\n\n` +
-            `Please verify the applicant's information before proceeding.\n` +
-            `If this is a different person, please ensure their contact information is unique.`
+            `Registration cannot proceed to prevent duplicate records.\n` +
+            `If you believe this is an error, please contact the PESO office.`
           );
           
           setSubmitting(false);
