@@ -1626,7 +1626,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                                 <td>{age !== null ? age : 'N/A'}</td>
                                 <td>
                                   {isApproved ? (
-                                    <span className="status-badge approved">✓ Approved</span>
+                                    <span className="status-badge approved">Approved</span>
                                   ) : (
                                     <span className="status-badge pending">Pending</span>
                                   )}
@@ -1716,7 +1716,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                 <div className="statistics-container">
                   {/* Executive Summary */}
                   <div className="executive-summary">
-                    <h3>📊 Executive Summary</h3>
+                    <h3>Executive Summary</h3>
                     <div className="summary-grid">
                       <div className="summary-item">
                         <span className="summary-label">Employment Rate:</span>
@@ -2039,7 +2039,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
                       <div>
                         <h3 style={{ margin: 0, fontSize: '1.15rem', color: '#1a237e', fontWeight: 700 }}>
-                          🔍 Occupation Search
+                          Occupation Search
                         </h3>
                         <p style={{ margin: '4px 0 0', fontSize: '0.82rem', color: '#777' }}>
                           Search an occupation to view how many Palayan City applicants are seeking it
@@ -2060,7 +2060,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                     <span style={{
                       position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)',
                       fontSize: '1rem', color: '#888', pointerEvents: 'none'
-                    }}>🔍</span>
+                    }}></span>
                     <input
                       id="occupation-search-input"
                       type="text"
@@ -2167,7 +2167,6 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                       display: 'flex', alignItems: 'center', gap: '24px',
                       flexWrap: 'wrap'
                     }}>
-                      <div style={{ fontSize: '2.8rem' }}>💼</div>
                       <div style={{ flex: 1, minWidth: '180px' }}>
                         <div style={{ fontSize: '0.82rem', fontWeight: 600, opacity: 0.8, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>
                           Selected Occupation · Palayan City
@@ -2209,7 +2208,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                 {/* Summary Table Section */}
                 <div style={{ padding: '10px 20px 30px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', borderTop: '2px solid #eee', paddingTop: '24px' }}>
-                    <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#333' }}>📊 Summary Table</h3>
+                    <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#333' }}>Summary Table</h3>
                   </div>
 
                   {palayanSummaryData.length > 0 ? (
@@ -2293,7 +2292,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         <div className="confirm-modal-overlay" onClick={() => !confirmModal.processing && setConfirmModal(prev => ({ ...prev, show: false }))}>
           <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
             <div className={`confirm-modal-icon ${confirmModal.type === 'approve' ? 'approve' : confirmModal.type === 'delete' ? 'delete' : 'unapprove'}`}>
-              {confirmModal.type === 'approve' ? '✓' : confirmModal.type === 'delete' ? '🗑' : '✕'}
+              {confirmModal.type === 'approve' ? '✓' : confirmModal.type === 'delete' ? '' : '✕'}
             </div>
             <h3 className="confirm-modal-title">
               {confirmModal.type === 'approve' ? 'Approve Applicant' : confirmModal.type === 'delete' ? 'Archive Applicant' : 'Remove Approval'}

@@ -536,7 +536,12 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
               textAlign: 'center',
               color: 'white'
             }}>
-              <div style={{ fontSize: '48px', marginBottom: '12px' }}>⚠️</div>
+              <div style={{ 
+                fontSize: '48px', 
+                marginBottom: '12px',
+                fontWeight: 700,
+                color: '#fff'
+              }}>!</div>
               <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700 }}>
                 DUPLICATE APPLICANT DETECTED
               </h2>
@@ -628,7 +633,7 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
                         gap: '8px'
                       }}
                     >
-                      <span style={{ color: '#28a745', fontSize: '1rem' }}>✓</span>
+                      <span style={{ color: '#28a745', fontSize: '1rem', fontWeight: 700 }}>•</span>
                       <span>{reason}</span>
                     </div>
                   ))}

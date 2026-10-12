@@ -77,7 +77,7 @@ const SectionHeader = ({ title, editing, onEdit, onCancel }) => (
     <h3 style={{ margin: 0, fontSize: '1rem', color: '#337ab7', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{title}</h3>
     {!editing
       ? <button onClick={onEdit} style={{ background: '#f0ad4e', color: 'white', border: 'none', padding: '4px 12px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.82rem' }}>Edit</button>
-      : <button onClick={onCancel} style={{ background: '#aaa', color: 'white', border: 'none', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.82rem' }}>✕ Close</button>
+      : <button onClick={onCancel} style={{ background: '#aaa', color: 'white', border: 'none', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.82rem' }}>Close</button>
     }
   </div>
 );
@@ -410,10 +410,10 @@ const OverviewModal = ({ onClose, onSubmitFinal }) => {
                   {(s5.languages || []).map((l, idx) => (
                     <tr key={idx}>
                       <td style={tdStyle}>{l.name || l.language}</td>
-                      <td style={tdStyle}>{l.read ? '✓' : ''}</td>
-                      <td style={tdStyle}>{l.write ? '✓' : ''}</td>
-                      <td style={tdStyle}>{l.speak ? '✓' : ''}</td>
-                      <td style={tdStyle}>{l.understand ? '✓' : ''}</td>
+                      <td style={tdStyle}>{l.read ? 'Yes' : 'No'}</td>
+                      <td style={tdStyle}>{l.write ? 'Yes' : 'No'}</td>
+                      <td style={tdStyle}>{l.speak ? 'Yes' : 'No'}</td>
+                      <td style={tdStyle}>{l.understand ? 'Yes' : 'No'}</td>
                       {editing === 5 && <td style={tdAction}><TrashBtn onClick={() => deleteRow('step5', 'languages', idx)} /></td>}
                     </tr>
                   ))}

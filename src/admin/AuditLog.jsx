@@ -420,7 +420,7 @@ const AuditLog = ({ onBack }) => {
                         fontSize: '0.75rem',
                         fontWeight: 600
                       }}>
-                        ✓ APPROVED
+                        APPROVED
                       </span>
                     </td>
                   </tr>
