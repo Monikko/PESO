@@ -46,8 +46,8 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
       const { data: existingApplicants, error: checkError } = await supabase
         .from('applicants')
         .select('id, surname, first_name, middle_name, contact_number, email')
-        .eq('surname', globalFormData.lastName)
-        .eq('first_name', globalFormData.firstName);
+        .ilike('surname', globalFormData.lastName)  // Case-insensitive search
+        .ilike('first_name', globalFormData.firstName);  // Case-insensitive search
 
       if (checkError) {
         console.error('❌ Error checking for duplicates:', checkError);
@@ -58,11 +58,15 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
       if (existingApplicants && existingApplicants.length > 0) {
         // Check if any existing applicant matches our criteria
         const isDuplicate = existingApplicants.some(existing => {
+          console.log('Checking existing applicant:', existing);
+          
           // Match by name (surname + first name + middle name)
           const nameMatch = 
             existing.surname?.toUpperCase() === globalFormData.lastName?.toUpperCase() &&
             existing.first_name?.toUpperCase() === globalFormData.firstName?.toUpperCase() &&
             (existing.middle_name?.toUpperCase() || '') === (globalFormData.middleName?.toUpperCase() || '');
+
+          console.log('Name match:', nameMatch);
 
           // Match by contact number
           const contactMatch = 
@@ -70,15 +74,28 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
             globalFormData.step2?.cellphone &&
             existing.contact_number.replace(/\D/g, '') === globalFormData.step2.cellphone.replace(/\D/g, '');
 
+          console.log('Contact match:', contactMatch, {
+            existing: existing.contact_number?.replace(/\D/g, ''),
+            new: globalFormData.step2?.cellphone?.replace(/\D/g, '')
+          });
+
           // Match by email (if both exist)
           const emailMatch = 
             existing.email && 
             globalFormData.step2?.email &&
             existing.email.toLowerCase() === globalFormData.step2.email.toLowerCase();
 
+          console.log('Email match:', emailMatch, {
+            existing: existing.email?.toLowerCase(),
+            new: globalFormData.step2?.email?.toLowerCase()
+          });
+
           // Consider it a duplicate if:
           // - Name matches AND (contact number matches OR email matches)
-          return nameMatch && (contactMatch || emailMatch);
+          const isDup = nameMatch && (contactMatch || emailMatch);
+          console.log('Is duplicate?', isDup);
+          
+          return isDup;
         });
 
         if (isDuplicate) {
