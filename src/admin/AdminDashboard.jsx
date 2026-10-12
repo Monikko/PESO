@@ -902,16 +902,20 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     });
   };
 
-  // Function to confirm and execute deletion
+  // Function to confirm and execute soft deletion
   const confirmDelete = async () => {
     const { applicantId, applicantName } = confirmModal;
     
     setConfirmModal(prev => ({ ...prev, processing: true }));
 
     try {
+      // Soft delete: set deleted_at timestamp instead of permanently deleting
       const { error } = await supabase
         .from('applicants')
-        .delete()
+        .update({
+          deleted_at: new Date().toISOString(),
+          deleted_by: adminName || user?.email
+        })
         .eq('id', applicantId);
 
       if (error) {
@@ -932,7 +936,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         show: true,
         success: true,
         title: 'Applicant Deleted',
-        message: `${applicantName} has been successfully removed from the system.`
+        message: `${applicantName} has been moved to archive. The record can be restored if needed.`
       });
 
       // Refresh the data
@@ -1006,7 +1010,8 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       const { data, error } = await supabase
         .from('applicants')
         .select('id, barangay, city_municipality, province, employment_status, sex, date_of_birth, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_number, landline, email')
-        .ilike('city_municipality', '%PALAYAN%'); // Only fetch Palayan City applicants
+        .ilike('city_municipality', '%PALAYAN%') // Only fetch Palayan City applicants
+        .is('deleted_at', null); // Exclude soft-deleted applicants
 
       if (error) {
         console.error('Supabase error:', error);
@@ -1018,7 +1023,8 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
           const { data: dataWithoutDob, error: error2 } = await supabase
             .from('applicants')
             .select('id, barangay, city_municipality, province, employment_status, sex, civil_status, surname, first_name, middle_name, suffix, created_at, resume_url, approved_by_admin, approval_date, preferred_occupation, contact_number, landline, email')
-            .ilike('city_municipality', '%PALAYAN%'); // Only fetch Palayan City applicants
+            .ilike('city_municipality', '%PALAYAN%') // Only fetch Palayan City applicants
+            .is('deleted_at', null); // Exclude soft-deleted applicants
 
           if (error2) {
             console.error('Second fetch error:', error2);

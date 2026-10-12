@@ -403,7 +403,8 @@ const ApplicantsDashboard = ({ onAddNewApplicant, user, onLogout, onAdminAccess 
       let query = supabase
         .from('applicants')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .is('deleted_at', null);  // Exclude soft-deleted applicants
 
       // Basic filters - Apply at database level for efficiency
       // Filter by first name (case-insensitive partial match)

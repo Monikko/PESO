@@ -47,7 +47,8 @@ const Step11 = ({ onPrev, onSubmit, pesoId }) => {
         .from('applicants')
         .select('id, surname, first_name, middle_name, contact_number, email')
         .ilike('surname', globalFormData.lastName)  // Case-insensitive search
-        .ilike('first_name', globalFormData.firstName);  // Case-insensitive search
+        .ilike('first_name', globalFormData.firstName)  // Case-insensitive search
+        .is('deleted_at', null);  // Exclude soft-deleted applicants
 
       if (checkError) {
         console.error('❌ Error checking for duplicates:', checkError);

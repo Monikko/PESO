@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "remove-duplicates": "node remove-duplicates.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.2",
+    "dotenv": "^18.0.6",
     "motion": "^12.42.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
