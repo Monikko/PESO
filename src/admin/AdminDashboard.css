@@ -1233,3 +1233,32 @@
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4);
 }
+
+/* Delete Button Styles */
+.delete-btn {
+  background: #d9534f;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #c9302c;
+  transform: translateY(-1px);
+}
+
+/* Delete Modal Icon */
+.confirm-modal-icon.delete {
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  color: #d9534f;
+}
+
+/* Delete Modal Button */
+.confirm-modal-btn.delete {
+  background: linear-gradient(135deg, #d9534f, #c9302c);
+  color: #fff;
+}
+
+.confirm-modal-btn.delete:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c9302c, #b92c28);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(217, 83, 79, 0.3);
+}

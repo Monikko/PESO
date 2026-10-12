@@ -891,7 +891,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
     });
   };
 
-  // Function to handle delete applicant
+  // Function to open the delete confirmation modal
   const handleDelete = (applicantId, applicantName) => {
     setConfirmModal({
       show: true,
@@ -900,6 +900,53 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
       applicantName,
       processing: false
     });
+  };
+
+  // Function to confirm and execute deletion
+  const confirmDelete = async () => {
+    const { applicantId, applicantName } = confirmModal;
+    
+    setConfirmModal(prev => ({ ...prev, processing: true }));
+
+    try {
+      const { error } = await supabase
+        .from('applicants')
+        .delete()
+        .eq('id', applicantId);
+
+      if (error) {
+        console.error('Error deleting applicant:', error);
+        setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+        setResultModal({
+          show: true,
+          success: false,
+          title: 'Deletion Failed',
+          message: `Failed to delete ${applicantName}. Please try again.\n\nError: ${error.message}`
+        });
+        return;
+      }
+
+      // Success
+      setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+      setResultModal({
+        show: true,
+        success: true,
+        title: 'Applicant Deleted',
+        message: `${applicantName} has been successfully removed from the system.`
+      });
+
+      // Refresh the data
+      fetchData();
+    } catch (err) {
+      console.error('Unexpected error during deletion:', err);
+      setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
+      setResultModal({
+        show: true,
+        success: false,
+        title: 'Error',
+        message: `An unexpected error occurred: ${err.message}`
+      });
+    }
   };
 
   // Function to actually process the unapproval
@@ -935,50 +982,6 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         success: true,
         title: 'Approval Removed',
         message: `Approval has been removed for ${applicantName}.`
-      });
-
-      await fetchData();
-    } catch (error) {
-      console.error('Unexpected error:', error);
-      setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
-      setResultModal({
-        show: true,
-        success: false,
-        title: 'Error',
-        message: error.message
-      });
-    }
-  };
-
-  // Function to process deletion
-  const processDeletion = async () => {
-    const { applicantId, applicantName } = confirmModal;
-    setConfirmModal(prev => ({ ...prev, processing: true }));
-
-    try {
-      const { error } = await supabase
-        .from('applicants')
-        .delete()
-        .eq('id', applicantId);
-
-      if (error) {
-        console.error('Delete error:', error);
-        setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
-        setResultModal({
-          show: true,
-          success: false,
-          title: 'Error',
-          message: `Error deleting applicant: ${error.message}`
-        });
-        return;
-      }
-
-      setConfirmModal(prev => ({ ...prev, show: false, processing: false }));
-      setResultModal({
-        show: true,
-        success: true,
-        title: 'Applicant Deleted',
-        message: `${applicantName} has been permanently deleted from the system.`
       });
 
       await fetchData();
@@ -1646,7 +1649,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
                                   )}
                                 </td>
                                 <td>
-                                  <div style={{ display: 'flex', gap: '8px' }}>
+                                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                                     {isApproved ? (
                                       <button
                                         className="action-btn unapprove-btn"
@@ -2286,18 +2289,19 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
         <div className="confirm-modal-overlay" onClick={() => !confirmModal.processing && setConfirmModal(prev => ({ ...prev, show: false }))}>
           <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
             <div className={`confirm-modal-icon ${confirmModal.type === 'approve' ? 'approve' : confirmModal.type === 'delete' ? 'delete' : 'unapprove'}`}>
-              {confirmModal.type === 'approve' ? '✓' : confirmModal.type === 'delete' ? '🗑️' : '✕'}
+              {confirmModal.type === 'approve' ? '✓' : confirmModal.type === 'delete' ? '🗑' : '✕'}
             </div>
             <h3 className="confirm-modal-title">
               {confirmModal.type === 'approve' ? 'Approve Applicant' : confirmModal.type === 'delete' ? 'Delete Applicant' : 'Remove Approval'}
             </h3>
             <p className="confirm-modal-message">
-              {confirmModal.type === 'approve'
-                ? <>Are you sure you want to approve and mark <strong>{confirmModal.applicantName}</strong> as <span style={{ color: '#27ae60', fontWeight: 700 }}>HIRED</span>?</>
-                : confirmModal.type === 'delete'
-                ? <>Are you sure you want to <strong style={{ color: '#d9534f' }}>permanently delete</strong> <strong>{confirmModal.applicantName}</strong>? This action cannot be undone.</>
-                : <>Are you sure you want to remove approval for <strong>{confirmModal.applicantName}</strong>?</>
-              }
+              {confirmModal.type === 'approve' ? (
+                <>Are you sure you want to approve and mark <strong>{confirmModal.applicantName}</strong> as <span style={{ color: '#27ae60', fontWeight: 700 }}>HIRED</span>?</>
+              ) : confirmModal.type === 'delete' ? (
+                <>Are you sure you want to <span style={{ color: '#d9534f', fontWeight: 700 }}>permanently delete</span> <strong>{confirmModal.applicantName}</strong>? This action cannot be undone!</>
+              ) : (
+                <>Are you sure you want to remove approval for <strong>{confirmModal.applicantName}</strong>?</>
+              )}
             </p>
             <div className="confirm-modal-actions">
               <button
@@ -2309,7 +2313,7 @@ const AdminDashboard = ({ user, adminName, onLogout, onEditApplicant, refreshKey
               </button>
               <button
                 className={`confirm-modal-btn ${confirmModal.type === 'approve' ? 'approve' : confirmModal.type === 'delete' ? 'delete' : 'unapprove'}`}
-                onClick={() => confirmModal.type === 'approve' ? processApproval() : confirmModal.type === 'delete' ? processDeletion() : processUnapproval()}
+                onClick={() => confirmModal.type === 'approve' ? processApproval() : confirmModal.type === 'delete' ? confirmDelete() : processUnapproval()}
                 disabled={confirmModal.processing}
               >
                 {confirmModal.processing
